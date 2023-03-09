@@ -1,0 +1,71 @@
+.main-contents {
+  display: flex;
+  justify-content: space-between;
+  /* background-color: silver; */
+  height: 20vh;
+  margin-bottom: 25px;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 0 solid #d9dee3;
+  border-radius: 0.5rem;
+}
+
+.test {
+  margin: auto;
+  padding: 25px;
+  border: solid 1px salmon;
+}
+
+
+.weekly-plan {
+  margin: auto;
+  padding: 25px;
+  border: solid 1px salmon;
+}
+
+.weekly-plan-table {
+  width: 100%;
+}
+
+.carousel-img {
+  width: inherit;
+  height: inherit;
+  background-size: cover;
+}
+
+.carousel-img {
+  width: 200px;
+  height: 200px;
+}
+
+.day-graph {
+  margin: auto;
+  padding: 25px;
+  border: solid 1px salmon;
+}
+
+.album-carousel {
+  margin: auto;
+  padding: 25px;
+  border: solid 1px salmon;
+}
+
+.easy-checker {
+  margin: auto;
+  padding: 25px;
+  border: solid 1px salmon;
+}
+
+.badge-img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.card-img {
+  max-width: fit-content;
+  max-height: fit-content;
+  width: 120px;
+  height: 120px;
+}

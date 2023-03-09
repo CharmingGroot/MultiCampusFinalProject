@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+
+.question-btn {
+  /*  */
+}
+
+
+
+
+
+
+
+
+.chatGpt-area {
+  margin-top: 25px;
+}
+
+.walk-btn {
+  margin: auto;
+}
+
+
+.dog-img {
+  background-color: #992323;
+}
+
+.carousel-item>img {
+  height: 100%;
+}
+
+
+/* weather */
+
+.info-wrap {
+  color: black;
+}
+
+
+.main-temp {}
+
+.weather-info {
+  /* display: flex; */
+  justify-content: space-between;
+  height: 2em;
+
+}
+
+.weather-info>ul>li {
+  padding: 0 15px 0 15px;
+  border-right: solid 1px gainsboro;
+  list-style: none;
+}
+
+.weather-temp {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+
+.weather-date {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.dust-info {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+/* GPT */
+
+.answer {
+  margin-bottom: 25px;
+}
+
+.row {
+  margin-bottom: 25px;
+}
+
+/* chatting */
+
+.friend-profile {
+  background-image: url(../img/testdog/dog3.jpg);
+  background-size: auto;
+}

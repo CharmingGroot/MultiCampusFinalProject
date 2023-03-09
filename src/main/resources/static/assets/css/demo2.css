@@ -1,0 +1,6 @@
+@charset "UTF-8";
+
+.card-wrapper {
+	display:flex;
+	justify-content:space-between;
+}

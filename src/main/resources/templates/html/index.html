@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<!-- =========================================================
+* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
+==============================================================
+
+* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
+* Created by: ThemeSelection
+* License: You must have a valid license purchased in order to legally use the theme for your project.
+* Copyright ThemeSelection (https://themeselection.com)
+
+=========================================================
+ -->
+<!-- beautify ignore:start -->
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr"
+	data-theme="theme-default" data-assets-path="../assets/"
+	data-template="vertical-menu-template-free"
+	
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}"
+	
+	>
+<head>
+
+</head>
+
+<body>
+	<!-- Layout wrapper -->
+	<div class="layout-wrapper layout-content-navbar" layout:fragment="content">
+		<div class="layout-container">
+			<!-- Menu -->
+			<aside th:replace="fragments :: aside">
+			</aside>
+			
+			<!-- / Menu -->
+
+			<!-- Layout container -->
+			<div class="layout-page">
+				<!-- Navbar -->
+
+				<nav th:replace="fragments :: nav">
+				</nav>
+
+				<!-- / Navbar -->
+
+				<!-- Content wrapper -->
+				<div class="content-wrapper">
+					<!-- Content -->
+
+					<div class="container-xxl flex-grow-1 container-p-y">
+            <div class="row">
+							<!-- Weather & Fine dust start -->
+							<div class="col-12">
+								<div class="card">
+									<div class="row row-bordered g-0">
+										<div class="col-12">
+											<!-- <h1 class="card-header m-0 me-2 pb-3">Weather & Fine dust Area</h1> -->
+											<!-- 온도 영역 백그라운드 이미지를 강아지 사진을 쓰는건 어떨까요 -->
+                      <div class="info-wrap text-primary">
+												<div class="main-temp row justify-content-center text-center">
+													<h1 class="card-header h1">14º</h1>
+													<h3 class="card-header h3">오늘은 산책가기 좋은 날!</h3>
+												</div>
+
+												<div class="weather-info">
+                          <ul class="weather-temp">
+                            <li>어제보다 3'C 높아요</li>
+                            <li>습도</li>
+                            <li>바람</li>
+                            <li>1시간 강수량</li>
+                          </ul>
+                        </div>
+												<hr>
+												<div class="weather-info">
+													<ul class="weather-date">
+														<li>월</li>
+														<li>화</li>
+														<li>수</li>
+														<li>목</li>
+														<li>금</li>
+														<li>토</li>
+														<li>일</li>
+													</ul>
+												</div>
+												<hr>
+                        <div class="weather-info">
+                          <ul class="dust-info">
+                            <li>초미세먼지 : 주의</li>
+                            <li>미세먼지 : 주의</li>
+                            <li>오존 : ? </li>
+                          </ul>
+                        </div>
+                      </div>
+										</div>
+									</div>
+								</div>
+							</div>
+            </div>
+						<!-- Weather & Fine dust end -->
+
+
+						<!-- Health Status Dash Board Area start-->
+						<div class="row">
+						<div class="col-12">
+								<div class="card">
+									<div class="card-text h1">Health status</div>
+									<hr>
+									<div class="card-body" style="height: 200px;">차트가 들어갈 영역입니다.</div>
+								</div>
+							</div>
+						</div>
+						<!-- Health Status Dash Board Area end -->
+
+
+
+
+            <!-- Chat GPT Area Start-->
+            <div class="row chatGpt-area">
+
+              <div class="col-12 question-btn">
+                <div class="card h-100">
+
+									<p class="card-text h1">Chat GPT Area</p>
+                  <div class="form-floating">
+										<textarea class="form-control" placeholder="말티즈가 밥을 안먹을 때 어떻게 해야하나요?" id="floatingTextarea2" style="height: 100px"></textarea>
+                    <label for="floatingTextarea2">여기를 클릭하세요!</label>
+                  </div>
+                  <div class="d-grid gap-1 ">
+                    <button class="btn btn-primary question-btn" type="button" onclick="openResult()">질문하기!</button>
+                  </div>
+                </div>
+                
+              </div>
+              
+							<!-- AI 답변 영역 시작 -->
+							<div class="row question visually-hidden">
+              	<div class="col-12">
+                	<div class="card answer" style="height: 200px;">
+                  답변을 출력할 영역입니다.
+               	 </div>
+              	</div>
+							</div>
+						</div>
+						<!-- AI 답변 영역 종료 -->
+						<!-- Chat GPT Area End -->
+
+
+						<!-- 실시간 채팅 & 산책버튼 Start -->
+						<div class="row sub-contents">
+							<div class="col-8">
+								<div class="card">
+									<div class="row g-0">
+										<div class="col-4">
+											<img src="..." class="img-fluid rounded-start" alt="...">
+										</div>
+										<div class="col-8">
+											<div class="card-body">
+												<h5 class="card-title friend-profile">양천구 콩순이</h5>
+												<p class="card-text">#남 #으르렁 #으르렁대 #3살 #사교적</p>
+												<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+												<p class="card-text"><button class="btn btn-primary" onclick="">실시간 채팅하기</button></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-4 walking-btn">
+										<div class="card h-100">
+											<div class="walk-btn">
+												<button class="btn btn-primary" type="button"><a href="#">산책가기</a></button>
+											</div>
+										</div>
+									</div>
+						</div>
+						<!-- 실시간 채팅 & 산책버튼 End -->
+
+					</div>
+          
+        
+					
+
+
+
+
+
+					<!-- / Content -->
+
+					<!-- Footer -->
+					<footer class="content-footer footer bg-footer-theme">
+						<div
+							class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+							<div class="mb-2 mb-md-0">
+								©
+								<script>
+                    document.write(new Date().getFullYear());
+                  </script>
+								, made with ❤️ by <a href="https://themeselection.com"
+									target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
+							</div>
+							<div>
+								<a href="https://themeselection.com/license/"
+									class="footer-link me-4" target="_blank">License</a> <a
+									href="https://themeselection.com/" target="_blank"
+									class="footer-link me-4">More Themes</a> <a
+									href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
+									target="_blank" class="footer-link me-4">Documentation</a>
+
+								<a
+									href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
+									target="_blank" class="footer-link me-4">Support</a>
+							</div>
+						</div>
+					</footer>
+					<!-- / Footer -->
+
+					<div class="content-backdrop fade"></div>
+				</div>
+				<!-- Content wrapper -->
+			</div>
+			<!-- / Layout page -->
+		</div>
+
+		<!-- Overlay -->
+		<div class="layout-overlay layout-menu-toggle"></div>
+	</div>
+	<!-- / Layout wrapper -->
+	
+
+
+	
+
+	
+</body>
+</html>
