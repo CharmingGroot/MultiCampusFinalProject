@@ -10,15 +10,27 @@
   border-radius: 0.5rem;
 }
 
-.test {
+.main-contents2 {
+  display: flex;
+  justify-content: space-between;
+  /* background-color: silver; */
+  height: 450px;
+  margin-bottom: 25px;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 0 solid #d9dee3;
+  border-radius: 0.5rem;
+}
+
+/* .test {
   margin: auto;
   padding: 25px;
   border: solid 1px salmon;
-}
+} */
 
 
 .weekly-plan {
-  margin: auto;
+  margin: 0;
   padding: 25px;
   border: solid 1px salmon;
 }
@@ -26,6 +38,7 @@
 .weekly-plan-table {
   width: 100%;
 }
+
 
 .carousel-img {
   width: inherit;
@@ -39,22 +52,40 @@
 }
 
 .day-graph {
-  margin: auto;
+  margin: 0;
   padding: 25px;
   border: solid 1px salmon;
 }
 
 .album-carousel {
-  margin: auto;
+  margin: 0;
   padding: 25px;
   border: solid 1px salmon;
 }
 
 .easy-checker {
-  margin: auto;
+  margin: 0;
   padding: 25px;
   border: solid 1px salmon;
 }
+
+#easy-checker-title {
+  margin: 0 0 25px 0;
+}
+
+.chart-description {
+  color: red;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.easy-checker-btn>button {
+  margin: 10px 0 0 0;
+  float: right;
+}
+
 
 .badge-img {
   position: fixed;
@@ -68,4 +99,13 @@
   max-height: fit-content;
   width: 120px;
   height: 120px;
+}
+
+.chart-wrapper {
+  margin-bottom: 0;
+}
+
+
+.test {
+  color: #207fdf;
 }

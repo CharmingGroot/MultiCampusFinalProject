@@ -23,6 +23,8 @@
 	>
 <head>
 
+<link rel="stylesheet" href="../assets/css/status.css">
+<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=	aaa5e56f2955a5dee7f58099096a66b0"></script>
 
 </head>
 
@@ -48,17 +50,17 @@
 				<!-- Content wrapper -->
 				<div class="content-wrapper ">
 					
-				
 					<!-- / Content -->
 					<label> 날짜 : <input name="regDate" type="date"> </label><br>
 					
 					<div class="daily" >
 					
-					<div class="calender">
-					
-					<table border ="2">
-    <!-- caption은 표 위에 생기는 제목 -->
-    <caption> 2023.03 </caption>
+					<div class="calender" style="position:static">
+					        <!-- caption은 표 위에 생기는 제목 -->
+					    <caption> 2023.03 </caption>
+					<table border ="2" width = "1000px" height="650px">
+
+
     
     <tr>
         <td>SUN</td>
@@ -116,11 +118,12 @@
 </div>		
 
 
- <div class="mb-3 col-md-2" >
+ <div class="mb-3 col-md-2 dailycheck" style="position:absolute; left: 1300px; top: 100px;" >
  
 <h3>2023.03.06</h3>
                   <label for="zipCode" class="form-label">Meal (number/ g)</label>
-                  <input type="text" class="form-control" id="meal" name="meal" placeholder="5g" maxlength="10"/>
+                  <input type="text" class="form-control" id="meal" name="meal" placeholder="5g" maxlength="10" />
+                  
                  
                   <label for="zipCode" class="form-label">Water (number/ ml)</label>
                   <input type="text" class="form-control" id="water" name="water" placeholder="100ml" maxlength="10"/>
@@ -133,14 +136,49 @@
                   
                     <label for="zipCode" class="form-label">Weight (number/ kg)</label>
                   <input type="text" class="form-control" id="weight" name="weight" placeholder="5kg" maxlength="10"/>
-                  
+                          <br>
                 <button type="submit" class="btn btn-primary me-2">Register</button> 
+                  <br>
+                  <br>
                   
-             </div>
+               <div id="current_date"></p>
+				
+				<button type="button" class="btn btn-primary me-2 schedule" id="modal_btn">Schedule Addition</button> 
+                  <div class="black_bg"></div>
+                  <div class="modal_wrap">
+                  <div class="modal_close"><a href="/blog/status">close</a></div>
+                    <div>
+                    <h4><b>Add Schedule</b></h4>
+                    <br>
+                     <div>
+                     <script>
+                      date = new Date().toLocaleDateString();
+                      document.write(date);
+                    </script>
+                   </div>
+                   <br>
+                   <label> 날짜 : <input name="regDate" type="date"> </label><br>
+                   <label> 시간 : <input name="regTime" type="time"> </label><br>
+                   <input type='text' id='place' placeholder="장소를 입력하세요.">
+                   <br>
+                        <textarea class="form-control" id="floatingTextarea2" style="height: 10vh" placeholder="일정을 입력하세요."></textarea>
+                        <br>
+                       <button type="button" class="btn btn-outline-secondary account-image-reset mb-4"
+                         onClick="location.href='/blog/status'">
+                   <span> Save <i class="fa-regular fa-square-plus"></i></span>
+                  </button>
+                  
+                  <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                    <span> Cancel <i class="fa-solid fa-trash-can"></i></span>
+                     </button>
+                     </div>
+                  <div>
+			
+				
+	  </div>
                  
 				</div>
 				
-	
 		
 					<!-- Footer -->
 					<footer class="content-footer footer bg-footer-theme">
@@ -181,6 +219,28 @@
 		<div class="layout-overlay layout-menu-toggle"></div>
 	</div>
 	<!-- / Layout wrapper -->
+	
+	<!-- modal창 스크립트 -->
+	<script>
+    window.onload = function() {
+ 
+    function onClick() {
+        document.querySelector('.modal_wrap').style.display ='block';
+        document.querySelector('.black_bg').style.display ='block';
+    }   
+    function offClick() {
+        document.querySelector('.modal_wrap').style.display ='none';
+        document.querySelector('.black_bg').style.display ='none';
+    }
+ 
+    document.getElementById('modal_btn').addEventListener('click', onClick);
+    document.querySelector('.modal_close').addEventListener('click', offClick);
+ 
+};
+
+
+</script>
+	
 
 </body>
 </html>

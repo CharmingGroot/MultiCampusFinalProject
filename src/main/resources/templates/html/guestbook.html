@@ -27,6 +27,7 @@
 >
   <head>
   
+<link rel="stylesheet" href="../assets/css/guestbook.css">
   </head>
 
   <body>
@@ -61,9 +62,21 @@
 		              <div class="guestbook-area">
 		              <div class="col-12 question-btn">
 		              <div class="card h-100">
-		                  <div class="form-floating">
-		                    <textarea class="form-control" id="floatingTextarea2" style="height: 100px"></textarea>
-		                    <label for="floatingTextarea2">방명록을 작성하세요</label>
+		              <h5><b>방명록 남기기</b></h5>
+		                 <input type="text" class="form-control" id="writer" name="writer" placeholder="작성자를 입력하세요." maxlength="10"/>
+		                  <div class="form-floating" >
+		                    <textarea class="form-control" id="floatingTextarea2" style="height: 200px"></textarea>
+		           <label for="floatingTextarea2">내용을 작성하세요
+							<div class="card-body" style="width:100px">
+		                      <div class="card-title" >
+		                    	<div class="flex-shrink" style="height:100px; width:100px;">
+			                 	<img class="card-img" src="../assets/img/elements/20.jpg" alt="Card image cap" style="float:left;" />
+			            		</label>
+		                 	</div>
+					</div>
+				</div>
+	        </div>
+		                 
 		                  </div>
 		                  <div class="d-grid gap-1 ">
 		                    <button class="btn btn-primary" type="button" >방명록 남기기</button>

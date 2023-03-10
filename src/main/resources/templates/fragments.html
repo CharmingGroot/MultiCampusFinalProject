@@ -68,6 +68,13 @@
 		<!-- Place this tag in your head or just before your close body tag. -->
 		<script defer src="https://buttons.github.io/buttons.js"></script>
 	</th:block>
+	
+	<style>
+		.dm{
+			display: flex;
+
+		}
+	</style>
 </head>
 
 <body>
@@ -201,7 +208,13 @@
 			<a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)"> <i class="bx bx-menu bx-sm"></i></a>
 		</div>
 		
-		<ul class="navbar-nav flex-row align-items-center ms-auto">
+		<div class="dm flex-row-align-items-center" th:if="${session.auth == null}">
+			<a class="dropdown-item" href="/user/login">login</a>
+			<a class="dropdown-item" href="/user/signup">signup</a>
+		</div>
+		
+		
+		<ul class="navbar-nav flex-row align-items-center ms-auto" th:if="${session.auth != null}">
 		<!-- User -->
 			<li class="nav-item navbar-dropdown dropdown-user dropdown">
 				<a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -220,7 +233,7 @@
 					</div>
 					
 					<div class="flex-grow-1">
-						<span class="fw-semibold d-block">John Doe</span> <small class="text-muted">Admin</small>
+						<span class="fw-semibold d-block" th:text="${session.auth.userName}"></span>
 					</div>
 				</div>
 			</a></li>
@@ -228,7 +241,7 @@
 				<li>
 					<div class="dropdown-divider"></div>
 				</li>
-									
+				
 				<li>
 					<a class="dropdown-item" href="/pet/regist">
 					<i class="fa-solid fa-paw"></i>
@@ -242,31 +255,13 @@
 					<span class="align-middle">user set</span>
 					</a>
 				</li>
-									
+				
 				<li>
-					<div class="dropdown-divider"></div>
-				</li>
-									
-				<li>
-					<a class="dropdown-item" href="/user/login">
-					<i class="fa-solid fa-arrow-right-to-bracket"></i>
-					<span class="align-middle">&nbsp Log In</span>
-				</a>
-				</li>
-									
-				<li>
-				   <a class="dropdown-item" href="auth-login-basic.html">
+				   <a class="dropdown-item" href="/user/logout">
 				   <i class="bx bx-power-off me-2"></i>
 				   <span class="align-middle">Log Out</span>
 				   </a>
-                </li>
-                
-                <li>
-				   <a class="dropdown-item" href="/user/signup">
-				   <i class="bx bx-power-off me-2"></i>
-				   <span class="align-middle">Signup</span>
-				   </a>
-                </li>
+                </li>				
 			</ul>
 		</li>
 	<!--/ User -->

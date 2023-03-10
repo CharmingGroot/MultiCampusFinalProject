@@ -3,5 +3,10 @@
 .card-wrapper {
 	display:flex;
 	justify-content: space-between;	
+}	
 	
+.profile img{
+	width:300px;
+	heigh:300px;
+}	
 }

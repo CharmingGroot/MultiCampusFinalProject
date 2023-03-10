@@ -1,4 +1,4 @@
-package com.ts.mvc.module.blog.Dto;
+package com.ts.mvc.module.blog.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

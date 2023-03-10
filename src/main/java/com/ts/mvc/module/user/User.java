@@ -14,6 +14,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.ts.mvc.infra.util.badge.Badge;
+import com.ts.mvc.module.user.dto.request.SignUpRequest;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,4 +47,13 @@ public class User {
 	@OneToMany
 	@Builder.Default
 	private List<Badge> badges = new ArrayList<>();
+	
+	public static User createUser(SignUpRequest dto) {
+		return User.builder()
+				   .email(dto.getEmail())
+				   .userName(dto.getUserName())
+				   .password(dto.getPassword())
+				   .tell(dto.getTell())
+				   .build();
+	}
 }
