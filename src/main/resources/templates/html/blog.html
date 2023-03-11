@@ -31,7 +31,12 @@
 	<script src="../assets/c3/c3-0.7.20/c3-0.7.20/c3.min.js"></script>
 	
 	<!-- blog.js -->
-	<script defer src="../assets/js/blog.js"></script>
+	<!-- <script defer src="../assets/js/blog.js"></script> -->
+
+	<!-- testblog.js -->
+	<script defer src="../assets/js/testblog.js"></script>
+
+
 </head>
 
 <body>
@@ -230,12 +235,26 @@
 									</div>
 								</div>
 							</div>
-							<div class="card col-5">이번 주 산책 횟수 등 가벼운 정보</div>
-							<div class="card col-3">
+							<div class="card col-3">이번 주 산책 횟수 등 가벼운 정보</div>
+							<div class="card col-5">
 								<div class="card">
-										<button class="btn btn-primary" type="button">
-											산책시작
-										</button>
+									<div>
+										<h1 id="clock" style="color:gray;"></h1>
+								</div>
+										<div class="containerMrs">
+												<p id="output"><b>00:00:00</b></p>
+												<div id="controls">
+														<button id="startPause" onclick="startPause()"><b id="start">시작</b></button>
+														<button onclick="update()" id="update"><b id="update">기록하기</b></button>
+														<button onclick="reset()" id="reset"><b id="reset">리셋하기 & 종료하기</b></button>
+														
+														<button onclick="testbtn()" id="testbtn"><b id="testbtn">test btn</b></button>
+												</div>
+										</div>
+										<div>
+												<h1 id=stopTime></h1>
+												<h1 id="breaktime"></h1>
+										</div>
 									</div>
 							</div>
 						</div>
