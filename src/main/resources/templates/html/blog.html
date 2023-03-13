@@ -61,121 +61,9 @@
 				<!-- Content wrapper -->
 				<div class="content-wrapper">
 					<!-- Content -->
-
-					<!-- chg start -->
 					<div class="container-xxl container-p-y">
-
-						
-						<div class="main-contents col-12">
-							<div class="weekly-plan card col-7">
-								<h3>주간일정(23.03.06 ~ 23.03.12)</h3>
-								<table class="weekly-plan-table">
-									<thead>
-									<tr>
-										<th scope="col">월</th>
-										<th scope="col">화</th>
-										<th scope="col">수</th>
-										<th scope="col">목</th>
-										<th scope="col">금</th>
-										<th scope="col">토</th>
-										<th scope="col">일</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>밥먹기</td>
-										<td>밥먹기</td>
-										<td>밥먹기</td>
-										<td>밥먹기</td>
-										<td>밥먹기</td>
-										<td>밥먹기</td>
-										<td>밥먹기</td>
-
-									</tr>
-								</tbody>
-								</table>
-							</div>
-							<div class="random-album-carousel col-5">
-								<div class="carousel-wrapper">
-									
-									<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-										<div class="carousel-inner">
-											<div class="carousel-item active">
-												<img src="../assets/img/testdog/dogdog.jpg" class="carousel-img" alt="1번 이미지">
-											</div>
-											<div class="carousel-item">
-												<img src="../assets/img/testdog/dog3.jpg" class="carousel-img" alt="2번 이미지">
-											</div>
-											<div class="carousel-item">
-												<img src="../assets/img/testdog/bulldog2.jpg" class="carousel-img" alt="3번 이미지">
-											</div>
-										</div>
-									</div>
-								</div>					
-							</div>
-						</div>
-						
-						<div class="main-contents2 col-12">
-							<div class="day-graph card col-7">
-								<h4 id="easy-checker-title">오늘 콩순이는 이만큼 먹고 마셨다.</h4>
-								<div class="chart-wrapper">
-									<div class="water-chart">
-										<!-- 차트가 렌더링될 공간 -->
-									</div>
-								</div>
-								<div class="card-text chart-description">
-									몸무게가 10kg인 프렌치 불독인 콩순이의 하루 권장 식사량은 400g이에요.
-								</div>
-
-							</div>
-
-							<!-- 급식, 급수, 몸무게 기입 -->
-							<div class="easy-checker card col-5">			
-								<h4 id="easy-checker-title">오늘 콩순이는 이만큼 먹었다</h4>
-			
-								<!-- 급수량 -->
-									<form action="/blog" method="get">
-										
-										<div>	
-											<div class="input-group">
-												<span class="input-group-text" id="basic-addon1">급수량</span>
-												<input
-												type="number"
-												class="form-control"
-												name="water"
-												min="0"
-												placeholder="ml 단위로 입력하세요"
-												aria-describedby="button-addon2"/>
-											</div>
-											<div class="input-group">
-												<span class="input-group-text" id="basic-addon1">급식량</span>
-												<input
-												name="food"
-													type="number"
-													min="0"
-													class="form-control"
-													placeholder="g 단위로 입력하세요"
-													aria-describedby="button-addon2"/>
-											</div>
-											<div class="input-group">
-												<span class="input-group-text" id="basic-addon1">몸무게</span>
-												<input
-													name="weight"
-													type="number"
-													min="0"
-													class="form-control"
-													placeholder="kg 단위로 입력하세요"
-													aria-describedby="button-addon2"/>
-											</div>
-											<div class="easy-checker-btn">
-												<button class="btn btn-outline-primary" type="submit" id="button-addon2">💾&nbsp<b>기록하기</b> <i class="fa-solid fa-plus"></i></button>
-											</div>
-											</div>
-									</form>
-							</div>
-						</div>
-
-						<div class="main-contents col-12">
+						<!-- 1영역 시작 -->
+						<div class="main-contents col-12" id="first-area">
 							<div class="col-2">
 								<div class="card">
 									<div class="card-body">
@@ -235,7 +123,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="card col-3">이번 주 산책 횟수 등 가벼운 정보</div>
+							<div class="card col-3">이번 주 산책 횟수 등 가벼운 정보 or 실시간 산책 경로</div>
 							<div class="card col-5">
 								<div class="card">
 									<div>
@@ -244,9 +132,9 @@
 										<div class="containerMrs">
 												<p id="output"><b>00:00:00</b></p>
 												<div id="controls">
-														<button id="startPause" onclick="startPause()"><b id="start">시작</b></button>
-														<button onclick="update()" id="update"><b id="update">기록하기</b></button>
-														<button onclick="reset()" id="reset"><b id="reset">리셋하기 & 종료하기</b></button>
+														<button id="startPause" onclick="startPause()"><b id="start">산책시작</b></button>
+														<button onclick="update()" id="update"><b id="update">시/분/초 기록하기</b></button>
+														<button onclick="reset()" id="reset"><b id="reset">산책완료</b></button>
 														
 														<button onclick="testbtn()" id="testbtn"><b id="testbtn">test btn</b></button>
 												</div>
@@ -259,31 +147,119 @@
 							</div>
 						</div>
 
+						<!-- 1영역 종료 -->
+						<!-- 2영역 시작 -->
+						<div class="main-contents col-12" id="second-area">
+							<div class="weekly-plan card col-7">
+								<h3>주간일정(23.03.06 ~ 23.03.12)</h3>
+								<table class="weekly-plan-table">
+									<thead>
+									<tr>
+										<th scope="col">월</th>
+										<th scope="col">화</th>
+										<th scope="col">수</th>
+										<th scope="col">목</th>
+										<th scope="col">금</th>
+										<th scope="col">토</th>
+										<th scope="col">일</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>밥먹기</td>
+										<td>밥먹기</td>
+										<td>밥먹기</td>
+										<td>밥먹기</td>
+										<td>밥먹기</td>
+										<td>밥먹기</td>
+										<td>밥먹기</td>
 
-						<!-- chg end -->
+									</tr>
+								</tbody>
+								</table>
+							</div>
+							<div class="random-album-carousel col-5">
+								<div class="carousel-wrapper">
+									
+									<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+										<div class="carousel-inner">
+											<div class="carousel-item active">
+												<img src="../assets/img/testdog/dogdog.jpg" class="carousel-img" alt="1번 이미지">
+											</div>
+											<div class="carousel-item">
+												<img src="../assets/img/testdog/dog3.jpg" class="carousel-img" alt="2번 이미지">
+											</div>
+											<div class="carousel-item">
+												<img src="../assets/img/testdog/bulldog2.jpg" class="carousel-img" alt="3번 이미지">
+											</div>
+										</div>
+									</div>
+								</div>					
+							</div>
+						</div>
+						<!-- 2영역 종료 -->
+						<!-- 3영역 시작 -->
+						<div class="main-contents2 col-12" id="third-area">
+							<div class="day-graph card col-7">
+								<h4 id="easy-checker-title">오늘 콩순이는 이만큼 먹고 마셨다.</h4>
+								<div class="chart-wrapper">
+									<div class="water-chart">
+										<!-- 차트가 렌더링될 공간 -->
+									</div>
+								</div>
+								<div class="card-text chart-description">
+									몸무게가 10kg인 프렌치 불독인 콩순이의 하루 권장 식사량은 400g이에요.
+								</div>
 
+							</div>
 
+							<!-- 급식, 급수, 몸무게 기입 -->
+							<div class="easy-checker card col-5">			
+								<h4 id="easy-checker-title">오늘 콩순이는 이만큼 먹었다</h4>
+			
+								<!-- 급수량 -->
+									<form action="/blog" method="get">
+										
+										<div>	
+											<div class="input-group">
+												<span class="input-group-text" id="basic-addon1">급수량</span>
+												<input
+												type="number"
+												class="form-control"
+												name="water"
+												min="0"
+												placeholder="ml 단위로 입력하세요"
+												aria-describedby="button-addon2"/>
+											</div>
+											<div class="input-group">
+												<span class="input-group-text" id="basic-addon1">급식량</span>
+												<input
+												name="food"
+													type="number"
+													min="0"
+													class="form-control"
+													placeholder="g 단위로 입력하세요"
+													aria-describedby="button-addon2"/>
+											</div>
+											<div class="input-group">
+												<span class="input-group-text" id="basic-addon1">몸무게</span>
+												<input
+													name="weight"
+													type="number"
+													min="0"
+													class="form-control"
+													placeholder="kg 단위로 입력하세요"
+													aria-describedby="button-addon2"/>
+											</div>
+											<div class="easy-checker-btn">
+												<button class="btn btn-outline-primary" type="submit" id="button-addon2">💾&nbsp<b>기록하기</b> <i class="fa-solid fa-plus"></i></button>
+											</div>
+											</div>
+									</form>
+							</div>
+						</div>
+						<!-- 3영역 종료 -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-						<!--  -->
 						
 					<!-- / Content -->
 

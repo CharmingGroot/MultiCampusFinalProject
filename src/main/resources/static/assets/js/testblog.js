@@ -200,7 +200,7 @@ function startPause() {
   }
 }
 
-//산책시간 업데이트 
+//산책시간 업데이트  record로 바꾸기 or 아예 없애기 
 function update() {
 
   // 시 분 초 받아와서 초 단위로 합한 값을 세션에 저장, DB로 전달
@@ -226,7 +226,7 @@ function reset() {
   document.getElementById("startPause").style.backgroundColor = "green";
   document.getElementById("startPause").style.borderColor = "green";
 
-  console.log(`산책거리는 ${totalDistance} 입니다.`);
+  console.log(`산책거리는 ${totalDistance.toFixed(2)} 입니다.`);
 }
 
 //타이머 시간측정 
@@ -288,16 +288,20 @@ let dummylongti = 126.857308;
 
 
 // 이동거리 계산 함수, 이전 위경도값과 현재위경도값을 매개변수로 받아서 두 위경도 사이의 거리를 측정.
-function calDistance(previousLatitude, previousLongitude, dummylati, dummylongti) {
-  let theta = (previousLongitude - dummylongti);
-  dist = Math.sin(degTorad(previousLatitude)) * Math.sin(degTorad(dummylati)) + Math.cos(degTorad(previousLatitude)) * Math.cos(degTorad(dummylati)) * Math.cos(degTorad(theta));
+function calDistance(previousLatitude, previousLongitude, currentLatitude, currentLongtitude) {
+  let theta = (previousLongitude - currentLongtitude);
+  dist = Math.sin(degTorad(previousLatitude)) * Math.sin(degTorad(currentLatitude)) + Math.cos(degTorad(previousLatitude)) * Math.cos(degTorad(currentLatitude)) * Math.cos(degTorad(theta));
   dist = Math.acos(dist);
   dist = radTodeg(dist);
   dist = dist * 60 * 1.1515;
   dist = dist * 1.609344;  // 키로미터로 변환 1mile == 1.609344km
-  console.log('dist : ' + dist);
+  console.log('previousLatitude : ' + previousLatitude);
+  console.log('previousLongitude : ' + previousLongitude);
+  console.log('currentLatitude : ' + currentLatitude);
+  console.log('currentLongtitude : ' + currentLongtitude);
   totalDistance += dist;
 
+  console.log(i);
   return Number(totalDistance * 1000).toFixed(2);
 };
 
@@ -316,7 +320,8 @@ function radTodeg(rad) {
 
 
 
-
+//test 변수
+var i = 0;
 
 
 // 위경도 값을 받아오는 함수
@@ -358,11 +363,12 @@ function locationCalculator() {
 
         console.log("-----------------------------------");
         console.log("초기 위경도 값 O");
-        // console.log(`previousLatitude: ${previousLatitude}`); // test
-        // console.log(`previousLongitude: ${previousLongitude}`); // test
-        // console.log(`currentLatitude: ${currentLatitude}`); // test
-        // console.log(`currentLongtitude: ${currentLongtitude}`); // test
-        // console.log("-----------------------------------");
+
+        // test목적 : 위도 경도증가
+        i += 0.1;
+        currentLatitude += i;
+        // currentLongtitude += i;
+
 
         // 계산 **더미좌표 current좌표로 바꿀것
         calDistance(previousLatitude, previousLongitude, currentLatitude, currentLongtitude);
@@ -370,6 +376,7 @@ function locationCalculator() {
         // 계산 후 previous 값들을 current값으로 초기화
         previousLatitude = currentLatitude;
         previousLongitude = currentLongtitude;
+
 
         // 총거리
         console.log(`totalDistance: ${totalDistance}`);
