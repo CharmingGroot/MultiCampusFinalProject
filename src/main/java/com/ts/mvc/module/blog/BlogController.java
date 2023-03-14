@@ -35,6 +35,7 @@ public class BlogController {
       String water = request.getParameter("water");
       String food = request.getParameter("food");
       String weight = request.getParameter("weight");
+      
       if(water != null || food != null || weight != null) {   
          model.addAttribute("water", water);
          System.out.println(blog.toString());

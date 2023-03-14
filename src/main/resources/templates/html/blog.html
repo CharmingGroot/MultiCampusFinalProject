@@ -33,8 +33,13 @@
 	<!-- blog.js -->
 	<!-- <script defer src="../assets/js/blog.js"></script> -->
 
+	
 	<!-- testblog.js -->
 	<script defer src="../assets/js/testblog.js"></script>
+	
+	<!-- kakao maps  나중에 api 키는 따로 모아서 관리하는 것이 좋을듯 blog.js보다 위로 상단에 위치하면 totalDistance를 못받아온다.-->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=313911aedb3465f883529681db06b20d&libraries=services,clusterer,drawing"></script>
+
 
 
 </head>
@@ -123,7 +128,11 @@
 									</div>
 								</div>
 							</div>
-							<div class="card col-3">이번 주 산책 횟수 등 가벼운 정보 or 실시간 산책 경로</div>
+							<div class="card col-3">이번 주 산책 횟수 등 가벼운 정보 or 실시간 산책 경로
+								<!-- kakao map render -->
+								<div id="map" style="width: 250px; height: 300px;">
+								</div>	
+							</div>
 							<div class="card col-5">
 								<div class="card">
 									<div>
@@ -135,8 +144,6 @@
 														<button id="startPause" onclick="startPause()"><b id="start">산책시작</b></button>
 														<button onclick="update()" id="update"><b id="update">시/분/초 기록하기</b></button>
 														<button onclick="reset()" id="reset"><b id="reset">산책완료</b></button>
-														
-														<button onclick="testbtn()" id="testbtn"><b id="testbtn">test btn</b></button>
 												</div>
 										</div>
 										<div>
@@ -258,6 +265,7 @@
 									</form>
 							</div>
 						</div>
+
 						<!-- 3영역 종료 -->
 
 						
