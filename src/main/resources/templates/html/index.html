@@ -23,6 +23,17 @@
 	>
 <head>
 
+<style>
+.roadingStatus{
+ margin-top: 5vw;
+ margin-left: 50%;
+}
+
+
+</style>
+
+	<script defer src="../js/weather-api.js"></script>
+
 </head>
 
 <body>
@@ -57,8 +68,11 @@
 										<div class="col-12">
 											<!-- <h1 class="card-header m-0 me-2 pb-3">Weather & Fine dust Area</h1> -->
 											<!-- 온도 영역 백그라운드 이미지를 강아지 사진을 쓰는건 어떨까요 -->
-                      <div class="info-wrap text-primary">
+                      							<div class="info-wrap text-primary">
 												<div class="main-temp row justify-content-center text-center">
+												<!-- 날씨 api -->
+												<div class="weather row">
+												</div>
 													<h1 class="card-header h1">14º</h1>
 													<h3 class="card-header h3">오늘은 산책가기 좋은 날!</h3>
 												</div>
@@ -121,26 +135,34 @@
               <div class="col-12 question-btn">
                 <div class="card h-100">
 
-									<p class="card-text h1">Chat GPT Area</p>
+					
+					
+				<p class="card-text h1">AI에게 물어보세요!</p>
+				<!-- <form action="/aiQuestion" method="get"> -->				
                   <div class="form-floating">
-										<textarea class="form-control" placeholder="말티즈가 밥을 안먹을 때 어떻게 해야하나요?" id="floatingTextarea2" style="height: 100px"></textarea>
+										<input class="form-control" placeholder="반려동물의 나이와 상태를 구체적으로 적을수록 정확한 답변이 나옵니다!" name="question" id="aiQuestion" style="height: 100px"></input>
                     <label for="floatingTextarea2">여기를 클릭하세요!</label>
                   </div>
                   <div class="d-grid gap-1 ">
-                    <button class="btn btn-primary question-btn" type="button" onclick="openResult()">질문하기!</button>
+                    <button class="btn btn-primary question-btn" onclick="javascript:createAnswer(); clickedBtn();">질문하기!</button>
                   </div>
+    <!--               </form> -->
                 </div>
                 
               </div>
-              
 							<!-- AI 답변 영역 시작 -->
-							<div class="row question visually-hidden">
-              	<div class="col-12">
-                	<div class="card answer" style="height: 200px;">
-                  답변을 출력할 영역입니다.
-               	 </div>
-              	</div>
-							</div>
+							<!-- spinner -->
+				<div class="row question">
+              		<div class="col-12">
+                        <div class="roadingStatus spinner-border" id="roadingStatus" role="status" style="display:none;" ></div>
+					</div>
+				</div>
+				<!-- 답변영역 -->
+				<div class="row loaindg">
+              		<div class="col-12">
+                		<div id="result" style="height: 20vw;"></div>
+              		</div>
+				</div>
 						</div>
 						<!-- AI 답변 영역 종료 -->
 						<!-- Chat GPT Area End -->
@@ -152,7 +174,7 @@
 								<div class="card">
 									<div class="row g-0">
 										<div class="col-4">
-											<img src="..." class="img-fluid rounded-start" alt="...">
+											<img src="#" class="img-fluid rounded-start" alt="#">
 										</div>
 										<div class="col-8">
 											<div class="card-body">
@@ -176,14 +198,7 @@
 						<!-- 실시간 채팅 & 산책버튼 End -->
 
 					</div>
-          
-        
-					
-
-
-
-
-
+      
 					<!-- / Content -->
 
 					<!-- Footer -->
@@ -226,6 +241,64 @@
 	</div>
 	<!-- / Layout wrapper -->
 	
+	<script type="text/javascript" layout:fragment="script">
+	
+    let loadInterval = setTimeout("hideLoading()", 10000);
+     
+	function clickedBtn() {
+		loadInterval;
+		showLoading();
+	}
+	
+	function showLoading() {
+		$('#roadingStatus').show();
+	}
+	
+	function hideLoading(){
+		$("#roadingStatus").hide();
+	}
+	
+	function stopLoading() {
+		clearInterval("hideLoading()");
+	}
+	
+	function createAnswer() {
+		const api_key = "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";
+		const question = document.getElementById('aiQuestion').value;
+		const messages = [
+			{role:'system', content: 'You are a helpful assistant.'},
+			{role:'user', content: question}
+		]
+		const data = {
+				model: "gpt-3.5-turbo",
+			  	messages: messages
+		}
+		
+		const config = {
+				method: 'POST',
+				headers: {
+					Authorization : `Bearer ${api_key}`,
+					'Content-Type' : 'application/json'
+				},
+		
+				body: JSON.stringify(data)
+		}
+		
+		fetch('https://api.openai.com/v1/chat/completions',config)
+		.then(response => response.text()) 
+		.then(text => { 
+			let data = JSON.parse(text);
+			let content = data.choices[0].message.content;
+			document.getElementById("result").append(content); 
+			})
+	
+		.catch(function (error) {
+			console.error(error)
+			let errorMessage="다시 시도해주세요.";
+			document.getElementById("result").append(errorMessage);})
+		}
+	
+	</script>
 
 	
 

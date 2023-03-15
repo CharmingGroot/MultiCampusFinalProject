@@ -31,14 +31,16 @@ public class UserControllerTest {
 		.andDo(print());
 	}
 	
+	// 더미데이터 만들기
 	@Test
 	@DisplayName("회원가입 정보 저장")
 	public void testsignUpImpl() throws Exception {
 		SignUpRequest form = new SignUpRequest();
 		form.setUserName("test");
 		form.setPassword("123qwe!@#QWE");
-		form.setEmail("eedomeng@naver.com");
+		form.setEmail("domeng@naver.com");
 		form.setTell("010-0000-0112");
+		form.setGrade("ROLE_ADMIN");
 		
 		mockMvc.perform(get("/user/signupimpl/1234")
 				.sessionAttr("signupForm", form)

@@ -19,6 +19,9 @@
   data-theme="theme-default"
   data-assets-path="../assets/"
   data-template="vertical-menu-template-free"
+  
+ xmlns:th="http://www.thymeleaf.org"
+
 >
   <head>
     <meta charset="utf-8" />
@@ -138,7 +141,7 @@
               <h4 class="mb-2">Welcome to Sneat! 👋</h4>
               <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
-              <form action="/user/login" method="post" th:object="${loginRequest}">
+              <form th:action="@{/user/login}" method="post" th:object="${loginRequest}">
                 <div class="mb-3">
                   <label for="userid" class="form-label">UserId</label>
                   <input
@@ -173,7 +176,7 @@
                 </div>
                 <div class="mb-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="remember-me" />
+                    <input type="checkbox" class="form-check-input" id="rememberMe" name="remember-me" checked>
                     <label class="form-check-label" for="remember-me"> Remember Me </label>
                   </div>
                 </div>

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ts.mvc.infra.code.ErrorCode;
+import com.ts.mvc.infra.code.Role;
 import com.ts.mvc.infra.exception.HandlableException;
 import com.ts.mvc.module.user.dto.Principal;
 import com.ts.mvc.module.user.dto.request.LoginRequest;
@@ -79,6 +80,7 @@ public class UserController {
 			throw new HandlableException(ErrorCode.EXPRIATION_SIGNUP_TOKEN);
 		}
 		
+		form.setGrade(Role.USER.desc());
 		userService.registNewMember(form);
 		
 		session.removeAttribute("authToken"); // 만료된 토큰 처리를 위해
@@ -96,37 +98,6 @@ public class UserController {
 	@GetMapping("login")
 	public void login(Model model) {
 		model.addAttribute("loginRequest", new LoginRequest());
-	}
-	
-	@PostMapping("login")
-	public String loginImpl(LoginRequest loginRequest,
-						    Errors error,
-						    HttpSession session,
-						    RedirectAttributes redirectAttributes) {
-		
-		if(error.hasErrors()) {
-			return "/user/login";
-		}
-		
-		Principal principal = userService.authenticateUser(loginRequest);
-		
-		if(principal == null) {
-			redirectAttributes.addAttribute("msg", "아이디나 비밀번호가 일치하지 않습니다.");
-			
-			return "redirect:/user/login";
-		}
-		
-		session.setAttribute("auth", principal);
-		
-		return "redirect:/";
-		
-	}
-	
-	@GetMapping("logout")
-	public String logout(HttpSession session) {
-		session.removeAttribute("auth");
-		
-		return "redirect:/";
 	}
 	
 	@GetMapping("modify")

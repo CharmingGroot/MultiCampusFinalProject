@@ -5,14 +5,14 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class Blog {
+public class BlogDto {
 
 	private String water;
 	private String food;
 	private String weight;
-	private double totalDistance;
+	private String totalDistance;
 	
-	public Blog(String water, String food, String weight, double totalDistance) {
+	public BlogDto(String water, String food, String weight, String totalDistance) {
 		this.water = water;
 		this.food = food;
 		this.weight = weight;

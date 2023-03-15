@@ -20,7 +20,8 @@
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="~{layout}">
 <head>
-
+<link rel="stylesheet" href="../assets/css/pet.css">
+<script src="../assets/js/catnames.json" type="text/javascript"></script>
 </head>
 
 <body>
@@ -43,6 +44,7 @@
 
 				<!-- Content wrapper -->
 <div class="content-wrapper">
+
   <!-- Content -->
   <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
@@ -55,36 +57,37 @@
         <div class="card mb-4">
           <h5 class="card-header">Profile Details</h5>
           <!-- Account -->
-          <div class="card-body">
-            <div class="d-flex align-items-start align-items-sm-center gap-4">
-              <img
-                src="../assets/img/avatars/puppy.jpg"
-                alt="user-avatar"
-                class="d-block rounded"
-                height="100"
-                width="100"
-                id="uploadedAvatar"
-              />
-              <div class="button-wrapper">
-                <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                  <span class="d-none d-sm-block">Upload new photo</span>
-                  <i class="bx bx-upload d-block d-sm-none"></i>
-                  <input
-                    type="file"
-                    id="upload"
-                    class="account-file-input"
-                    hidden
-                    accept="image/png, image/jpeg"
-                  />
-                </label>
-                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                  <i class="bx bx-reset d-block d-sm-none"></i>
-                  <span class="d-none d-sm-block">Reset</span>
-                </button>
-                <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
-              </div>
-            </div>
-          </div>
+            <div class="card-body">
+     <div class="d-flex align-items-start align-items-sm-center gap-4">
+       <img
+         src="../assets/img/avatars/1.png"
+         alt="user-avatar"
+         class="d-block rounded"
+         height="100"
+         width="100"
+         id="uploadedAvatar"
+       />
+       <div class="button-wrapper">
+         <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+           <span class="d-none d-sm-block">Upload new photo</span>
+           <i class="bx bx-upload d-block d-sm-none"></i>
+           <input
+             type="file"
+             id="upload"
+             class="account-file-input"
+             hidden
+             accept="image/png, image/jpeg"
+           />
+         </label>
+         <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+           <i class="bx bx-reset d-block d-sm-none"></i>
+           <span class="d-none d-sm-block">Reset</span>
+         </button>
+         <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+       </div>
+     </div>
+   </div>
+   
           <hr class="my-0" />
           <div class="card-body">
             <form id="formAccountSettings" method="POST" onsubmit="return false">
@@ -104,79 +107,138 @@
                
               <div class="mb-3 col-md-6">
                 <label for="lastName" class="form-label">Birth Date</label>
-                <input class="form-control" type="text" name="Birth Date" id="Birth Date" value="YYYY.MM.DD" />
+                <input class="form-control" type="text" name="Birth Date" id="Birth Date" placeholder="YYYY.MM.DD" />
               </div>
               <div class= "mb-3 col-md-6">
                 <label for="Companion Animal" class="form-label">Companion Animal</label>
-                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                  <span class="d-none d-sm-block"><i class="fa-solid fa-dog"></i>Dog</span>
-                </button>
-                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                  <span class="d-none d-sm-block"> <i class="fa-solid fa-cat"></i>Cat</span>
-                </button>
+                 <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                   <span class="d-none d-sm-block"><i class="fa-solid fa-dog"></i>Dog
+                     <input type="radio" value="pet"  id="pet" name="pet"  ></button></span>
+                     
+               <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                   <span class="d-none d-sm-block"><i class="fa-solid fa-cat"></i>Cat
+                     <input type="radio" value="pet"  id="pet" name="pet"  ></button></span>
               </div>
                 
-                  <div class="mb-3 col-md-6">
-                    <label for="Species" class="form-label">Species</label>
-                    <select id="Species" class="select2 form-select">
-                      <option >Select Species</option>
-                      <option value="beagle">beagle</option>
-                      <option value="Maltese">Maltese</option>
-                      <option value="Dachshund">Dachshund</option>
-                    </select>
-                  </div>
+                     <div class= "mb-3 col-md-6">
+                <label for="Breed" class="form-label">Breed</label>
+                       <select onchange="changeBreed(this)" class="select2 form-select" >
+                         <option>분류를 선택해주세요.</option>
+                           <option value="dog">Dog</option>
+                           <option value="cat">Cat</option>
+                       </select>
+
+                         <select id="breed" class="select2 form-select">
+                          <option>품종을 선택해주세요.</option>
+                         </select>
+                         
+                </div>
+                
                   
                 <div class="mb-3 col-md-6">
                   <label class="form-label" for="Gender">Gender</label>
-                    <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                   <span class="d-none d-sm-block"><i class="fa-solid fa-mars"></i> Male</span>
+                     <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                   <span class="d-none d-sm-block"><i class="fa-solid fa-mars"></i> Male
+                     <input type="radio" value="gender"  id="gender" name="gender"  ></span>
                      
                     </button>
                     <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                      <span class="d-none d-sm-block">  <i class="fa-solid fa-venus"></i>Woman</span>
+                      <span class="d-none d-sm-block">  <i class="fa-solid fa-venus"></i>Woman
+                        <input type="radio" value="gender"  id="gender" name="gender"  ></span>
                     </button>  
                 </div>
                 
                 <div class="mb-3 col-md-6">
                   <label for="Neutralization" class="form-label">Neutralization</label>
-                  <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                    <i class="fa-solid fa-square-check"></i>
+                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                  <i class="fa-solid fa-square-check"></i> <input type="radio" value="done"  id="done" name="done"  >
+                </button>
+                
+                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                  <i class="fa-solid fa-square-xmark"></i> <input type="radio" value="notdone"  id="notdone" name="notdone"  >
                   </button>
-                  <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                    <i class="fa-solid fa-square-xmark"></i>
                 </div>
                 
                 <div class="mb-3 col-md-6">
                   <label for="Registration number" class="form-label">Registration number</label>
                   <input class="form-control" type="text" id="Registration number" name="Registration number" placeholder="Registration number" />
                 </div>
-                <div class="mb-3 col-md-6">
-                  <label for="zipCode" class="form-label">Meal (number/ g)</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="number"
-                    name="number"
-                    placeholder="5g"
-                    maxlength="6"
-                  />
-                </div>
                 
                 <div class="mb-3 col-md-6">
-                  <label class="form-label" for="Personality">Personality</label>
+                  
                   <br>
-                  <form>
-                    <!-- for 저 글씨를 눌러도 체크박스에 체크가 되게 해줌 -->
-                    <label for="friendly">friendly</label><input type="checkbox" value="friendly" id="friendly" name="Personality"><br>
-                    <label for="shy">shy</label><input type="checkbox" value="shy" id="shy" name="Personality"><br>
-                    <label for="energetic">energetic</label><input type="checkbox" value="energetic" id="energetic" name="Personality"><br>
-                    
-                </form>
+                    <label for="zipCode" class="form-label">Please Check your pet MungBTI </label>
+                 	<button type="button" class="btn btn-outline-secondary" id="modal_btn"><i class="fa-solid fa-paw"></i> Personality</button> 
+                  <div class="black_bg"></div>
+                  <div class="modal_wrap">
+                  <div class="modal_close"><a href="/pet/regist">close</a></div>
+                    <div>
+                    <h4><b>My pet MungBTI</b></h4>
+                    <br>
+                    <span><활동 성향></활동></span>
+                    <br>
+                   <span> Q1. 새로운 친구를 만났을 때, 이때의 나는??</span>
+                  <br>
+                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                 금방 친구가 되어 같이 뛰어논다~! <input type="radio" value="active"  id="active" name="active" >
+                </button>
+                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                  낯을 가지며 쉽게 친해지지 못한다.  <input type="radio" value="timid"  id="timid" name="timid"  >
+                  </button>
+                  <br>
+                      <span><관계 성향></활동></span>
+                    <br>
+                   <span> Q2. 집사와 함께 있을 때, 이때의 나는??</span>
+                  <br>
+                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                 나는야 집사바라기<i class="fa-solid fa-sun"></i> <input type="radio" value="sunflower"  id="sunflower" name="sunflower" >
+                </button>
+                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                  나는야 혼자 놀기의 달인!!  <input type="radio" value="alone"  id="alone" name="alone"  >
+                  </button>
+                  <br>
+                          <span><적응 성향></활동></span>
+                    <br>
+                   <span> Q3. 집사가 교육을 하려고 한다. 이때의 나는??</span>
+                  <br>
+                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                 손이면 손, 발이면 발 나는야 척척박사<input type="radio" value="smart"  id="smart" name="smart" >
+                </button>
+                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                  으잉..? 간식도 안주고 훈련만 한단 말이야? 안할랭~~~<input type="radio" value="lazy"  id="lazy" name="lazy"  >
+                  </button>
+                  
+                    <br>
+                          <span><순종 성향></활동></span>
+                    <br>
+                   <span> Q4. 집사와 새로운 장소에 도착했다. 이때의 나는??</span>
+                  <br>
+                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                 여기가 어디지..? 집사 옆에 꼭 붙어있어야지 <input type="radio" value="scare"  id="scare" name="scare" >
+                </button>
+                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                  새로운 곳 좋아!! 여기저기 다 가봐야지!! 얼른 가보고싶어!!<input type="radio" value="curius"  id="curius" name="curius"  >
+                  </button>
+                  
+
+                   </div>
+                   <br>
+                       <button type="button" class="btn btn-outline-secondary account-image-reset mb-4"
+                         onClick="location.href='/pet/regist'">
+                   <span> Save <i class="fa-regular fa-square-plus"></i></span>
+                  </button>
+                  
+                  <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                    <span> Cancel <i class="fa-solid fa-trash-can"></i></span>
+                     </button>
+                     </div>
+			
                 </div>
-              </div>
+              
+              
               <div class="mt-2">
                 <button type="submit" class="btn btn-primary me-2">Register Animal</button>
-                <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                <button type="reset" class="btn btn-primary me-2">Cancel</button>
               </div>
             </form>
           </div>
@@ -219,7 +281,16 @@
 		<div class="layout-overlay layout-menu-toggle"></div>
 	</div>
 	<!-- / Layout wrapper -->
+	
+<!-- modal창 스크립트 -->
+<script src="../assets/js/modal.js"></script>
 
+<!-- 사진 업로드 스크립트 -->
+    <script src="../assets/js/pages-account-settings-account.js"></script>
 
+<!-- 동물 품종 리스트 스크립트 -->
+    <script src="../assets/js/pet-list.js"></script>
+
+</script>
 </body>
 </html>

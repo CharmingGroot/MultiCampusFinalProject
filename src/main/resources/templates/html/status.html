@@ -13,52 +13,59 @@
  -->
 <!-- beautify ignore:start -->
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr"
-	data-theme="theme-default" data-assets-path="../assets/"
-	data-template="vertical-menu-template-free"
-	
-	xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{layout}"
-	
-	>
+   data-theme="theme-default" data-assets-path="../assets/"
+   data-template="vertical-menu-template-free"
+   
+   xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="~{layout}"
+   
+   >
 <head>
 
 <link rel="stylesheet" href="../assets/css/status.css">
-<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=	aaa5e56f2955a5dee7f58099096a66b0"></script>
 
 </head>
 
 <body>
-	<!-- Layout wrapper -->
-	<div class="layout-wrapper layout-content-navbar" layout:fragment="content">
-		<div class="layout-container">
-			<!-- Menu -->
-			<aside th:replace="fragments :: aside">
-			</aside>
-			
-			<!-- / Menu -->
+   <!-- Layout wrapper -->
+   <div class="layout-wrapper layout-content-navbar" layout:fragment="content">
+      <div class="layout-container">
+         <!-- Menu -->
+         <aside th:replace="fragments :: aside">
+         </aside>
+         
+         <!-- / Menu -->
 
-			<!-- Layout container -->
-			<div class="layout-page">
-				<!-- Navbar -->
+         <!-- Layout container -->
+         <div class="layout-page">
+            <!-- Navbar -->
 
-				<nav th:replace="fragments :: nav">
-				</nav>
+            <nav th:replace="fragments :: nav">
+            </nav>
 
-				<!-- / Navbar -->
+            <!-- / Navbar -->
 
-				<!-- Content wrapper -->
-				<div class="content-wrapper ">
-					
-					<!-- / Content -->
-					<label> 날짜 : <input name="regDate" type="date"> </label><br>
-					
-					<div class="daily" >
-					
-					<div class="calender" style="position:static">
-					        <!-- caption은 표 위에 생기는 제목 -->
-					    <caption> 2023.03 </caption>
-					<table border ="2" width = "1000px" height="650px">
+            <!-- Content wrapper -->
+            <div class="content-wrapper ">
+               
+               <!-- / Content -->
+               <label> 날짜 : <input name="regDate" type="date"> </label><br>
+               
+               <div class="daily" >
+               
+               <div class="calender" style="position:static">
+                       <!-- caption은 표 위에 생기는 제목 -->
+                   <caption> 
+               <div id="current_date"></p>
+                      <script>
+                        date = new Date();
+                        year = date.getFullYear();
+                        month = date.getMonth() + 1;
+                        document.getElementById("current_date").innerHTML = year + "년" + month + "월";
+                     </script>
+                   </caption>
+               <table border ="2" width = "1000px" height="650px">
 
 
     
@@ -114,36 +121,65 @@
         <td>31</td>
     </tr>
 </table>
-					
-</div>		
+               
+</div>      
 
 
  <div class="mb-3 col-md-2 dailycheck" style="position:absolute; left: 1300px; top: 100px;" >
  
-<h3>2023.03.06</h3>
-                  <label for="zipCode" class="form-label">Meal (number/ g)</label>
-                  <input type="text" class="form-control" id="meal" name="meal" placeholder="5g" maxlength="10" />
-                  
-                 
-                  <label for="zipCode" class="form-label">Water (number/ ml)</label>
-                  <input type="text" class="form-control" id="water" name="water" placeholder="100ml" maxlength="10"/>
-                  
-                   <label for="zipCode" class="form-label">Take a Walk (number/ km)</label>
-                  <input type="text" class="form-control" id="walk" name="walk" placeholder="10km" maxlength="10"/>
-                  
-                    <label for="zipCode" class="form-label">Snack (number)</label>
-                  <input type="text" class="form-control" id="snack" name="snack" placeholder="10km" maxlength="10"/>
-                  
-                    <label for="zipCode" class="form-label">Weight (number/ kg)</label>
-                  <input type="text" class="form-control" id="weight" name="weight" placeholder="5kg" maxlength="10"/>
-                          <br>
-                <button type="submit" class="btn btn-primary me-2">Register</button> 
-                  <br>
-                  <br>
-                  
-               <div id="current_date"></p>
+                   <h3><b>
+                      <div>
+                       <script>
+                       date = new Date().toLocaleDateString();
+                       document.write(date);
+                       </script>
+                      </div>
+                   </b> </h3>
+                   <br>
+                   <div>
+                 <div class="input-group">
+				   <span class="input-group-text" id="basic-addon1">Meal</span>
+					<input name="food" type="number" min="0" class="form-control"
+						   placeholder="g 단위로 입력하세요" aria-describedby="button-addon2"/>
+				</div>
 				
-				<button type="button" class="btn btn-primary me-2 schedule" id="modal_btn">Schedule Addition</button> 
+                  <br>
+               	<div class="input-group">
+				  <span class="input-group-text" id="basic-addon1">Water</span>
+				  <input name="water" type="number" min="0" class="form-control"
+	                     placeholder="ml 단위로 입력하세요" aria-describedby="button-addon2"/>
+			    </div> 
+                  <br>
+                  
+				     <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1">Take a Walk</span>
+					<input name="walk" type="number" min="0" class="form-control"
+						   placeholder="km 단위로 입력하세요" aria-describedby="button-addon2"/>
+				   </div>
+                  <br>
+                  
+                    <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1">Snack</span>
+					<input name="snack" type="number" min="0" class="form-control"
+						   placeholder="숫자(횟수)로 입력하세요" aria-describedby="button-addon2"/>
+				   </div>
+				   <br>
+				   
+                	<div class="input-group">
+					  <span class="input-group-text" id="basic-addon1">몸무게</span>
+					  <input name="weight" type="number" min="0" class="form-control"
+							 placeholder="kg 단위로 입력하세요" aria-describedby="button-addon2"/>
+					   </div>
+                          <br>
+                          
+            <div class="easy-checker-btn">
+			  <button class="btn btn-outline-primary" type="submit" id="button-addon2">💾&nbsp<b>기록하기</b> <i class="fa-solid fa-plus"></i></button>
+			</div>
+			</div>
+                  <br>
+                  <br>
+                  
+            <button type="button" class="btn btn-primary me-2 schedule" id="modal_btn">Schedule Addition</button> 
                   <div class="black_bg"></div>
                   <div class="modal_wrap">
                   <div class="modal_close"><a href="/blog/status">close</a></div>
@@ -173,74 +209,59 @@
                      </button>
                      </div>
                   <div>
-			
-				
-	  </div>
+         
+            
+     </div>
                  
-				</div>
-				
-		
-					<!-- Footer -->
-					<footer class="content-footer footer bg-footer-theme">
-						<div
-							class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-							<div class="mb-2 mb-md-0">
-								©
-								<script>
+            </div>
+            
+      
+               <!-- Footer -->
+               <footer class="content-footer footer bg-footer-theme">
+                  <div
+                     class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                     <div class="mb-2 mb-md-0">
+                        ©
+                        <script>
                     document.write(new Date().getFullYear());
                   </script>
-								, made with ❤️ by <a href="https://themeselection.com"
-									target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
-							</div>
-							<div>
-								<a href="https://themeselection.com/license/"
-									class="footer-link me-4" target="_blank">License</a> <a
-									href="https://themeselection.com/" target="_blank"
-									class="footer-link me-4">More Themes</a> <a
-									href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-									target="_blank" class="footer-link me-4">Documentation</a>
+                        , made with ❤️ by <a href="https://themeselection.com"
+                           target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
+                     </div>
+                     <div>
+                        <a href="https://themeselection.com/license/"
+                           class="footer-link me-4" target="_blank">License</a> <a
+                           href="https://themeselection.com/" target="_blank"
+                           class="footer-link me-4">More Themes</a> <a
+                           href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
+                           target="_blank" class="footer-link me-4">Documentation</a>
 
-								<a
-									href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-									target="_blank" class="footer-link me-4">Support</a>
-							</div>
-						</div>
-					</footer>
-					<!-- / Footer -->
+                        <a
+                           href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
+                           target="_blank" class="footer-link me-4">Support</a>
+                     </div>
+                  </div>
+               </footer>
+               <!-- / Footer -->
 
-					<div class="content-backdrop fade"></div>
-				</div>
-				<!-- Content wrapper -->
-			</div>
-			<!-- / Layout page -->
-		</div>
+               <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+         </div>
+         <!-- / Layout page -->
+      </div>
 
-		<!-- Overlay -->
-		<div class="layout-overlay layout-menu-toggle"></div>
-	</div>
-	<!-- / Layout wrapper -->
-	
-	<!-- modal창 스크립트 -->
-	<script>
-    window.onload = function() {
- 
-    function onClick() {
-        document.querySelector('.modal_wrap').style.display ='block';
-        document.querySelector('.black_bg').style.display ='block';
-    }   
-    function offClick() {
-        document.querySelector('.modal_wrap').style.display ='none';
-        document.querySelector('.black_bg').style.display ='none';
-    }
- 
-    document.getElementById('modal_btn').addEventListener('click', onClick);
-    document.querySelector('.modal_close').addEventListener('click', offClick);
- 
-};
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+   </div>
+   <!-- / Layout wrapper -->
+   
+   <!-- modal창 스크립트 -->
+<script src="../assets/js/modal.js"></script>
 
-
-</script>
-	
+<!-- 몸무게 등등 입력값 스크립트 -->
+	<script defer src="../assets/js/blog.js"></script>
+   
 
 </body>
 </html>

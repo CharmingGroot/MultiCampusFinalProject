@@ -17,4 +17,9 @@ public class PetController {
 	public String petModify() {
 		return "/html/pet-modify";
 	}
+	
+	@GetMapping("cat")
+	public String catnames() {
+		return "/html/catnames";
+	}
 }

@@ -8,6 +8,9 @@ import javax.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +27,7 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 @Transactional(readOnly = true)
-public class UserService {
+public class UserService implements UserDetailsService{
 
 	private final UserRepository userRepository;
 	private final RestTemplate restTemplate;
@@ -62,17 +65,12 @@ public class UserService {
 		userRepository.save(user);
 	}
 
-	public Principal authenticateUser(LoginRequest loginRequest) {
-		User user = userRepository.findByEmailAndIsLeave(loginRequest.getEmail(), false);
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		if(user == null) {
-			return null;
-		}
+		User user = userRepository.findByEmailAndIsLeave(username, false);
+		if(user == null) throw new UsernameNotFoundException(username);
 		
-		if(!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
-			return null;
-		}
-		
-		return new Principal(user);
+		return new UserPrincipal(new Principal(user));
 	}
 }

@@ -13,12 +13,14 @@ public class Principal { // 인증이 끝난 정보를 담기 위한
 	private String userName;
 	private String password;
 	private String tell;
+	private String grade;
 	
 	public Principal(User user) {
 		this.email = user.getEmail();
 		this.userName = user.getUserName();
 		this.password = user.getPassword();
 		this.tell = user.getPassword();
+		this.grade = user.getGrade();
 	}
 	
 }

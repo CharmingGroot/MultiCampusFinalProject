@@ -33,6 +33,7 @@ public class User {
 	private String userName;
 	private String password;	
 	private String tell;
+	private String grade;
 	
 	@ColumnDefault("false")
 	private Boolean isLeave;
@@ -41,9 +42,7 @@ public class User {
 	private LocalDateTime regDate;
 	
 	private String profilePhoto;
-	
-	private String address;
-	
+		
 	@OneToMany
 	@Builder.Default
 	private List<Badge> badges = new ArrayList<>();
@@ -54,6 +53,7 @@ public class User {
 				   .userName(dto.getUserName())
 				   .password(dto.getPassword())
 				   .tell(dto.getTell())
+				   .grade(dto.getGrade())
 				   .build();
 	}
 }

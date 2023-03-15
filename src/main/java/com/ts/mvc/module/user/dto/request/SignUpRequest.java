@@ -21,4 +21,6 @@ public class SignUpRequest {
 	@NotBlank
 	private String tell;
 	
+	private String grade;
+	
 }

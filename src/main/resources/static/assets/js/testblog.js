@@ -1,32 +1,29 @@
 
-const xhr = new XMLHttpRequest();
-const method = "POST";
-const url = "http://localhost:8080/blog";
 
-xhr.open(method, url);
+function postData() {
 
-xhr.setRequestHeader('Content-Type', 'application/json');
+  let td = (totalDistance.toFixed(2)).toString();
 
-const walkingData = {
-  TD: totalDistance
-};
+  const data = { TTD: td };
 
-// xhr.send(JSON.stringify(walkingData));
+  fetch('http://localhost:8080/blog', {
+    method: 'POST', // 또는 'PUT'
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('성공:', data);
+    })
+    .catch((error) => {
+      console.error('실패:', error);
+    });
 
 
+}
 
-// xhr.send(JSON.stringify(walkingData));
-
-// xhr.onload = () => {
-//   if (xhr.status === 200) {
-//     const res = JSON.parse(xhr.response)
-//     console.log(res);
-//   }
-//   else {
-//     console.error(xhr.status, xhr.statusText);
-//   }
-
-// }
 
 
 window.onload = () => {
@@ -310,18 +307,10 @@ function reset() {
   // 산책 거리가 표시될 지도
   // resultMap();
 
-  xhr.send(JSON.stringify(walkingData));
 
-  xhr.onload = () => {
-    if (xhr.status === 200) {
-      const res = JSON.parse(xhr.response)
-      console.log(res);
-    }
-    // else {
-    //   console.error(xhr.status, xhr.statusText);
-    // }
+  postData();
 
-  }
+
 
 }
 
@@ -394,10 +383,10 @@ function calDistance(lat1, lon1, lat2, lon2) {
   dist = dist * 60 * 1.1515;
   dist = dist * 1.609344;
 
-  // console.log('좌표간 이동거리= ' + dist.toFixed(2));
+  console.log('좌표간 이동거리= ' + dist.toFixed(2));
   // 총거리 합산
   totalDistance += dist;
-  // console.log('총 이동거리 = ' + totalDistance.toFixed(2));
+  console.log('총 이동거리 = ' + totalDistance.toFixed(2));
   return Number(dist * 1000).toFixed(2);
 
 }
@@ -436,10 +425,10 @@ function locationCalculator() {
 
         console.log("-----------------------------------");
         console.log("초기 위경도값 X");
-        // console.log(`previousLatitude =  ${previousLatitude}`);
-        // console.log(`previousLongitude =  ${previousLongitude}`);
-        // console.log(`currentLatitude =  ${currentLatitude}`);
-        // console.log(`currentLongtitude =  ${currentLongtitude}`);
+        console.log(`previousLatitude =  ${previousLatitude}`);
+        console.log(`previousLongitude =  ${previousLongitude}`);
+        console.log(`currentLatitude =  ${currentLatitude}`);
+        console.log(`currentLongtitude =  ${currentLongtitude}`);
         console.log("-----------------------------------");
       }
     )
@@ -464,10 +453,10 @@ function locationCalculator() {
 
         console.log("-----------------------------------");
         console.log("초기 위경도 값 O");
-        // console.log(`previousLatitude =  ${previousLatitude}`);
-        // console.log(`previousLongitude =  ${previousLongitude}`);
-        // console.log(`currentLatitude =  ${currentLatitude}`);
-        // console.log(`currentLongtitude =  ${currentLongtitude}`);
+        console.log(`previousLatitude =  ${previousLatitude}`);
+        console.log(`previousLongitude =  ${previousLongitude}`);
+        console.log(`currentLatitude =  ${currentLatitude}`);
+        console.log(`currentLongtitude =  ${currentLongtitude}`);
         console.log("-----------------------------------");
 
 
