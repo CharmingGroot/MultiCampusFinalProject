@@ -1,4 +1,4 @@
-package com.ts.mvc.module.status;
+package com.ts.mvc.infra.util.file.profile;
 
 import java.time.LocalDateTime;
 
@@ -6,17 +6,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import com.ts.mvc.module.pet.Pet;
-import com.ts.mvc.module.user.User;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,26 +21,22 @@ import lombok.NoArgsConstructor;
 @DynamicInsert // insert 쿼리를 생성할 때 null인 필드는 쿼리에서 생략
 @DynamicUpdate // entity에서 변경이 발견되지 않은 값은 쿼리에서 생략
 @Builder @NoArgsConstructor @AllArgsConstructor @Getter
-public class Status {
+@EqualsAndHashCode
+public class UserProfileFilePath {
 
 	@Id
-	private String chosenDate;
+	@GeneratedValue
+	private Long ufpIdx;
 	
-	private Integer food;
-	private Integer water;
-	private Integer walkTime;
-	private Integer walkDistance;
-	private Integer treat;
-	private Double weight;
+	private String originFileName;
+	private String renameFileName;
+	private String savePath;
 	
-	private String todoList;
-	private String todoDate;
+	@Column(columnDefinition = "timestamp default now()")
+	private LocalDateTime regDate;
 	
-	@ManyToOne
-	@JoinColumn(name = "email")
-	private User user;
+	@ColumnDefault("false")
+	private Boolean isDel;
 	
-	@ManyToOne
-	@JoinColumn(name = "petIdx")
-	private Pet pet;
+	private String groupName;
 }

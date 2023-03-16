@@ -1,30 +1,12 @@
 
+// 전역에 변수 선언
+let water;
+let food;
+let weight;
 
-function postData() {
-
-  let td = (totalDistance.toFixed(2)).toString();
-
-  const data = { TTD: td };
-
-  fetch('http://localhost:8080/blog', {
-    method: 'POST', // 또는 'PUT'
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('성공:', data);
-    })
-    .catch((error) => {
-      console.error('실패:', error);
-    });
-
-
-}
-
-
+// 일일 권장 식사량
+var RAOF = ((parseInt(weight) * 1000) * 0.02);
+// console.log(RAOF);
 
 window.onload = () => {
   // URL 파라미터 값 받아오기
@@ -33,18 +15,16 @@ window.onload = () => {
     console.log(param);
   }
 
-  let water = getParams.get('water');
-  let food = getParams.get('food');
-  let weight = getParams.get('weight');
+  water = getParams.get('water');
+  food = getParams.get('food');
+  weight = getParams.get('weight');
 
   //받아온 값 세션에 저장
-  sessionStorage.setItem('water', water);
-  sessionStorage.setItem('food', food);
-  sessionStorage.setItem('weight', weight);
+  // sessionStorage.setItem('water', water);
+  // sessionStorage.setItem('food', food);
+  // sessionStorage.setItem('weight', weight);
 
-  // 일일 권장 식사량
-  let RAOF = ((parseInt(weight) * 1000) * 0.02);
-  // console.log(RAOF);
+
 
   // 차트생성
   var chart = c3.generate({
@@ -81,70 +61,6 @@ window.onload = () => {
   });
 
 
-  // var chart2 = c3.generate({
-  //   bindto: '.food-chart',
-  //   data: {
-  //     columns: [
-  //       ['급식량', food]
-  //     ],
-  //     type: 'gauge',
-  //   },
-  //   gauge: {
-  //     //        label: {
-  //     //            format: function(value, ratio) {
-  //     //                return value;
-  //     //            },
-  //     //            show: false // to turn off the min/max labels.
-  //     //        },
-  //     //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-  //     //    max: 100, // 100 is default
-  //     //    units: ' %',
-  //     //    width: 39 // for adjusting arc thickness
-  //   },
-  //   color: {
-  //     pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
-  //     threshold: {
-  //       //            unit: 'value', // percentage is default
-  //       //            max: 200, // 100 is default
-  //       values: [30, 60, 90, 100]
-  //     }
-  //   },
-  //   size: {
-  //     height: 150
-  //   }
-  // });
-
-  // setTimeout(function () {
-  //   chart.load({
-  //     columns: [['data', 10]]
-  //   });
-  // }, 1000);
-
-  // setTimeout(function () {
-  //   chart.load({
-  //     columns: [['data', 50]]
-  //   });
-  // }, 2000);
-
-  // setTimeout(function () {
-  //   chart.load({
-  //     columns: [['data', 70]]
-  //   });
-  // }, 3000);
-
-  // setTimeout(function () {
-  //   chart.load({
-  //     columns: [['data', 0]]
-  //   });
-  // }, 4000);
-
-  // setTimeout(function () {
-  //   chart.load({
-  //     columns: [['data', 100]]
-  //   });
-  // }, 5000);
-
-
   // 타이머 초기화
   var clockTarget = document.getElementById("clock");
   function clock() {
@@ -161,6 +77,10 @@ window.onload = () => {
   }
 
   init();
+
+  onloadMapRender();
+
+
 
 
 
@@ -184,8 +104,16 @@ let walking;
 
 
 
-
-
+// kakao maps 렌더링 전 커버 만들기
+function onloadMapRender() {
+  navigator.geolocation.getCurrentPosition(
+    function (position) {
+      currentLatitude = position.coords.latitude;
+      currentLongtitude = position.coords.longitude;
+    }
+  )
+  kakaoMapsRender();
+}
 
 // kakao maps
 function kakaoMapsRender() {
@@ -246,6 +174,8 @@ function startPause() {
     document.getElementById("start").innerHTML = "일시중지";
     document.getElementById("startPause").style.backgroundColor = "red";
     document.getElementById("startPause").style.borderColor = "red";
+    document.getElementById("startPause").style.color = "white";
+
 
     // realtimeCalculator 인터벌 호출
     realtimeCalculator();
@@ -269,8 +199,9 @@ function startPause() {
     if (sec < 10) {
       sec = '0' + sec;
     }
-    document.getElementById('stopTime').innerHTML = "일시정지  " + hour + ":" + min + ":" + sec;
-    document.getElementById("start").innerHTML = "계속";
+    // document.getElementById('stopTime').innerHTML = "일시정지  " + hour + ":" + min + ":" + sec;
+    document.getElementById('stopTime').innerHTML = "산책거리는 " + totalDistance.toFixed(2) + "Km 입니다.";
+    document.getElementById("start").innerHTML = "계속하기";
     document.getElementById("startPause").style.backgroundColor = "green";
     document.getElementById("startPause").style.borderColor = "green";
   }
@@ -301,7 +232,9 @@ function reset() {
   document.getElementById("output").innerHTML = "<b>00:00:00</b>";
   document.getElementById("startPause").style.backgroundColor = "green";
   document.getElementById("startPause").style.borderColor = "green";
+  document.getElementById("startPause").style.color = "white";
 
+  document.getElementById('stopTime').innerHTML = "오늘의 산책거리는 " + totalDistance.toFixed(2) + "Km 입니다.";
   console.log(`산책거리는 ${totalDistance.toFixed(2)} Km입니다.`);
 
   // 산책 거리가 표시될 지도
@@ -488,4 +421,33 @@ function locationCalculator() {
 
 };
 
+
+
+function postData() {
+
+  let td = (totalDistance.toFixed(2)).toString();
+
+  const data = { TTD: td };
+
+  fetch('http://localhost:8080/blog', {
+    method: 'POST', // 또는 'PUT'
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('성공:', data);
+    })
+    .catch((error) => {
+      console.error('실패:', error);
+    });
+
+
+}
+
+
+
+// 급수, 급식, 몸무게 비동기 전송
 

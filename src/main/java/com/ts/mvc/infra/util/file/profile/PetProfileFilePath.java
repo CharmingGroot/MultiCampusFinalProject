@@ -1,26 +1,21 @@
-package com.ts.mvc.module.diary;
+package com.ts.mvc.infra.util.file.profile;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.ts.mvc.infra.util.file.diary.DiaryFilePath;
-import com.ts.mvc.module.user.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -28,24 +23,22 @@ import lombok.NoArgsConstructor;
 @DynamicInsert // insert 쿼리를 생성할 때 null인 필드는 쿼리에서 생략
 @DynamicUpdate // entity에서 변경이 발견되지 않은 값은 쿼리에서 생략
 @Builder @NoArgsConstructor @AllArgsConstructor @Getter
-public class Diary {
-	
+@EqualsAndHashCode
+public class PetProfileFilePath {
+
 	@Id
 	@GeneratedValue
-	private Long bdIdx;
+	private Long pfpIdx;
 	
-	@ManyToOne
-	@JoinColumn(name = "email")
-	private User user;
-	
-	private String title;
-	private String content;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@Builder.Default
-	private List<DiaryFilePath> diaryFiles = new ArrayList<DiaryFilePath>();
+	private String originFileName;
+	private String renameFileName;
+	private String savePath;
 	
 	@Column(columnDefinition = "timestamp default now()")
 	private LocalDateTime regDate;
 	
+	@ColumnDefault("false")
+	private Boolean isDel;
+	
+	private String groupName;
 }

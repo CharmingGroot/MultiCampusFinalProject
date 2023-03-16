@@ -34,7 +34,7 @@
 	<!-- <script defer src="../assets/js/blog.js"></script> -->
 
 	
-	<!-- testblog.js -->
+	<!-- testblog.js 기능 구현이 다 끝나면 blog.js로 코드 옮겨적기 -->
 	<script defer src="../assets/js/testblog.js"></script>
 	
 	<!-- kakao maps  나중에 api 키는 따로 모아서 관리하는 것이 좋을듯 blog.js보다 위로 상단에 위치하면 totalDistance를 못받아온다.-->
@@ -69,7 +69,7 @@
 					<div class="container-xxl container-p-y">
 						<!-- 1영역 시작 -->
 						<div class="main-contents col-12" id="first-area">
-							<div class="col-2">
+							<!-- <div class="col-2">
 								<div class="card">
 									<div class="card-body">
 										<span class="fw-semibold d-block mb-1">Badges</span>
@@ -94,8 +94,8 @@
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-2">
+							</div> -->
+							<!-- <div class="col-2">
 								<div class="card">
 									<div class="card-body">
 										<span class="fw-semibold d-block mb-1">Profile</span>
@@ -127,28 +127,28 @@
 									
 									</div>
 								</div>
-							</div>
-							<div class="card col-3">이번 주 산책 횟수 등 가벼운 정보 or 실시간 산책 경로
+							</div> -->
+							<div class="card col-7 kakao-map" alt="이번 주 산책 횟수 등 가벼운 정보 or 실시간 산책 경로">
 								<!-- kakao map render -->
-								<div id="map" style="width: 250px; height: 300px;">
-								</div>	
+								<div id="map" style="position: inherit; width: 100%; height: 100%;">
+								</div>
 							</div>
-							<div class="card col-5">
-								<div class="card">
+							<div class="col-5 timer-wrapper justify-content-center">
+								<div class="timer">
 									<div>
-										<h1 id="clock" style="color:gray;"></h1>
+										<h1 id="clock" style="font-weight: 200;"></h1>
 								</div>
 										<div class="containerMrs">
-												<p id="output"><b>00:00:00</b></p>
+												<p id="output" class="h2"><b>00:00:00</b></p>
 												<div id="controls">
-														<button id="startPause" onclick="startPause()"><b id="start">산책시작</b></button>
-														<button onclick="update()" id="update"><b id="update">시/분/초 기록하기</b></button>
-														<button onclick="reset()" id="reset"><b id="reset">산책완료</b></button>
+														<button id="startPause" onclick="startPause()" class="btn-outline-primary timer-btn"><b id="start">산책시작</b></button>
+														<button onclick="update()" id="update" class="btn-outline-primary timer-btn"><b id="update">시/분/초 기록하기</b></button>
+														<button onclick="reset()" id="reset" class="btn-outline-primary timer-btn"><b id="reset">산책완료</b></button>
 												</div>
 										</div>
 										<div>
-												<h1 id=stopTime></h1>
-												<h1 id="breaktime"></h1>
+												<h3 id=stopTime></h3>
+												<!-- <h1 id="breaktime"></h1> -->
 										</div>
 									</div>
 							</div>
@@ -225,7 +225,7 @@
 								<h4 id="easy-checker-title">오늘 콩순이는 이만큼 먹었다</h4>
 			
 								<!-- 급수량 -->
-									<form action="/blog" method="get">
+									<form action="/blog" method="get" >
 										
 										<div>	
 											<div class="input-group">
@@ -259,7 +259,9 @@
 													aria-describedby="button-addon2"/>
 											</div>
 											<div class="easy-checker-btn">
-												<button class="btn btn-outline-primary" type="submit" id="button-addon2">💾&nbsp<b>기록하기</b> <i class="fa-solid fa-plus"></i></button>
+												
+													<button class="btn btn-outline-primary" type="submit" id="button-addon2">💾&nbsp<b>기록하기</b> <i class="fa-solid fa-plus"></i></button>
+												
 											</div>
 											</div>
 									</form>

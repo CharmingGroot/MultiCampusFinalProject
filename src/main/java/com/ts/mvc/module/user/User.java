@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,6 +15,8 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.ts.mvc.infra.util.badge.Badge;
+import com.ts.mvc.infra.util.file.diary.DiaryFilePath;
+import com.ts.mvc.infra.util.file.profile.UserProfileFilePath;
 import com.ts.mvc.module.user.dto.request.SignUpRequest;
 
 import lombok.AllArgsConstructor;
@@ -41,7 +44,9 @@ public class User {
 	@Column(columnDefinition = "timestamp default now()")
 	private LocalDateTime regDate;
 	
-	private String profilePhoto;
+	@OneToMany(cascade = CascadeType.ALL)
+	@Builder.Default
+	private List<UserProfileFilePath> userFiles = new ArrayList<UserProfileFilePath>();
 		
 	@OneToMany
 	@Builder.Default

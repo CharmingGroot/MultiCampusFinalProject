@@ -109,3 +109,36 @@
 .test {
   color: #207fdf;
 }
+
+.timer-wrapper {
+  padding: 25px;
+  position: inherit;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 0 solid #d9dee3;
+  border-radius: 0.5rem;
+}
+
+.timer {
+  /* position: inherit;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 0 solid #d9dee3;
+  border-radius: 0.5rem; */
+}
+
+.kakao-map {
+  box-shadow: #d9dee3;
+}
+
+.timer-btn {
+  border-radius: 0.3rem;
+}

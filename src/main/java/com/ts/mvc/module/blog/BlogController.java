@@ -47,10 +47,10 @@ public class BlogController {
    }
    
    
+   
    @PostMapping("")
    @ResponseBody
    public BlogDto distanceUpdate(@RequestBody String totalDistance, BlogDto blog) {
-	   System.out.println(totalDistance);
 	   blog.setTotalDistance(totalDistance);
 	   System.out.println("총 산책거리는 "+blog.getTotalDistance());
 	   // JSON형태로 데이터를 뿌려서 넘기기.

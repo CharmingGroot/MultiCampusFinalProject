@@ -1,20 +1,27 @@
 package com.ts.mvc.module.pet;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import com.ts.mvc.infra.util.file.profile.ProfileFilePath;
+import com.ts.mvc.infra.util.file.profile.PetProfileFilePath;
+import com.ts.mvc.infra.util.file.profile.UserProfileFilePath;
 import com.ts.mvc.module.guestbook.GuestBook;
+import com.ts.mvc.module.status.PetStatus;
 import com.ts.mvc.module.user.User;
 
 import lombok.AllArgsConstructor;
@@ -32,8 +39,6 @@ public class Pet {
 	@GeneratedValue
 	private Long petIdx;
 	
-//	private ProfileFilePath petImg;
-	
 	private String petName;
 	private String petBirthdate;
 	private String breed;
@@ -46,4 +51,10 @@ public class Pet {
 	@ManyToOne
 	@JoinColumn(name = "email")
 	private User user;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@Builder.Default
+	private List<PetProfileFilePath> petFiles = new ArrayList<PetProfileFilePath>();
+	
+	
 }
