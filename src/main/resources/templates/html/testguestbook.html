@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<!-- =========================================================
+* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
+==============================================================
+
+* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
+* Created by: ThemeSelection
+* License: You must have a valid license purchased in order to legally use the theme for your project.
+* Copyright ThemeSelection (https://themeselection.com)
+
+=========================================================
+ -->
+<!-- beautify ignore:start -->
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+  
+  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}"
+
+>
+  <head>
+  
+<link rel="stylesheet" href="../assets/css/guestbook.css">
+
+<script src="../assets/js/guestbook.js"></script>
+</head>
+
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar" layout:fragment="content">
+      <div class="layout-container">
+        <!-- Menu -->
+        <aside th:replace="fragments :: aside"></aside>
+        <!-- / Menu -->
+        <!-- Layout container -->
+			  <div class="layout-page">
+				  <!-- Navbar -->
+				  <nav th:replace="fragments :: nav"></nav>
+				  <!-- / Navbar -->
+        
+          
+				
+          <!-- Content wrapper -->
+          <div class="guestbook-wrapper">
+            <div class="top">
+                <div class="introduce">
+                  <h3>반려동물 자기소개1</h3>
+                </div>
+            </div>
+            <div class="book-wrapper">
+              <b>OOO 에게 방명록을 남겨보세요 :)</b>
+              <div class="write">
+                <ul class="guestComment-wrapper">
+                  <li>
+                    <div class="guest-li col-12">
+                      <div class="guest-li-inner"></div>
+                      <div class="guest-info test">
+                        <div class="commentNumber col-2">no.1</div>
+                        <div class="commentedGuest col-2">작성자</div>
+                        <div class="commentDateTime col-2">23.03.17 20:00</div>
+                      </div>
+                      <div class="guestCommentForm test">
+                        <div class="test guest-profile col-2" style="background-color: blue;">img</div>
+                        <div class="test form-wrapper col-8">
+                          <form action="" class="comment-form">
+                            <textarea placeholder="콩순아, 백년해로하렴" name="" id="" cols="50" rows="5" style="resize: none;"></textarea>
+                            <button onclick="addComment()">작성</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="guestComment">
+                    <div class="guest-li col-12">
+                      <div class="guest-info">
+                        <div class="commentNumber">no.1</div>
+                        <div class="commentedGuest">작성자</div>
+                        <div class="commentDateTime">23.03.17 20:00</div>
+                      </div>
+                      <div class="guestCommentForm">
+                        <div class="test" style="width: 100px;height: 100px; background-color: blue;">img</div>
+                        <div>
+                          <p class="guestCommentResult">어쩌구 저쩌구</p>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+
+            
+
+
+
+
+
+
+
+
+
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+		      <!-- / Content -->
+
+          <!-- Footer -->
+            <footer class="content-footer footer bg-footer-theme">
+              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                <div class="mb-2 mb-md-0">
+                  ©
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                  , made with ❤️ by
+                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
+                </div>
+                <div>
+                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
+                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
+
+                  <a
+                    href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
+                    target="_blank"
+                    class="footer-link me-4"
+                    >Documentation</a
+                  >
+
+                  <a
+                    href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
+                    target="_blank"
+                    class="footer-link me-4"
+                    >Support</a
+                  >
+                </div>
+              </div>
+            </footer>
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+  </body>
+</html>

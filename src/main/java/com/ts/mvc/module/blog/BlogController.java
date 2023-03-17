@@ -59,9 +59,10 @@ public class BlogController {
 	   return blog;
    }
 
+   // return 페이지 설정할 것.
    @GetMapping("guestbook")
    public String guestbook() {
-      return "/html/guestbook";
+      return "/html/testguestbook";
    }
    
    @GetMapping("diary")
