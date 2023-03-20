@@ -29,7 +29,7 @@
   
 <link rel="stylesheet" href="../assets/css/guestbook.css">
 
-<script src="../assets/js/guestbook.js"></script>
+<script defer src="../assets/js/guestbook.js"></script>
 </head>
 
   <body>
@@ -57,37 +57,47 @@
             <div class="book-wrapper">
               <b>OOO 에게 방명록을 남겨보세요 :)</b>
               <div class="write">
-                <ul class="guestComment-wrapper">
+                <ul class="guestCommentWrapper" id="guestCommentWrapper">
                   <li>
-                    <div class="guest-li col-12">
-                      <div class="guest-li-inner"></div>
-                      <div class="guest-info test">
-                        <div class="commentNumber col-2">no.1</div>
-                        <div class="commentedGuest col-2">작성자</div>
-                        <div class="commentDateTime col-2">23.03.17 20:00</div>
-                      </div>
-                      <div class="guestCommentForm test">
-                        <div class="test guest-profile col-2" style="background-color: blue;">img</div>
-                        <div class="test form-wrapper col-8">
-                          <form action="" class="comment-form">
-                            <textarea placeholder="콩순아, 백년해로하렴" name="" id="" cols="50" rows="5" style="resize: none;"></textarea>
-                            <button onclick="addComment()">작성</button>
-                          </form>
+                    <div class="guest-li">
+                      <div class="guest-li-inner">
+                        <div class="guest-info test">
+                          <div class="commentNumber col-1">no.1</div>
+                          <div class="commentedGuest col-3">작성자 : 콩순이 친구</div>
+                          <div class="commentDateTime col-8">23.03.17 20:00</div>
                         </div>
+                        <div class="guestCommentForm test">
+                          <div class="test guestProfile" style="background-color: blue; ">
+                            <img src="" alt="#" style="background-position: center; object-fit: cover;">
+                          </div>
+                          <div class="test formWrapper">
+                            <form action="" method="get" class="comment-form" name="commentForm" id="commentForm">
+                              <textarea placeholder="콩순아, 백년해로하렴" name="comment" id="formTextArea" cols="50" rows="5" style="resize: none;"></textarea>
+                              <button id="textFormBtn" type="button" onclick="addComment()">작성</button>
+                            </form>
+                          </div>
+                        </div>
+
                       </div>
                     </div>
                   </li>
-                  <li class="guestComment">
-                    <div class="guest-li col-12">
-                      <div class="guest-info">
-                        <div class="commentNumber">no.1</div>
-                        <div class="commentedGuest">작성자</div>
-                        <div class="commentDateTime">23.03.17 20:00</div>
-                      </div>
-                      <div class="guestCommentForm">
-                        <div class="test" style="width: 100px;height: 100px; background-color: blue;">img</div>
-                        <div>
-                          <p class="guestCommentResult">어쩌구 저쩌구</p>
+                  <li class="guestComment" id="deleteArea">
+                    
+                    <div class="guest-li">
+                      <div class="guest-li-inner">
+                        <div class="guest-info test">
+                          <div class="commentNumber col-1">no.1</div>
+                          <div class="commentedGuest col-3">작성자 : 콩순이 친구</div>
+                          <div class="commentDateTime col-7">23.03.17 20:00</div>
+                          <button class="col-1 btn-primary delBtn" type="button" id="deleteCommentBtn">X</button>
+                        </div>
+                        <div class="guestCommentForm test">
+                          <div class="test guestProfile" style="background-color: blue;">img</div>
+                          <div class="test formWrapper">
+                            <div>
+                              <p class="guestCommentResult">어쩌구 저쩌구</p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>

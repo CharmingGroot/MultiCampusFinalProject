@@ -3,36 +3,36 @@
 .card-wrapper {
 	/* display:flex;
 	justify-content: space-between;	 */
-}	
-	
+}
+
 .test {
-	
+
 	border: 1px solid salmon;
 }
 
-.profile img{
-	width:300px;
-	height:300px;
-}	
-
-.book-wrapper{
-	position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #eeecec;
-  background-clip: border-box;
-  border: 0 solid #d9dee3;
-  border-radius: 0.5rem;
+.profile img {
+	width: 300px;
+	height: 300px;
 }
 
-.introduce > h3 {
+.book-wrapper {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	word-wrap: break-word;
+	background-color: #ffffff;
+	background-clip: border-box;
+	border: 0 solid #d9dee3;
+	border-radius: 0.5rem;
+}
+
+.introduce>h3 {
 	margin: 0;
 	padding: 0;
 }
 
-.guestbook-wrapper{
+.guestbook-wrapper {
 	padding: 16px 16px 16px 16px;
 	display: flex;
 	align-items: stretch;
@@ -40,7 +40,7 @@
 	flex-direction: column;
 }
 
-.guestComment-wrapper{
+.guestComment-wrapper {
 	padding: 0;
 }
 
@@ -55,22 +55,31 @@
 .top {
 	border: 1px solid salmon;
 }
-.guest-li{
+
+.guest-li {
 	padding: 15px 65px 15px 65px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.guest-li-inner{
-	background-color: #fff;
+.guest-li-inner {
+	background-color: #e6e6e6;
+	background-clip: border-box;
+	border: 0 solid #d9dee3;
+	border-radius: 0.7rem;
+	width: 650px;
 }
 
-.guest-info{
+.guest-info {
 	position: relative;
 	text-align: center;
 	justify-content: center;
 	align-items: center;
 	display: flex;
 }
-.guestCommentForm{
+
+.guestCommentForm {
 	position: relative;
 	text-align: center;
 	justify-content: center;
@@ -78,15 +87,18 @@
 	display: flex;
 }
 
-.guest-profile{
-	width: 100px;
-	height: 100px;
+.guestProfile {
+	width: 148px;
+	height: 148px;
+	margin-right: 0;
 }
 
 
+li {
+	list-style: none;
+}
 
-
-.guestComment-wrapper > li{
+.guestCommentWrapper>li {
 	list-style: none;
 	margin-top: 15px;
 	border: 1px solid salmon;
@@ -95,32 +107,30 @@
 }
 
 
-.form-wrapper{
+.formWrapper {
 	width: 480px;
 }
 
-.comment-form{
+.comment-form {
 	display: flex;
 	flex-direction: column;
 }
 
-.guest-info{
+.guest-info {
 	display: flex;
 }
 
-.guestComment{
+.guestComment {
 	border: 1px solid salmon;
 }
 
+#guestComment {}
 
-.commentNumber{
 
-}
+.commentNumber {}
 
-.commentedGuest{
+.commentedGuest {}
 
-}
-
-.guestCommentResult{
+.guestCommentResult {
 	width: 50%;
 }
