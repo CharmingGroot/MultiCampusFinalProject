@@ -4,19 +4,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.ts.mvc.infra.util.badge.Badge;
-import com.ts.mvc.infra.util.file.diary.DiaryFilePath;
-import com.ts.mvc.infra.util.file.profile.UserProfileFilePath;
+import com.ts.mvc.module.guestbook.GuestBook;
 import com.ts.mvc.module.user.dto.request.SignUpRequest;
 
 import lombok.AllArgsConstructor;
@@ -31,33 +28,30 @@ import lombok.NoArgsConstructor;
 public class User {
 	
 	@Id
-	private String email;
-
-	private String userName;
-	private String password;	
-	private String tell;
-	private String grade;
+	private String userId;
 	
-	@ColumnDefault("false")
-	private Boolean isLeave;
+	private String password;
+	private String email;
+	private String nickname;
+	
+	private String profileImageUrl;
+	
+	private String grade;
 	
 	@Column(columnDefinition = "timestamp default now()")
 	private LocalDateTime regDate;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@Builder.Default
-	private List<UserProfileFilePath> userFiles = new ArrayList<UserProfileFilePath>();
-		
 	@OneToMany
 	@Builder.Default
 	private List<Badge> badges = new ArrayList<>();
 	
 	public static User createUser(SignUpRequest dto) {
 		return User.builder()
-				   .email(dto.getEmail())
-				   .userName(dto.getUserName())
+				   .userId(dto.getUserId())
 				   .password(dto.getPassword())
-				   .tell(dto.getTell())
+				   .email(dto.getEmail())
+				   .nickname(dto.getNickname())
+				   .profileImageUrl(dto.getProfileImageUrl())
 				   .grade(dto.getGrade())
 				   .build();
 	}

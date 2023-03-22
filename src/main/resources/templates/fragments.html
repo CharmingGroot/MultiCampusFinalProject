@@ -109,7 +109,7 @@
                     </li>
                   
                   <li class="menu-item">
-                    <a href="/blog/guestbook" class="menu-link">
+                    <a href="/guestbook" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-collection"></i>
                       <div data-i18n="Basic">guestbook</div>
                     </a>
@@ -167,13 +167,7 @@
 			<a class="dropdown-item" href="/user/login">login</a>
 			<a class="dropdown-item" href="/user/signup">signup</a>
 		</div>
-		
-		<form th:action="@{/user/logout}" method="post">
-		<div class="dm flex-row-align-items-center" sec:authorize="isAuthenticated()">
-			<button>logout</button>
-		</div>
-		</form>
-		
+				
 		<ul class="navbar-nav flex-row align-items-center ms-auto" sec:authorize="isAuthenticated()">
 		<!-- User -->
 			<li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -193,7 +187,7 @@
 					</div>
 					
 					<div class="flex-grow-1">
-						<span class="fw-semibold d-block" th:text="${#authentication.name}"></span>
+						<span class="fw-semibold d-block" th:text="${#authentication.principal.nickname}"></span>
 					</div>
 				</div>
 			</a></li>
@@ -218,10 +212,10 @@
 				
 				<li>
 				<form th:action="@{/user/logout}" method="post">
-				   <a class="dropdown-item" th:href="@{/user/logout}">
+				   <button class="dropdown-item">
 				   <i class="bx bx-power-off me-2"></i>
 				   <span class="align-middle">Log Out</span>
-				   </a>
+				   </button>
 				</form>
                 </li>				
 			</ul>

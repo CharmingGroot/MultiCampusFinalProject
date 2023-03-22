@@ -4,9 +4,9 @@
 
 //   // let inputComment = this.comment.value;
 //   var commentForm = document.commentForm;
-//   console.log(commentForm);
-//   var comment = commentForm.comment.value;
-//   console.log(comment);
+//   commentText.push(commentForm.comment.value);
+//   // console.log(comment);
+
 // })
 
 
@@ -15,7 +15,7 @@
 // 지금은 더미데이터
 let guestName = ["최호근1", "최호근2"];
 let commentNumber = ["1", "2"];
-let commentText = ["스프링부트는 어렵다", "자바스크립트는 재미있다"];
+let commentText = [];
 
 let guestBookData = {
   commentNumber: commentNumber,
@@ -24,12 +24,12 @@ let guestBookData = {
 };
 
 
+//페이지가 로드되면 실행할 것들
 window.onload = () => {
   // fetch로 글번호, 작성자 댓글 가져와서 전역 변수값을 초기화.
-  // 해당 정보들을 받아 addComment함수로 li 만들기
-
+  // 글 리스트를 받아 변수에 초기화 
+  // 리스트는 유사배열형태로 다룰 수 있도록 클래스를 부여하고
   // 반복문으로 생성하기.
-
 
 }
 
@@ -38,15 +38,29 @@ window.onload = () => {
 
 
 function addComment() {
+
+
+  // 전달받은 form데이터로 배열 초기화하기
+  let commentForm = document.commentForm;
+  commentText.push(commentForm.comment.value);
+
+
+
+
+
+
+
+
+  // ul
   let guestCommentWrapper = document.getElementById('guestCommentWrapper');
 
 
-  // 최상위
+  // 최상위 li
   let guestComment = document.createElement("li");
   guestComment.classList.add("guestComment");
 
 
-  // 차상위
+  // 2
   let guestListLi = document.createElement("div");
   guestListLi.classList.add("guest-li");
 
@@ -92,12 +106,13 @@ function addComment() {
   formWrapper.classList.add("formWrapper", "test");
 
   // 6
+  let guestCommentResult = document.createElement("div");
+  formWrapper.appendChild(guestCommentResult).classList.add("guestCommentResult");
+  guestCommentResult.innerText = commentForm.comment.value;
 
-  formWrapper.appendChild(document.createElement("div")).classList.add("guestCommentResult");
 
 
-
-
+  // 렌더링
   guestCommentForm.append(guestProfile)
   guestCommentForm.append(formWrapper);
 
@@ -119,46 +134,61 @@ function addComment() {
 
   guestCommentWrapper.append(guestComment);
 
-  btnEventCount();
-  liCount();
+  // 리스트가 만들어질때마다 해당 리스트의 삭제버튼에 onclick 붙이기
+  btnEventSet();
+
+
+  submitData();
 };
 
 
-function btnEventCount() {
-  // 버튼
+
+
+
+function btnEventSet() {
+
+  // 클래스 리스트 가져와서 변수에 담기
+  // 지울 때 몇번 인덱스에 있는 클래스를 지울지 명시해줘야할듯.
+
+  // console.log("btnEventSet 실행");
   let eventTarget = document.getElementsByClassName("delBtn");
-
-  // 삭제할 리스트
-  let guestComment = document.getElementsByClassName("guestComment");
-
-  console.log("btnEventCount 실행");
   for (i = 0; i < eventTarget.length; i++) {
-    eventTarget[i].addEventListener('click', (e) => {
-      guestComment.remove();
+    // eventTarget[i].addEventListener('click', (e) => {
+    //   // 삭제할 리스트 태그
+    //   let guestComment = document.getElementsByClassName("guestComment");
+    //   console.log(guestComment[i]);
 
-      i--;
-    });
+    //   i--; // 삭제버튼 계속누르면 i때문에  undefined가 출력되는데 어떻게 해결하지
+    // });
+
+
+    eventTarget[i].setAttribute("onclick", "deleteList(this)");
+    // console.dir(i);
+
   };
 };
 
-function liCount() {
-
-}
-
-
-
 
 // 비동기로 동작해야하며, 해당 함수 호출 시 DB 내용이 업데이트되어야함.
-// let deleteBtn = document.getElementById("deleteCommentBtn");
-// let deleteArea = document.getElementById("deleteArea");
-// deleteBtn.addEventListener("click", () => {
-//   console.log("hi del");
-//   deleteArea.remove();
-// });
+function deleteList(e) {
 
-// function del() {
-//   deleteArea.remove();
-// }
+  // list 배열을 받아와서 지워야할 리스트의 인덱스를 파악해야함.
+  // console.log(guestComment);
+
+  console.log("deleteList 실행");
+
+
+  // 이렇게 하는것이 맞는건가 ^^..
+  let parent = e.parentNode.parentNode.parentNode.parentNode;
+  parent.parentNode.removeChild(parent);
+
+  // 서버와 통신해야함.
+};
+
+
+
+
+
 
 
 
@@ -170,30 +200,32 @@ function liCount() {
 
 
 // 비동기로  작성자, form데이터, 작성일시를 서버로 보내기
-function submitInputText() {
+// function submitData() {
 
-  let formTextArea = document.getElementById("formTextArea").value;
-  console.log(formTextArea);
 
-  const data = { InputText: formTextArea };
+//   let commentForm = document.commentForm;
+//   let comment = commentForm.comment.value
 
-  fetch('http://localhost:8080/blog/guestbook', {
-    method: 'POST', // 또는 'PUT'
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('성공:', data);
-    })
-    .then(window.onload())
-    .catch((error) => {
-      console.error('실패:', error);
-    });
+//   const data = {
+//     comment: comment
+//   };
 
-}
+//   fetch('http://localhost:8080/guestbook', {
+//     method: 'POST', // 또는 'PUT'
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(data),
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       console.log('성공:', data);
+//     })
+//     .catch((error) => {
+//       console.error('실패:', error);
+//     });
+
+// }
 
 
 

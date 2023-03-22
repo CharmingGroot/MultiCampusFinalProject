@@ -71,9 +71,9 @@
                             <img src="" alt="#" style="background-position: center; object-fit: cover;">
                           </div>
                           <div class="test formWrapper">
-                            <form action="" method="get" class="comment-form" name="commentForm" id="commentForm">
-                              <textarea placeholder="콩순아, 백년해로하렴" name="comment" id="formTextArea" cols="50" rows="5" style="resize: none;"></textarea>
-                              <button id="textFormBtn" type="button" onclick="addComment()">작성</button>
+                            <form th:action="@{/guestbook/create}" method="post" enctype="multipart/form-data" class="comment-form" name="commentForm" id="commentForm">
+                              <textarea placeholder="콩순아, 백년해로하렴" name="content" id="formTextArea" cols="50" rows="5" style="resize: none;"></textarea>
+                              <button id="textFormBtn" type="submit" onclick="addComment()">작성</button>
                             </form>
                           </div>
                         </div>
@@ -89,7 +89,9 @@
                           <div class="commentNumber col-1">no.1</div>
                           <div class="commentedGuest col-3">작성자 : 콩순이 친구</div>
                           <div class="commentDateTime col-7">23.03.17 20:00</div>
-                          <button class="col-1 btn-primary delBtn" type="button" id="deleteCommentBtn">X</button>
+                          
+                            <button class="col-1 btn-primary delBtn" type="button" id="deleteCommentBtn">X</button>
+                          
                         </div>
                         <div class="guestCommentForm test">
                           <div class="test guestProfile" style="background-color: blue;">img</div>

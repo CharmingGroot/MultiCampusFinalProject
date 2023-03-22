@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -17,12 +18,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ts.mvc.infra.code.ErrorCode;
 import com.ts.mvc.infra.code.Role;
 import com.ts.mvc.infra.exception.HandlableException;
-import com.ts.mvc.module.user.dto.Principal;
 import com.ts.mvc.module.user.dto.request.LoginRequest;
 import com.ts.mvc.module.user.dto.request.SignUpRequest;
 import com.ts.mvc.module.user.validator.SignUpValidator;
@@ -91,8 +90,8 @@ public class UserController {
 	
 	@GetMapping("checkId")
 	@ResponseBody
-	public Map<String, Boolean> checkId(String email) {
-		return Map.of("exist", userService.existUser(email));
+	public Map<String, Boolean> checkId(String userId) {
+		return Map.of("exist", userService.existUser(userId));
 	}
 
 	@GetMapping("login")
@@ -101,7 +100,11 @@ public class UserController {
 	}
 	
 	@GetMapping("modify")
-	public String userModify() {
-		return "/html/user-modify";
+	public String userModify(@AuthenticationPrincipal UserPrincipal userPrincipal, Model model) {
+		System.out.println("세션정보: " + userPrincipal.getPrincipal());
+		
+		model.addAttribute("principal", userPrincipal.getPrincipal());
+		
+		return "/user/user-modify";
 	}
 }

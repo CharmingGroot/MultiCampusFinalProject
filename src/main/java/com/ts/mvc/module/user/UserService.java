@@ -16,11 +16,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+
 import com.ts.mvc.infra.code.Code;
 import com.ts.mvc.infra.util.mail.EmailSender;
 import com.ts.mvc.module.user.dto.Principal;
 import com.ts.mvc.module.user.dto.request.LoginRequest;
 import com.ts.mvc.module.user.dto.request.SignUpRequest;
+import com.ts.mvc.module.user.User;
 
 import lombok.AllArgsConstructor;
 
@@ -34,13 +36,13 @@ public class UserService implements UserDetailsService{
 	private final EmailSender sender;
 	private final PasswordEncoder passwordEncoder;
 
-	public boolean existUser(String email) {
-		return userRepository.existsById(email);
+	public boolean existUser(String userId) {
+		return userRepository.existsById(userId);
 	}
 
 	public void authenticateEmail(@Valid SignUpRequest form, String authToken) {
 		Map<String, Object> body = new LinkedHashMap<String, Object>();
-		body.put("email", form.getEmail());
+		body.put("userId", form.getUserId());
 		body.put("authToken", authToken);
 		body.put("mailTemplate", "signup-email-auth");
 		
@@ -65,10 +67,12 @@ public class UserService implements UserDetailsService{
 		userRepository.save(user);
 	}
 
+	// 1. 패스워드는 알아서 체킹
+	// 2. 리턴이 잘되면 자동으로 세션을 만든다.
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		User user = userRepository.findByEmailAndIsLeave(username, false);
+		User user = userRepository.findByUserId(username);
 		if(user == null) throw new UsernameNotFoundException(username);
 		
 		return new UserPrincipal(new Principal(user));

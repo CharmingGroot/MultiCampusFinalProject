@@ -57,17 +57,18 @@
           </li>
         </ul>
         <div class="card mb-4">
+        <form id="formAccountSettings" method="POST" onsubmit="return false" th:object="${principal}">
           <h5 class="card-header">Profile Details</h5>
           <!-- Account -->
             <div class="card-body">
      <div class="d-flex align-items-start align-items-sm-center gap-4">
        <img
-         src="../assets/img/avatars/1.png"
+         th:src="${principal.profileImageUrl}"
          alt="user-avatar"
          class="d-block rounded"
          height="100"
          width="100"
-         id="uploadedAvatar"
+         id="uploadedAvatar profileImageUrl"
        />
        <div class="button-wrapper">
          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
@@ -91,17 +92,18 @@
    </div>
                     <hr class="my-0" />
                     <div class="card-body">
-                      <form id="formAccountSettings" method="POST" onsubmit="return false">
+                      
                         <div class="row">
                       
                           <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">Name</label>
+                            <label for="firstName" class="form-label">ID</label>
                             <input
                               class="form-control"
                               type="text"
-                              id="firstName"
-                              name="firstName"
-                              placeholder="John"
+                              id="userId"
+                              name="userId"
+                              readonly="readonly"
+                              th:value="${principal.userId}"
                               autofocus
                             />
                           </div>
@@ -113,38 +115,39 @@
                               type="text"
                               id="email"
                               name="email"
-                              placeholder="john.doe@example.com"
+                              readonly="readonly"
+                              th:value="${principal.email}"
                             />
                           </div>
                           
                           <div class="mb-3 col-md-6">
                             <label for="lastName" class="form-label">Password</label>
-                            <input class="form-control" type="text" name="lastName" id="lastName" placeholder="영문 대소문자, 특수문자, 숫자를 포함하여 8자 이상을 입력하세요." />
+                            <input class="form-control" type="text" name="password" id="password" placeholder="영문 대소문자, 특수문자, 숫자를 포함하여 8자 이상을 입력하세요." />
                           </div>
                           
                           <div class="mb-3 col-md-6">
                             <label for="lastName" class="form-label">Check Password</label>
-                            <input class="form-control" type="text" name="lastName" id="lastName" placeholder="영문 대소문자, 특수문자, 숫자를 포함하여 8자 이상을 입력하세요."/>
+                            <input class="form-control" type="text" name="password" id="password" placeholder="영문 대소문자, 특수문자, 숫자를 포함하여 8자 이상을 입력하세요."/>
                           </div>
                           
                           <div class="mb-3 col-md-6">
-                            <label class="form-label" for="phoneNumber">Phone Number</label>
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"></span>
-                              <input
-                                type="text"
-                                id="phoneNumber"
-                                name="phoneNumber"
-                                class="form-control"
-                                placeholder="010-****-****"
-                              />
-                            </div>
+                            <label for="firstName" class="form-label">nickname</label>
+                            <input
+                              class="form-control"
+                              type="text"
+                              id="nickname"
+                              name="nickname"
+                              placeholder="John"
+                              th:value="${principal.nickname}"
+                              autofocus
+                            />
                           </div>
                       </form>
+                      
                     </div>
                     <form id="formAccountDeactivation" onsubmit="return false">
-                     <button type="submit" class="btn deactivate-account" style="background-color:pink;color: black;" >submit</button>
-                 </form>
+                     <button type="button" class="btn deactivate-account" style="background-color:pink;color: black;" onclick="update()">submit</button>
+                 	</form>
                     <!-- /Account -->
                   </div>
                   
@@ -219,7 +222,17 @@
    </div>
    <!-- / Layout wrapper -->
 
+  <script type="text/javascript" layout:fragment="script">
   
+  function update(userId){
+	  let data = $("#formAccountSettings").serialize();
+	  
+	  
+	  
+	  console.log(data);
+  }
+  
+  </script>
 
 </body>
 </html>

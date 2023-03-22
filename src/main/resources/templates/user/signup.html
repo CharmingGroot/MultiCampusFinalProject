@@ -103,16 +103,16 @@
 
 				<form th:action="@{/user/signup}" method="post" id="frmJoin" th:object="${signUpRequest}">
                 <div class="mb-3">
-                  <label for="email" class="form-label">User EMAIL</label>
+                  <label for="email" class="form-label">User Id</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="inpEmail"
-                    name="email"
-                    placeholder="test@gmail.com"
+                    id="inpId"
+                    name="userId"
+                    placeholder="test"
                     autofocus/>
-                    <button type="button" class="btn btn-outline-success btn-sm" id="btnEmailCheck">EMAIL 중복확인</button>
-                    <span class="valid_info" id="emailCheck"></span>
+                    <button type="button" class="btn btn-outline-success btn-sm" id="btnIdCheck">ID 중복확인</button>
+                    <span class="valid_info" id="idCheck"></span>
                 </div>
                 <div class="mb-3 form-password-toggle">
                   <label class="form-label" for="password">Password</label>
@@ -129,35 +129,27 @@
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label for="username" class="form-label">User name</label>
+                  <label for="username" class="form-label">email</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="userName"
-                    name="userName"
-                    placeholder="Enter your username"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
                     autofocus/>
-                    <span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="valid_info"></span>
+                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="valid_info"></span>
                 </div>
                 <div class="mb-3">
-                  <label for="phonenumber" class="form-label">Phone number</label>
+                  <label for="phonenumber" class="form-label">nickname</label>
                   <input type="text"
                   class="form-control"
-                  id="tell"
-                  name="tell"
-                  placeholder="Enter your phonenumber" />
-                  <span th:if="${#fields.hasErrors('tell')}" th:errors="*{tell}" class="valid_info"></span>
+                  id="nickname"
+                  name="nickname"
+                  placeholder="Enter your nickname" />
+                  <span th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}" class="valid_info"></span>
                 </div>
-                <div class="mb-3">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
-                    <label class="form-check-label" for="terms-conditions">
-                      I agree to
-                      <a href="javascript:void(0);">privacy policy & terms</a>
-                    </label>
-                  </div>
-                </div>
-                <input type="submit" value="가입" class="btn btn-primary d-grid w-100">Sign up</input>
+                
+                <input type="submit" value="가입" class="btn btn-primary d-grid w-100"></input>
               
               <p class="text-center">
                 <span>Already have an account?</span>
@@ -178,35 +170,35 @@
 
 <script type="text/javascript" layout:fragment="script">
  
-	 let emailCheckFlg = false;
+	 let idCheckFlg = false;
 	 
-	 btnEmailCheck.addEventListener("click", ev => {
+	 btnIdCheck.addEventListener("click", ev => {
 	
-	  let email = inpEmail.value;
+	  let userId = inpId.value;
 	  
-	  if(email){
+	  if(userId){
 	   
-	   fetch("/user/checkId?email=" + email)
+	   fetch("/user/checkId?userId=" + userId)
 	   .then(response => response.json())
 	   .then(obj => {
 		   if(obj.exist){
-			   emailCheck.innerHTML = '이미 존재하는 이메일 입니다.';
-			   emailCheckFlg = false;
+			   idCheck.innerHTML = '이미 존재하는 아이디 입니다.';
+			   idCheckFlg = false;
 			   return;
 		   }
 		   
-		   emailCheck.innerHTML = '사용 가능한 아이디 입니다.';
-		   emailCheckFlg = true;
+		   idCheck.innerHTML = '사용 가능한 아이디 입니다.';
+		   idCheckFlg = true;
 		   
 	   });
 	  }
 	 })
 	 
 	 frmJoin.addEventListener('submit', ev => {
-	  if(!emailCheckFlg){
+	  if(!idCheckFlg){
 	   ev.preventDefault();
 	   alert("아이디 중복검사에 실패했습니다.");
-	   inpEmail.focus();   
+	   inpId.focus();   
 	  }
 	  
 	 })

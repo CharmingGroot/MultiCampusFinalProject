@@ -24,6 +24,7 @@
 <head>
 
 <link rel="stylesheet" href="../assets/css/status.css">
+<link rel="stylesheet" href="../assets/css/calendar/main.css">
 
 </head>
 
@@ -50,79 +51,9 @@
             <div class="content-wrapper ">
                
                <!-- / Content -->
-               <label> 날짜 : <input name="regDate" type="date"> </label><br>
-               
                <div class="daily" >
                
-               <div class="calender" style="position:static">
-                       <!-- caption은 표 위에 생기는 제목 -->
-                   <caption> 
-               <div id="current_date"></p>
-                      <script>
-                        date = new Date();
-                        year = date.getFullYear();
-                        month = date.getMonth() + 1;
-                        document.getElementById("current_date").innerHTML = year + "년" + month + "월";
-                     </script>
-                   </caption>
-               <table border ="2" width = "1000px" height="650px">
-
-
-    
-    <tr>
-        <td>SUN</td>
-        <td>MON</td>
-        <td>TUE</td>
-        <td>WED</td>
-        <td>THU</td>
-        <td>FRI</td>
-        <td>SAT</td>
-    </tr>
-    <tr>
-        <td colspan="3"></td>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-        <td>4</td>
-    </tr>
-    <tr>
-       <td>5</td>
-        <td>6</td>
-        <td>7</td>
-        <td>8</td>
-        <td>9</td>
-        <td>10</td>
-        <td>11</td>
-    </tr>
-    <tr>
-        <td>12</td>
-        <td>13</td>
-        <td>14</td>
-        <td>15</td>
-        <td>16</td>
-        <td>17</td>
-        <td>18</td>
-    </tr>
-    <tr>
-       <td>19</td>
-        <td>20</td>
-        <td>21</td>
-        <td>22</td>
-        <td>23</td>
-        <td>24</td>
-        <td>25</td>
-    </tr>
-    <tr>
-        <td>26</td>
-        <td>27</td>
-        <td>28</td>
-        <td>29</td>
-        <td>30</td>
-        <td>31</td>
-    </tr>
-</table>
-               
-</div>      
+                 <div id='calendar' style="width:60vw" ></div>
 
 
  <div class="mb-3 col-md-2 dailycheck" style="position:absolute; left: 1300px; top: 100px;" >
@@ -215,7 +146,10 @@
                  
             </div>
             
-      
+            <br>
+            <br>
+           
+           
                <!-- Footer -->
                <footer class="content-footer footer bg-footer-theme">
                   <div
@@ -257,10 +191,14 @@
    <!-- / Layout wrapper -->
    
    <!-- modal창 스크립트 -->
-<script src="../assets/js/modal.js"></script>
+<script defer src="../assets/js/modal.js"></script>
+
+   <!-- fullcalendar 스크립트 -->
+<script defer src="../assets/js/calendar/fullcalendar.js"></script>
+<script defer src="../assets/js/calendar/main.js"></script>
 
 <!-- 몸무게 등등 입력값 스크립트 -->
-	<script defer src="../assets/js/blog.js"></script>
+	<script src="../assets/js/blog.js"></script>
    
 
 </body>

@@ -36,10 +36,10 @@ public class UserControllerTest {
 	@DisplayName("회원가입 정보 저장")
 	public void testsignUpImpl() throws Exception {
 		SignUpRequest form = new SignUpRequest();
-		form.setUserName("test");
+		form.setUserId("happy");
 		form.setPassword("123qwe!@#QWE");
 		form.setEmail("domeng@naver.com");
-		form.setTell("010-0000-0112");
+		form.setNickname("해피");
 		form.setGrade("ROLE_ADMIN");
 		
 		mockMvc.perform(get("/user/signupimpl/1234")

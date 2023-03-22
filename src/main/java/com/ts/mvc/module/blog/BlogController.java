@@ -2,29 +2,25 @@ package com.ts.mvc.module.blog;
 
 
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ts.mvc.module.blog.dto.BlogDto;
+import com.ts.mvc.module.guestbook.GuestBookService;
+import com.ts.mvc.module.user.UserPrincipal;
 
-import javassist.compiler.ast.Member;
+import lombok.AllArgsConstructor;
 
 @Controller
 @RequestMapping("blog")
+@AllArgsConstructor
 public class BlogController {
    
 //   @GetMapping("")
@@ -32,7 +28,8 @@ public class BlogController {
 //      System.out.println("hi");
 //      return "/html/blog";
 //   }
-   
+   private final GuestBookService guestBookService;
+	
    @GetMapping("")
    public String update(HttpServletRequest request, Model model, BlogDto blog){
       String water = request.getParameter("water");
@@ -58,12 +55,21 @@ public class BlogController {
 	   // msg를 하나 보내는 걸 고려해보아야함.
 	   return blog;
    }
+   
+//   @PostMapping("/guestbook/create")
+//   @ResponseBody
+//   public GuestBookDto updateGuestBook(@RequestBody String content, GuestBookDto guestBook) {
+//	   guestBook.setContent(content);
+//	   guestBook.setEmail(UserPrincipal.getUserPrincipal().getEmail());
+//	   System.out.println("입력받은 댓글은  :" + guestBook.getContent());
+//	   return guestBook;
+//   }
 
    // return 페이지 설정할 것.
-   @GetMapping("guestbook")
-   public String guestbook() {
-      return "/html/testguestbook";
-   }
+//   @GetMapping("guestbook")
+//   public String guestbook() {
+//      return "/html/testguestbook";
+//   }
    
    @GetMapping("diary")
    public String diary() {

@@ -9,17 +9,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Principal { // 인증이 끝난 정보를 담기 위한
 
-	private String email;
-	private String userName;
+	private String userId;
 	private String password;
-	private String tell;
+	private String email;
+	private String nickname;
+	private String profileImageUrl;
 	private String grade;
 	
 	public Principal(User user) {
-		this.email = user.getEmail();
-		this.userName = user.getUserName();
+		this.userId = user.getUserId();
 		this.password = user.getPassword();
-		this.tell = user.getPassword();
+		this.email = user.getEmail();
+		this.nickname = user.getNickname();
+		this.profileImageUrl = user.getProfileImageUrl();
 		this.grade = user.getGrade();
 	}
 	

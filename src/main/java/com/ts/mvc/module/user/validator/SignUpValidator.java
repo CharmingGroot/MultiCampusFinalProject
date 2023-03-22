@@ -26,8 +26,8 @@ public class SignUpValidator implements Validator{
 	public void validate(Object target, Errors errors) {
 		SignUpRequest form = (SignUpRequest) target;
 		
-		if(userRepository.existsById(form.getEmail())) {
-			errors.rejectValue("email", "error.email","이미 존재하는 이메일 입니다.");
+		if(userRepository.existsById(form.getUserId())) {
+			errors.rejectValue("userId", "error.userId","이미 존재하는 이메일 입니다.");
 		}
 		
 		//비밀번호가 8글자 이상의 숫자, 영문자, 특수문자 조합인지 확인

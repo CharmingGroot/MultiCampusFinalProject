@@ -22,9 +22,4 @@ public class WelcomeController {
 	public String welcome() {
 		return "/html/index";
 	}	
-	
-	@GetMapping(value = "/welcome/weather.do")
-	public String WelcomeWeather() {
-		return "/welcome";
-		}
 }

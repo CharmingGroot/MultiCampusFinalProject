@@ -14,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+import com.ts.mvc.infra.config.oauth.OAuth2DetailsService;
 import com.ts.mvc.infra.config.security.AuthFailureHandler;
 import com.ts.mvc.infra.config.security.AuthSuccessHandler;
 
@@ -26,6 +27,7 @@ public class SecurityConfig {
 	
 	private final DataSource datsSource;
 	private final UserDetailsService userDetailsService;
+	private final OAuth2DetailsService oAuth2DetailsService;
 	
 	@Bean
 	public PersistentTokenRepository tokenRepository() {
@@ -48,13 +50,17 @@ public class SecurityConfig {
 		.anyRequest().authenticated();
 		
 		http.formLogin()
-			.loginProcessingUrl("/user/login")
-			.loginPage("/user/login")
-			.usernameParameter("email")
+			.loginPage("/user/login") // get
+			.loginProcessingUrl("/user/login") // post
+			.usernameParameter("userId")
 			.defaultSuccessUrl("/")
 //			.successHandler(authSuccessHandler)
 //			.failureHandler(authFailureHandler)
-			.permitAll();
+			.permitAll()
+			.and()
+			.oauth2Login()
+			.userInfoEndpoint()
+			.userService(oAuth2DetailsService);
 		
 		http.logout()
 			.logoutUrl("/user/logout")

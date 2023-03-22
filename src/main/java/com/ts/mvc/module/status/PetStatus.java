@@ -28,7 +28,7 @@ public class PetStatus {
 
 	@Id
 	@GeneratedValue
-	private Integer statusIdx;
+	private Long statusIdx;
 	
 	private String chosenDate;
 	
@@ -46,12 +46,14 @@ public class PetStatus {
 	private LocalDateTime regDate;
 	
 	@ManyToOne
-	@JoinColumn(name = "email")
 	private User user;
 	
 	@ManyToOne
-	@JoinColumn(name = "petIdx")
 	private Pet pet;
+	
+//	@ApiModelProperty(value = "해당 년월일", example = "2022-04-19", required = true)
+//  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+//  private LocalDate date;
 	
 	
 }

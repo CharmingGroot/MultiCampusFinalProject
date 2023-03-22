@@ -40,21 +40,16 @@ public class Pet {
 	private Long petIdx;
 	
 	private String petName;
-	private String petBirthdate;
-	private String breed;
-	private String petNumber;
-	private String petCharacter;
+	private String petBirthdate; // 생일
+	private String breed; // 종
+	private String petNumber; // 동물고유번호
 	
 	private Boolean gender;
 	private Boolean isNeutered;
+	
+	private String dogMbti;
 
 	@ManyToOne
-	@JoinColumn(name = "email")
 	private User user;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@Builder.Default
-	private List<PetProfileFilePath> petFiles = new ArrayList<PetProfileFilePath>();
-	
 	
 }
