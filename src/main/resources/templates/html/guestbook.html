@@ -27,10 +27,10 @@
 >
   <head>
   
-<link rel="stylesheet" href="../assets/css/guestbook.css">
+		<link rel="stylesheet" href="../assets/css/guestbook.css">
+		<script defer src="../assets/js/guestbook2.js"></script>
 
-<script src="../assets/js/guestbook.js"></script>
-</head>
+  </head>
 
   <body>
     <!-- Layout wrapper -->
@@ -58,7 +58,7 @@
             		<div class="row">
             	<!-- Content -->
 		            <div class="container-xxl flex-grow-1 container-p-y">
-		            <h4 class="fw-bold py-3 mb-4">반려동물 자기소개</h4>
+		            <h4 class="fw-bold py-3 mb-4">방명록</h4>
 		
 		              <!-- Content types -->
 		              <div class="guestbook-area">
@@ -66,50 +66,43 @@
 		              <div class="card h-100">
 		              <h5><b>방명록 남기기</b></h5>
 		                 <input type="text" class="form-control" id="writer" name="writer" placeholder="작성자를 입력하세요." maxlength="10"/>
+		                 <form th:action="@{/guestbook/upload}" method="post" enctype="multipart/form-data" th:object="${guestBookList}" id="commentForm" name="commentForm">
 		                  <div class="form-floating" >
-		                    <textarea class="form-control" id="floatingTextarea2" style="height: 200px"></textarea>
-		           <label for="floatingTextarea2">내용을 작성하세요
-							<div class="card-body" style="width:100px">
-		                      <div class="card-title" >
-		                    	<div class="flex-shrink" style="height:100px; width:100px;">
-			                 	<img class="card-img" src="../assets/img/elements/20.jpg" alt="Card image cap" style="float:left;" />
-			            		</label>
-		                 	</div>
-								</div>
-											
-							</div>
-								</div>
+		                    <textarea class="form-control" id="floatingTextarea2" style="height: 200px" placeholder="내용을 입력하세요." name="content"></textarea>
+		          				 		<label for="floatingTextarea2">
+														<div class="card-body" style="width:100px">
+		                      		<div class="card-title" >
+		                    				<div class="flex-shrink" style="height:100px; width:100px;">
+			                 					<img class="card-img" src="../assets/img/elements/20.jpg" alt="Card image cap" style="float:left;" />
+			            				</label>
+		                 		</div>
+											</div>
+										</div>
+	        				</div>
 		                 
 		                  </div>
 		                  <div class="d-grid gap-1 ">
-		                    <button class="btn btn-primary" type="button" >방명록 남기기</button>
+		                    <button class="btn btn-primary" type="submit" id="submit1">방명록 남기기</button>
 		                  </div>
+		                  </form>
 		                </div>
 		                
 		              </div>
 		              <div class="row mb-5">
 		                  <h6 class="mt-2 text-muted">작성된 방명록</h6>
 		                <div class="col-12 card-wrapper">
+		                
 		                  <div class="card col-6">
 		                    <div class="card-body">
-		                      <p class="card-text">
-		                        This is some text within a card body. Jelly lemon drops tiramisu chocolate cake cotton candy
-		                        soufflé oat cake sweet roll. Sugar plum marzipan dragée topping cheesecake chocolate bar. Danish
-		                        muffin icing donut.
-		                      </p>
+		                      <span class="card-text guestBook">
+		                        [[${guestBookList}]]
+		                      </span>
 								<button type="button" class="btn btn-outline-info btn-sm" id="btn-update">수정</button>
 								<button type="button" class="btn btn-danger btn-sm" id="btn-delete">삭제</button>
 		                    </div>
 		                  </div>
-		                  <div class="card col-6">
-		                    <div class="card-body">
-		                      <p class="card-text">
-		                      왜 옆으로 안가고 밑으로 가는거니 ㅠ
-		                      </p>
-			                  	<button type="button" class="btn btn-outline-info btn-sm" id="btn-update">수정</button>
-            					<button type="button" class="btn btn-danger btn-sm" id="btn-delete">삭제</button>
-		                    </div>
-		                  </div>
+		                  
+		                  
 		                </div>
 		               </div>
 		               

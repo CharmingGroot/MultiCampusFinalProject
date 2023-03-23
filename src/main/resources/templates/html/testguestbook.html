@@ -71,9 +71,9 @@
                             <img src="" alt="#" style="background-position: center; object-fit: cover;">
                           </div>
                           <div class="test formWrapper">
-                            <form th:action="@{/guestbook/create}" method="post" enctype="multipart/form-data" class="comment-form" name="commentForm" id="commentForm">
+                            <form th:action="@{/guestbook/upload}" method="post" class="comment-form" name="commentForm" id="commentForm">
                               <textarea placeholder="콩순아, 백년해로하렴" name="content" id="formTextArea" cols="50" rows="5" style="resize: none;"></textarea>
-                              <button id="textFormBtn" type="submit" onclick="addComment()">작성</button>
+                              <button id="textFormBtn" type="button" onclick="addComment()">작성</button>
                             </form>
                           </div>
                         </div>

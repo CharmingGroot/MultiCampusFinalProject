@@ -41,8 +41,8 @@ function addComment() {
 
 
   // 전달받은 form데이터로 배열 초기화하기
-  let commentForm = document.commentForm;
-  commentText.push(commentForm.comment.value);
+  // let commentForm = document.commentForm;
+  // commentText.push(commentForm.content.value);
 
 
 
@@ -108,7 +108,7 @@ function addComment() {
   // 6
   let guestCommentResult = document.createElement("div");
   formWrapper.appendChild(guestCommentResult).classList.add("guestCommentResult");
-  guestCommentResult.innerText = commentForm.comment.value;
+  guestCommentResult.innerText = commentForm.content.value;
 
 
 
@@ -138,7 +138,7 @@ function addComment() {
   btnEventSet();
 
 
-  submitData();
+  // submitData();
 };
 
 
@@ -200,22 +200,42 @@ function deleteList(e) {
 
 
 // 비동기로  작성자, form데이터, 작성일시를 서버로 보내기
-// function submitData() {
+function submitData() {
 
 
-//   let commentForm = document.commentForm;
-//   let comment = commentForm.comment.value
+  let commentForm = document.commentForm;
+  let comment = commentForm.content.value;
 
-//   const data = {
-//     comment: comment
-//   };
+  const formData = new FormData();
+  formData.append('content', comment);
+
+  fetch('http://localhost:8080/guestbook', {
+    method: 'POST', // 또는 'PUT'
+    body: JSON.stringify(formData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('성공:', data);
+    })
+    .catch((error) => {
+      console.error('실패:', error);
+    });
+
+}
+
+// const submitBtn = document.getElementById("textFormBtn");
+// submitBtn.addEventListener('click', (e) => {
+//   e.preventDefault();
+
+//   const commentForm = document.commentForm;
+//   const comment = commentForm.content.value;
+
+//   const formData = new FormData();
+//   formData.append('content', comment);
 
 //   fetch('http://localhost:8080/guestbook', {
 //     method: 'POST', // 또는 'PUT'
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(data),
+//     body: JSON.stringify(formData),
 //   })
 //     .then((response) => response.json())
 //     .then((data) => {
@@ -225,7 +245,4 @@ function deleteList(e) {
 //       console.error('실패:', error);
 //     });
 
-// }
-
-
-
+// });

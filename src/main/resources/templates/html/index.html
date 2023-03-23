@@ -30,15 +30,14 @@
 }
 </style>
 
-<script src="../assets/js/weather_info_api.js"></script>
-<script src="../assets/js/dust_info_api.js"></script>
-
-
-	<script defer src="../js/weather-api.js"></script>
-	<!-- chatGPT 스크립트 -->
+	 <!-- 미세먼지 스크립트입니다 -->
+	<script defer src="../assets/js/dust_info_api.js"></script>
+	 <!-- chatGPT 스크립트입니다 -->
 	<script defer src="../js/chatGPT.js"></script>
 	 <!-- 동물 품종 리스트 스크립트 -->
     <script src="../assets/js/pet-list.js"></script>
+     <!-- chatting 스크립트 -->
+    <script defer src="../js/chat.js"></script>
 
 </head>
 
@@ -63,10 +62,11 @@
 
 				<!-- Content wrapper -->
 				<div class="content-wrapper">
-					<!-- Content -->
 
+					<!-- Content -->
 					<div class="container-xxl flex-grow-1 container-p-y">
             			<div class="row">
+
 							<!-- Weather & Fine dust start -->
 							<div class="col-12">
 								<div class="card">
@@ -77,7 +77,7 @@
                       							<div class="info-wrap text-primary">
 												<div class="main-temp row justify-content-center text-center">
 												
-													<!-- 날씨 api -->
+													<!-- 날씨 api
 
 													<div id = "icon">
 														<span> </span>
@@ -85,6 +85,9 @@
 													<div id = "city">
 														<span> </span>
 													</div>
+													<div id = "desc">
+														<span> </span>
+													</div>	
 													<div id = "nowtemp">
 														<span> </span>
 													</div>
@@ -96,10 +99,10 @@
 													</div>
 													<div id = "wind">
 														<span> </span>
-													</div>
-
-													<!-- 미세먼지 api -->
+													</div> -->
 													
+													<!-- 미세먼지 api -->
+														
 													<div id = "mainval">
 														<span> </span>
 													</div>
@@ -110,26 +113,26 @@
 														<span> </span>
 													</div>
 
-                        						</div>
-                     							</div>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-            			</div>
-						<!-- Weather & Fine dust end -->
+							<!-- Weather & Fine dust end -->
 
 
-						<!-- Health Status Dash Board Area start-->
-						<div class="row">
-						<div class="col-12">
-								<div class="card">
-									<div class="card-text h1">Health status</div>
-									<hr>
-									<div class="card-body" style="height: 200px;">차트가 들어갈 영역입니다.</div>
-								</div>
-						</div>
-						</div>
+							<!-- Health Status Dash Board Area start-->
+							<div class="row">
+							<div class="col-12">
+									<div class="card">
+										<div class="card-text h1">Health status</div>
+										<hr>
+										<div class="card-body" style="height: 200px;">차트가 들어갈 영역입니다.</div>
+									</div>
+							</div>
+							</div>
+						</div>	
 					</div>
 				</div>	
 						<!-- Health Status Dash Board Area end -->
@@ -183,9 +186,7 @@
 							<!-- AI 답변 영역 시작 -->
 							<!-- spinner -->
 				<div class="row question">
-              		<div class="col-12 spinning-run" id="roadingStatus">
-              		
-                    </div>
+              		<div class="col-12 spinning-run" id="roadingStatus"></div>
 				</div>
 				<!-- 답변영역 -->
 				<div class="row loading">
@@ -211,7 +212,68 @@
 												<h5 class="card-title friend-profile">양천구 콩순이</h5>
 												<p class="card-text">#남 #으르렁 #으르렁대 #3살 #사교적</p>
 												<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-												<p class="card-text"><button class="btn btn-primary" onclick="">실시간 채팅하기</button></p>
+												<p class="card-text"><button class="btn btn-primary" onclick="" type="button" data-bs-toggle="modal" data-bs-target="#modalScrollable" >실시간 채팅하기</button></p>
+												
+							                      <!-- Modal -->
+							                   <div class="modal fade" id="modalScrollable" tabindex="-1" aria-hidden="true">
+							                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+							                          <div class="modal-content">
+							                            <div class="modal-header">
+							                              <h5 class="modal-title" id="modalScrollableTitle">Modal title</h5>
+							                              <button
+							                                type="button"
+							                                class="btn-close"
+							                                data-bs-dismiss="modal"
+							                                aria-label="Close"
+							                              ></button>
+							                            </div>
+							                            <div class="modal-body" id="chat-body">
+							                             <div class="card-body">
+							                                Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+							                                in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+							                             </div>
+							                              <p>
+							                                Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+							                                in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+							                              </p>
+							                              <p>
+							                                Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
+							                                lacus vel augue laoreet rutrum faucibus dolor auctor.
+							                              </p>
+							                              <p>
+							                                Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
+							                                scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
+							                                auctor fringilla.
+							                              </p>
+							                              <p>
+							                                Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+							                                in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+							                              </p>
+							                              <p>
+							                                Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
+							                                lacus vel augue laoreet rutrum faucibus dolor auctor.
+							                              </p>
+							                              <p>
+							                                Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
+							                                scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
+							                                auctor fringilla.
+							                              </p>
+							                            </div>
+							                            <div class="row card-body">
+						                            	<input class="form-control" id="chat" style="height: 50px" required></input>
+							                              <button type="button" class="btn btn-primary" onclick="javascript:showChat();">send message</button>
+							                            </div>
+							                            <div class="modal-footer">
+							                              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+							                                Close
+							                              </button>
+							                            </div>
+							                          </div>
+							                        </div>
+							                      </div>
+               
+                      
+											
 											</div>
 										</div>
 									</div>
@@ -268,7 +330,6 @@
 
 		<!-- Overlay -->
 		<div class="layout-overlay layout-menu-toggle"></div>
-	</div>
 	<!-- / Layout wrapper -->
 	
 

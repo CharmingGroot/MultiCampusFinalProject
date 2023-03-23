@@ -26,6 +26,13 @@
 <link rel="stylesheet" href="../assets/css/status.css">
 <link rel="stylesheet" href="../assets/css/calendar/main.css">
 
+<!-- Load c3.css -->
+	<link href="../assets/c3/c3-0.7.20/c3-0.7.20/c3.css" rel="stylesheet">
+
+	<!-- Load d3.js and c3.js -->
+	<!-- <script src="/path/to/d3.v5.min.js" charset="utf-8"></script> -->
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="../assets/c3/c3-0.7.20/c3-0.7.20/c3.min.js"></script>
 </head>
 
 <body>
@@ -67,9 +74,12 @@
                       </div>
                    </b> </h3>
                    <br>
+                   
+                   <form action="/status" method="get" >
+                   
                    <div>
                  <div class="input-group">
-				   <span class="input-group-text" id="basic-addon1">Meal</span>
+				   <span class="input-group-text" id="basic-addon1">Food</span>
 					<input name="food" type="number" min="0" class="form-control"
 						   placeholder="g 단위로 입력하세요" aria-describedby="button-addon2"/>
 				</div>
@@ -90,14 +100,14 @@
                   <br>
                   
                     <div class="input-group">
-                    <span class="input-group-text" id="basic-addon1">Snack</span>
-					<input name="snack" type="number" min="0" class="form-control"
+                    <span class="input-group-text" id="basic-addon1">Treat</span>
+					<input name="treat" type="number" min="0" class="form-control"
 						   placeholder="숫자(횟수)로 입력하세요" aria-describedby="button-addon2"/>
 				   </div>
 				   <br>
 				   
                 	<div class="input-group">
-					  <span class="input-group-text" id="basic-addon1">몸무게</span>
+					  <span class="input-group-text" id="basic-addon1">Weight</span>
 					  <input name="weight" type="number" min="0" class="form-control"
 							 placeholder="kg 단위로 입력하세요" aria-describedby="button-addon2"/>
 					   </div>
@@ -107,6 +117,7 @@
 			  <button class="btn btn-outline-primary" type="submit" id="button-addon2">💾&nbsp<b>기록하기</b> <i class="fa-solid fa-plus"></i></button>
 			</div>
 			</div>
+			</form>
                   <br>
                   <br>
                   
@@ -140,11 +151,16 @@
                      </button>
                      </div>
                   <div>
-         
-            
+                  
      </div>
                  
             </div>
+            
+              <div class="chart-wrapper">
+				    <div class="total-chart">
+										<!-- 차트가 렌더링될 공간 -->
+									</div>
+								</div>
             
             <br>
             <br>
@@ -197,9 +213,8 @@
 <script defer src="../assets/js/calendar/fullcalendar.js"></script>
 <script defer src="../assets/js/calendar/main.js"></script>
 
-<!-- 몸무게 등등 입력값 스크립트 -->
-	<script src="../assets/js/blog.js"></script>
-   
+	<!-- 그래프 스크립트 -->
+   <script src="../assets/js/status-graph.js"></script>
 
 </body>
 </html>
