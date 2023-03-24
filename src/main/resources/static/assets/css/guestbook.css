@@ -1,136 +1,65 @@
 @charset "UTF-8";
 
-.card-wrapper {
-	/* display:flex;
-	justify-content: space-between;	 */
-}
 
 .test {
 
 	border: 1px solid salmon;
 }
 
-.profile img {
-	width: 300px;
-	height: 300px;
-}
-
-.book-wrapper {
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	min-width: 0;
-	word-wrap: break-word;
-	background-color: #ffffff;
-	background-clip: border-box;
-	border: 0 solid #d9dee3;
-	border-radius: 0.5rem;
-}
-
-.introduce>h3 {
-	margin: 0;
-	padding: 0;
-}
-
-.guestbook-wrapper {
-	padding: 16px 16px 16px 16px;
-	display: flex;
-	align-items: stretch;
-	flex: 1 1 auto;
-	flex-direction: column;
-}
-
-.guestComment-wrapper {
-	padding: 0;
-}
-
-.write {
-	border: 1px solid salmon;
-}
-
-.book-wrapper {
-	border: 1px solid salmon;
-}
-
-.top {
-	border: 1px solid salmon;
-}
-
-.guest-li {
-	padding: 15px 65px 15px 65px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.guest-li-inner {
-	background-color: #e6e6e6;
-	background-clip: border-box;
-	border: 0 solid #d9dee3;
-	border-radius: 0.7rem;
-	width: 650px;
-}
-
-.guest-info {
-	position: relative;
-	text-align: center;
-	justify-content: center;
-	align-items: center;
-	display: flex;
-}
-
-.guestCommentForm {
-	position: relative;
-	text-align: center;
-	justify-content: center;
-	align-items: center;
-	display: flex;
-}
-
-.guestProfile {
-	width: 148px;
-	height: 148px;
-	margin-right: 0;
-}
-
 
 li {
 	list-style: none;
+	margin-top: 25px;
 }
 
-.guestCommentWrapper>li {
-	list-style: none;
+#guestCommentWrapper {
+	padding: 0;
 	margin-top: 15px;
-	border: 1px solid salmon;
-
-
 }
 
 
-.formWrapper {
-	width: 480px;
-}
-
-.comment-form {
-	display: flex;
-	flex-direction: column;
-}
-
-.guest-info {
+.comment-info-wrapper {
 	display: flex;
 }
 
-.guestComment {
-	border: 1px solid salmon;
+.comment-info-wrapper>div {
+	margin: 10px 0 0 15px;
 }
 
-#guestComment {}
+.delBtn {}
 
+.comment-info-wrapper {
+	display: flex;
+}
 
-.commentNumber {}
+.btnWrapper {
+	display: flex;
+}
 
-.commentedGuest {}
+.btn-outline-dangerous {
+	color: #ff3e1d;
+	/* border-color: #ff3e1d; */
+	background: transparent;
+}
 
-.guestCommentResult {
-	width: 50%;
+.btn-outline-dangerous:hover {
+	color: #fff;
+	background-color: #e6381a;
+	border-color: #e6381a;
+	box-shadow: 0 0.125rem 0.25rem 0 rgba(255, 62, 29, 0.4);
+	transform: translateY(-1px);
+}
+
+.btn-outline-infoo {
+	color: #03c3ec;
+	/* border-color: #03c3ec; */
+	background: transparent;
+}
+
+.btn-outline-infoo:hover {
+	color: #fff;
+	background-color: #03b0d4;
+	border-color: #03b0d4;
+	box-shadow: 0 0.125rem 0.25rem 0 rgba(3, 195, 236, 0.4);
+	transform: translateY(-1px);
 }

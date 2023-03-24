@@ -1,6 +1,8 @@
 package com.ts.mvc.module.guestbook;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ts.mvc.module.guestbook.dto.request.GuestBookRegistRequest;
 import com.ts.mvc.module.guestbook.dto.response.GuestBookDetailResponse;
+import com.ts.mvc.module.guestbook.dto.response.GuestBookListResponse;
 import com.ts.mvc.module.user.UserPrincipal;
 
 import lombok.AllArgsConstructor;
@@ -29,27 +32,37 @@ import lombok.AllArgsConstructor;
 @RequestMapping("guestbook")
 public class GuestBookController {
 	
+	
 	private final GuestBookService guestBookService;
+	private final GuestBookRepository guestBookRepository;
+	
 	
 	@GetMapping("")
-	public String guestbook(Long gbIdx, @PageableDefault(size=10, sort="gbIdx", direction = Direction.DESC, page = 0) Pageable pageable, Model model) {
+	public String guestbook(GuestBookListResponse dto,Long gbIdx, @PageableDefault(size=10, sort="gbIdx", direction = Direction.DESC, page = 0) Pageable pageable, Model model) {
 		
-		Map<String, Object> commandMap = guestBookService.findGuestBookList(pageable);
-		model.addAllAttributes(commandMap);
+//		Map<String, Object> commandMap = guestBookService.findGuestBookList(pageable);
+//		model.addAllAttributes(commandMap);
 		
-//		GuestBookDetailResponse dto = guestBookService.findGuestBookByGbIdx(gbIdx);
-//		model.addAttribute("guestbook", dto);
+		List<GuestBook> guestbookList = guestBookRepository.findAll()
+				.stream()
+				.filter(entity -> entity != null)
+				.collect(Collectors.toList());
 		
+		model.addAttribute(guestbookList);
+				
 		return "/html/guestbook";
 	}
+	
+
 
 	@PostMapping("upload")
-	public String upload(@RequestBody String content, GuestBookRegistRequest dto) {
+	@ResponseBody
+	public String upload(@RequestBody String content, GuestBookRegistRequest dto, Model model) {
 		dto.setUserId(UserPrincipal.getUserPrincipal().getUserId());
+		dto.setContent(content);
+		model.addAttribute("content", content);
 		guestBookService.createGuestBook(dto);
-		
 		System.out.println(dto.getContent());
-		System.out.println(content);
 		return "redirect:/guestbook";
 	}
 	

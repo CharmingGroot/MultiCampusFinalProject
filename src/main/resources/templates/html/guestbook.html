@@ -55,58 +55,78 @@
 				<div class="content-wrapper">
 					<!-- Content -->
 					<div class="container-xxl flex-grow-1 container-p-y">
-            		<div class="row">
-            	<!-- Content -->
-		            <div class="container-xxl flex-grow-1 container-p-y">
-		            <h4 class="fw-bold py-3 mb-4">방명록</h4>
-		
-		              <!-- Content types -->
-		              <div class="guestbook-area">
-		              <div class="col-12 question-btn">
-		              <div class="card h-100">
-		              <h5><b>방명록 남기기</b></h5>
-		                 <input type="text" class="form-control" id="writer" name="writer" placeholder="작성자를 입력하세요." maxlength="10"/>
-		                 <form th:action="@{/guestbook/upload}" method="post" enctype="multipart/form-data" th:object="${guestBookList}" id="commentForm" name="commentForm">
-		                  <div class="form-floating" >
-		                    <textarea class="form-control" id="floatingTextarea2" style="height: 200px" placeholder="내용을 입력하세요." name="content"></textarea>
-		          				 		<label for="floatingTextarea2">
-														<div class="card-body" style="width:100px">
-		                      		<div class="card-title" >
-		                    				<div class="flex-shrink" style="height:100px; width:100px;">
-			                 					<img class="card-img" src="../assets/img/elements/20.jpg" alt="Card image cap" style="float:left;" />
-			            				</label>
-		                 		</div>
+						<div class="row">
+							<!-- Content -->
+							<div class="container-xxl flex-grow-1 container-p-y">
+								<h4 class="fw-bold py-3 mb-4">방명록</h4>
+								
+								<!-- Content types -->
+								<div class="guestbook-area">
+									<div class="col-12 question-btn">
+										<div class="card h-100">
+											<div class="guestInfoWrapper card-title"style="border-radius: 0.7rem 0.7rem;">
+												<div class="guestName">작성자(guest)</div>
+												<div class="localDateTime"></div>
+											</div>
+											<form th:action="@{/guestbook/upload}" method="post" enctype="multipart/form-data" id="commentForm" name="commentForm">
+												<div class="form-floating">
+													<textarea class="form-control" id="floatingTextarea2" cols="50" rows="5" style="height: 200px; resize:none; border-top-right-radius: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0;" placeholder="내용을 입력하세요." name="content"></textarea>
+												</div>
+											<div class="d-grid gap-1 ">
+												<button class="btn btn-primary btn-lg btn-comment" type="submit" id="submit1" onclick="addComment()" style="border-top-right-radius: 0; border-top-left-radius: 0; border-bottom-left-radius: 0.7rem; border-bottom-right-radius: 0.7rem;">방명록 남기기</button>
+											</div>
+										</form>
+									</div>
+								</div>
+													
+								<div class="row mb-5">
+									<h6 class="mt-2 text-muted">작성된 방명록</h6>
+									<div class="col-12 card-wrapper">
+										<div class="card col-6">
+											<div class="card-body">
+												<div class="guestContent">
+													<!-- [[${guestBookList}]] -->
+												</div>
+												<button type="button" class="btn btn-outline-info btn-sm updateBtn" id="btn-update">수정</button>
+												<button type="button" class="btn btn-outline-danger btn-sm delBtn" id="btn-delete">글 삭제</button>
 											</div>
 										</div>
-	        				</div>
-		                 
-		                  </div>
-		                  <div class="d-grid gap-1 ">
-		                    <button class="btn btn-primary" type="submit" id="submit1">방명록 남기기</button>
-		                  </div>
-		                  </form>
-		                </div>
+									</div>
+
+									<hr>
+									<div class="col-12 card-wrapper">
+										<ul id="guestCommentWrapper">
+											<h4>이웃들이 보내온 다정한 한마디</h4>
+											<li>
+												<div class="card col-12">
+													<div class="comment-info-wrapper">
+														<div>보낸이:상근이</div>
+														<div>등록일자: 2033.12.25</div>
+													</div>
+													<div class="card-body">
+														<p name="comment">ㅎㅇ</p>
+														
+													</div>
+													<div class="btnWrapper align-self-end">
+														<button type="button" class="btn btn-outline-infoo btn-sm updateBtn" style="border-top-right-radius: 0; border-top-left-radius: 0;" id="btnDelete">수정</button>
+														<button type="button" class="btn btn-outline-dangerous btn-sm delBtn" style="border-top-right-radius: 0; border-top-left-radius: 0;" id="btnUpdate">삭제</button>
+													</div>
+												</div>
+											</li>
+										</ul>
+
+										<div class="card">gd
+											<!-- [[$(guestbookList)]] -->
+										</div>
+									</div>
+								</div>
+							</div>
+								
+										
+											
 		                
-		              </div>
-		              <div class="row mb-5">
-		                  <h6 class="mt-2 text-muted">작성된 방명록</h6>
-		                <div class="col-12 card-wrapper">
-		                
-		                  <div class="card col-6">
-		                    <div class="card-body">
-		                      <span class="card-text guestBook">
-		                        [[${guestBookList}]]
-		                      </span>
-								<button type="button" class="btn btn-outline-info btn-sm" id="btn-update">수정</button>
-								<button type="button" class="btn btn-danger btn-sm" id="btn-delete">삭제</button>
-		                    </div>
-		                  </div>
 		                  
 		                  
-		                </div>
-		               </div>
-		               
-		            </div>
 		            <!-- / Content -->
 
             <!-- Footer -->

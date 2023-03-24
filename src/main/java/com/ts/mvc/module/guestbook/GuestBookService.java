@@ -1,11 +1,13 @@
 package com.ts.mvc.module.guestbook;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.ts.mvc.infra.code.ErrorCode;
 import com.ts.mvc.infra.exception.AuthException;
@@ -56,6 +58,8 @@ public class GuestBookService {
 		
 		return Map.of("guestBookList", GuestBookListResponse.toDtoList(page.getContent()), "paging", paging);
 	}
+
+	
 
 //	public GuestBookDetailResponse findGuestBookByGbIdx(Long gbIdx) {
 //		GuestBook guestBook = guestBookRepository.findById(gbIdx)
