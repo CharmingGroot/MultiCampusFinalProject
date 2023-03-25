@@ -1,19 +1,9 @@
 
-// window.onload = () => {
-//   fetch('http://localhost:8080/guestbook', {
-//     method: 'GET',
-//     body: JSON.stringify(data),
-//   })
-//     .then((response) => response.json())
-//     .then((data) => {
-//       console.log('성공:', data);
-//     })
-//     .catch((error) => {
-//       console.error('실패:', error);
-//     });
+window.onload = () => {
+
+}
 
 
-// }
 
 const commentForm = document.getElementById('commentForm');
 // console.log(commentForm);
@@ -24,16 +14,19 @@ commentForm.addEventListener('submit', async (event) => {
 
   let comment = document.commentForm.content.value;
 
-  const data = { comment: comment };
+  // 굳이 formData나 객체형태로 변환할 필요없이 값만 전달해도 된다.
+  // const formData = new FormData();
+  // formData.append('comment', comment);
+  // const data = { comment: comment };
 
   await fetch('http://localhost:8080/guestbook/upload', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data),
+    body: comment,
   })
-    .then((response) => response.json())
+    .then((response) => response)
     .then((data) => {
       console.log('성공:', data);
     })
@@ -44,6 +37,7 @@ commentForm.addEventListener('submit', async (event) => {
 
 
 });
+
 
 
 function addComment() {
@@ -107,8 +101,10 @@ function addComment() {
 
   // 리스트가 만들어질때마다 해당 리스트의 삭제버튼에 onclick 붙이기
   btnEventSet();
-
+  // commentRender();
 };
+
+
 
 function btnEventSet() {
 

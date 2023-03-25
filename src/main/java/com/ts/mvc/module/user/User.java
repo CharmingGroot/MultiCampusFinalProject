@@ -20,6 +20,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @DynamicInsert // insert 쿼리를 생성할 때 null인 필드는 쿼리에서 생략
@@ -29,14 +30,15 @@ public class User {
 	
 	@Id
 	private String userId;
-	
+
 	private String password;
 	private String email;
 	private String nickname;
-	
 	private String profileImageUrl;
-	
 	private String grade;
+
+	
+	
 	
 	@Column(columnDefinition = "timestamp default now()")
 	private LocalDateTime regDate;
@@ -44,6 +46,10 @@ public class User {
 	@OneToMany
 	@Builder.Default
 	private List<Badge> badges = new ArrayList<>();
+	
+	
+	
+	
 	
 	public static User createUser(SignUpRequest dto) {
 		return User.builder()
@@ -55,4 +61,13 @@ public class User {
 				   .grade(dto.getGrade())
 				   .build();
 	}
+
+
+
+
+
+
+
+
+	
 }

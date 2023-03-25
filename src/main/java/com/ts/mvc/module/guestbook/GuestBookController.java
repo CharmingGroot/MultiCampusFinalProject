@@ -48,7 +48,7 @@ public class GuestBookController {
 				.filter(entity -> entity != null)
 				.collect(Collectors.toList());
 		
-		model.addAttribute(guestbookList);
+		model.addAttribute("guestbookList",guestbookList);
 				
 		return "/html/guestbook";
 	}

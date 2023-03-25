@@ -9,19 +9,21 @@ import com.ts.mvc.module.user.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// DTO입니당
 @Data
 @NoArgsConstructor
 public class GuestBookListResponse {
 
 	private Long gbIdx;
 	private User user;
-	private User host;
+	private User nickname;
 	private String content;
 	
 	public GuestBookListResponse(GuestBook entity) {
 		this.gbIdx = entity.getGbIdx();
 		this.user = entity.getUser();
-		this.host = entity.getHost();
+//		this.host = entity.getHost();
+		this.nickname = entity.getNickname();
 		this.content = entity.getContent();
 	}
 	

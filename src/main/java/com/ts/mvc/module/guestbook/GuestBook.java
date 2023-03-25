@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -38,15 +39,17 @@ public class GuestBook {
 	private LocalDateTime regDate;
 	
 	@ManyToOne
-	private User user; // 수신자
+	private User user; // 수신자 = 방명록 주인
 	
 	@ManyToOne
-	private User host; // 발신자
+	private User nickname; // 주인 닉네임 Controller로 값을 받으면 해당 값을 할당할 수 있도록하자.
+	
 	
 	public static GuestBook createGuestBook(GuestBookRegistRequest dto, User user) {
+		
 		return GuestBook.builder()
-				.host(user)
 				.user(user)
+				.nickname(user)
 				.content(dto.getContent())
 				.build();
 	}
