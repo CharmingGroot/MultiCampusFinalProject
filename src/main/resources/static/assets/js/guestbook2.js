@@ -1,6 +1,8 @@
 
+// 페이지 로드 시 삭제버튼, 수정버튼 세팅함수 실행
 window.onload = () => {
-
+  delBtnEventSet();
+  updateBtnEventSet();
 }
 
 
@@ -74,12 +76,12 @@ function addComment() {
 
   createBtn1.setAttribute("type", "button");
   createBtn1.setAttribute("style", "border-top-right-radius: 0; border-top-left-radius: 0;");
-  createBtn1.id = "btnDelete";
+  // createBtn1.id = "btnDelete";
   createBtn1.innerText = "삭제";
 
   createBtn2.setAttribute("type", "button");
   createBtn2.setAttribute("style", "border-top-right-radius: 0; border-top-left-radius: 0;");
-  createBtn2.id = "btnUpdate";
+  // createBtn2.id = "btnUpdate";
   createBtn2.innerText = "수정";
 
   createDivS1.append(createDivT1);
@@ -100,60 +102,197 @@ function addComment() {
 
 
   // 리스트가 만들어질때마다 해당 리스트의 삭제버튼에 onclick 붙이기
-  btnEventSet();
-  // commentRender();
+  delBtnEventSet();
+
+  // 리스트가 만들어질때마다 해당 리스트의 수정버튼에 onclick 붙이기
+  updateBtnEventSet();
 };
 
 
 
-function btnEventSet() {
 
 
-  let eventTarget1 = document.getElementsByClassName("delBtn");
-  for (i = 0; i < eventTarget1.length; i++) {
-    eventTarget1[i].setAttribute("onclick", "deleteList(this)");
+
+
+
+
+
+
+
+
+
+
+
+// 삭제,수정 버튼에 속성부여해주는 함수들
+
+
+function delBtnEventSet() {
+  let eventTarget = document.getElementsByClassName("delBtn");
+  // console.log(eventTarget);
+  for (i = 0; i < eventTarget.length; i++) {
+    eventTarget[i].setAttribute("onclick", "deleteList(this)");
   };
 
-  let eventTarget2 = document.getElementsByClassName("updateBtn");
-  for (i = 0; i < eventTarget2.length; i++) {
-    eventTarget2[i].setAttribute("onclick", "updateComment(this)");
+};
+
+function updateBtnEventSet() {
+  let eventTarget = document.getElementsByClassName("updateBtn");
+  // console.log(eventTarget);
+  for (i = 0; i < eventTarget.length; i++) {
+    eventTarget[i].setAttribute("onclick", "updateCommentForm(this)");
   };
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // 비동기로 동작해야하며, 해당 함수 호출 시 DB 내용이 업데이트되어야함.
 function deleteList(e) {
 
-  // list 배열을 받아와서 지워야할 리스트의 인덱스를 파악해야함.
-  // console.log(guestComment);
+  // 1. 시각적으로 list지우기.
+  // 2. DB에서 list 지우기.
 
   console.log("deleteList 실행");
 
 
-  // 이렇게 하는것이 맞는건가 ^^..
-  let parent = e.parentNode.parentNode;
+  // 이렇게 여러번 접근하는것이 맞는건가 ^^.. no! parentElement로 접근해야함.
+  let parent = e.parentNode.parentNode.parentNode;
   parent.parentNode.removeChild(parent);
 
-  // 서버와 통신해야함.
 };
 
 
-function updateComment(e) {
+// 수정 폼을 만들고, 서버로 비동기 put요청을 보내는 함수
+function updateCommentForm(e) {
 
   // 기존에 입력되어있던 값 가져와서 임시 변수에 저장.
   // 변경값을 입력받을 엘리먼트 생성
-  // fetch PUT 메서드로 기존 테이블의 값 변경하고 비동기 통신하여 리렌더링
 
-  // 현재 선택요소의 부모요소의 (이전)형제요소의 첫번째 자식노드를 comment에 저장. 타입유의
-  let comment = e.parentNode.previousElementSibling.firstChild
-
-
-
-  //입력폼만들어주기
-  // 완료 버튼 만들어주기
-  // 수정 취소 버튼 만들기 => 실행 시 이전 Comment값을 re렌더링해줘야함.
+  // gbIdx 값
+  let gbIdx = e.parentElement.parentElement.firstElementChild.firstElementChild.innerText;
+  // console.log(gbIdx);
 
 
+  let content = e.parentElement.parentElement.firstElementChild.nextElementSibling.firstElementChild.innerText;
+  // console.log(content);
+
+  let data = {
+    gbIdx: gbIdx,
+    content: content,
+  };
 
 
+
+  // test
+  console.log("updateCommentForm 실행");
+  // console.log(gbIdx);
+  // console.log(content);
+  // console.log(e.parentElement.parentElement.parentElement);
+  // console.log(data.gbIdx + data.content);
+
+
+
+  // 현재 li 비우기
+  let li = e.parentElement.parentElement.parentElement;
+  console.log(li.parentElement);
+  li.innerHTML = "";
+
+
+  //form action="/guestbook/update" method="put" 
+  li.innerHTML = `<div class="comment-form-wrapper1"><form enctype="multipart/form-data" class="comment-form-wrapper2">
+  <div class="form-floating col-11">
+  <textarea class="form-control" id="updateTextArea" cols="50" rows="5" style="height: 200px; resize:none; border-top-right-radius: 0.7rem; border-top-left-radius: 0.7rem; border-bottom-left-radius: 0.7rem; border-bottom-right-radius: 0.7rem;" placeholder="내용을 입력하세요.">${data.content}</textarea>
+  </div>
+  <div class="d-grid gap-1 col-1">
+  <button class="btn btn-primary btn-lg btn-outline-infoo" type="button" id="updateCommentBtn" style="border-top-right-radius: 0.7rem; border-top-left-radius: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0;">수정</button>
+  <button class="btn btn-primary btn-lg btn-outline-dangerous" type="button" style="border-top-right-radius: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0.7rem;">취소</button>
+  </div>
+  </form></div>`;
+  // onclick="${updateComment(this, data)}"
+
+
+  // updateCommentBtn();
+
+  let updateCommentBtn = document.getElementById("updateCommentBtn");
+
+  updateCommentBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+
+
+    let content = document.getElementById("updateTextArea").value;
+    console.log(document.getElementById("updateTextArea").value);
+
+
+    let dataObj = {
+      content: content,
+      gbIdx: data.gbIdx,
+    };
+
+    console.log(data);
+    console.log(dataObj)
+    console.log("updateCommentBtn.addEventListener");
+
+    updateComment(dataObj);
+  });
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// function updateCommentBtn() {
+
+
+//   console.log(e.parentElement.parentElement.firstElementChild);
+
+//   updateComment(e, data);
+// }
+
+
+
+function updateComment(dataObj) {
+
+  console.log("updateComment 실행");
+  console.log(dataObj);
+  // 비동기 put
+  // fetch PUT 메서드로 기존 테이블의 값 변경하고 비동기 통신하여 리렌더링 요청
+  fetch('http://localhost:8080/guestbook/update', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(dataObj),
+  })
+    .then((response) => response)
+    .then((data) => {
+      console.log('성공:', data);
+    })
+    .catch((error) => {
+      console.error('실패:', error);
+    });
 }

@@ -2,6 +2,7 @@ package com.ts.mvc.module.guestbook;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,7 @@ import com.ts.mvc.infra.code.ErrorCode;
 import com.ts.mvc.infra.exception.AuthException;
 import com.ts.mvc.infra.exception.HandlableException;
 import com.ts.mvc.module.guestbook.dto.request.GuestBookRegistRequest;
+import com.ts.mvc.module.guestbook.dto.request.GuestBookUpdateRequest;
 import com.ts.mvc.module.guestbook.dto.response.GuestBookDetailResponse;
 import com.ts.mvc.module.guestbook.dto.response.GuestBookListResponse;
 import com.ts.mvc.module.user.User;
@@ -36,6 +38,32 @@ public class GuestBookService {
 		GuestBook guestBook = GuestBook.createGuestBook(dto, user);
 		
 		guestBookRepository.saveAndFlush(guestBook);
+		
+	}
+	
+	
+	// 수정기능
+	// 매개변수는 dto가 되는 것이 맞음.
+	@Transactional
+	public void updateGuestBook(GuestBookUpdateRequest dto) {
+		
+		// 칼럼조회 dto가 받아온 gbIdx와 일치하는 엔티티를 조회
+		Optional<GuestBook> guestbook = guestBookRepository.findById(dto.getGbIdx());
+		
+		GuestBook guestBook = guestbook.get();
+		
+		guestBook.setContent(dto.getContent());
+		
+		
+		// save n flush
+		guestBookRepository.saveAndFlush(guestBook);
+		
+				
+		
+		System.out.println("updateGuestBook의 결과값"+ guestBook);
+//		System.out.println("guestBook.getUser의 결과값" +guestBook.getUser()); // set 안해줘서 null
+//		System.out.println("guestBook.getGbIdx의 결과값" +guestBook.getGbIdx());
+		System.out.println("updateGuestBook Service 실행");
 		
 	}
 

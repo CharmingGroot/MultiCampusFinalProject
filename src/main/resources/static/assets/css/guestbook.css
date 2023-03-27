@@ -63,3 +63,19 @@ li {
 	box-shadow: 0 0.125rem 0.25rem 0 rgba(3, 195, 236, 0.4);
 	transform: translateY(-1px);
 }
+
+.comment-form-wrapper2 {
+	display: flex;
+}
+
+.comment-form-wrapper2 {
+	display: flex;
+	align-items: baseline;
+	justify-content: center;
+}
+
+.li-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+}

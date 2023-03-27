@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GuestBookRepository extends JpaRepository<GuestBook, Long>{
 	List<GuestBook> findAll();
+
+	List<GuestBook> findByGbIdxContaining(Long gbIdx);
 }

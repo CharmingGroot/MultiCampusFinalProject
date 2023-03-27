@@ -75,6 +75,7 @@ public class SecurityConfig {
 		http.csrf().ignoringAntMatchers("/mail");
 		http.csrf().ignoringAntMatchers("/blog");
 		http.csrf().ignoringAntMatchers("/guestbook/upload");
+		http.csrf().ignoringAntMatchers("/guestbook/update");
 		return http.build();
 	}
 	

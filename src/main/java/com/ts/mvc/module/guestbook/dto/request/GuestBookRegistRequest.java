@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class GuestBookRegistRequest {
 
 	private String userId;
+	private Long gbIdx;
 	
 	private String nickname;
 	

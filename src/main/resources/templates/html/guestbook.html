@@ -85,22 +85,27 @@
 								</div>
 													
 								<div class="row mb-5">
-									<h6 class="mt-2 text-muted">작성된 방명록</h6>
+									<!-- <h6 class="mt-2 text-muted">작성된 방명록</h6>
 									<div class="col-12 card-wrapper">
 										<div class="card col-6">
 											<div class="card-body">
-												<div class="guestContent">
-												</div>
-												<button type="button" class="btn btn-outline-info btn-sm updateBtn" id="btn-update">수정</button>
-												<button type="button" class="btn btn-outline-danger btn-sm delBtn" id="btn-delete">글 삭제</button>
+												<li>
+													<div >
+														<p name="comment" id="testComment">ㅎㅇ</p>
+													</div>
+													<div>
+														<button type="button" class="btn btn-outline-info btn-sm" onclick="updateCommentForm(this)">test수정</button>
+														<button type="button" class="btn btn-outline-danger btn-sm delBtn" id="btn-delete">test글 삭제</button>
+													</div>
+												</li>
 											</div>
 										</div>
-									</div>
+									</div> -->
 
 									<hr>
 									<div class="col-12 card-wrapper">
-										<ul id="guestCommentWrapper">
-											<h4>이웃들이 보내온 다정한 한마디</h4>
+										<h4>이웃들이 보내온 다정한 한마디</h4>
+										<!-- <ul id="guestCommentWrapper">
 											<li>
 												<div class="card col-12">
 													<div class="comment-info-wrapper">
@@ -108,7 +113,7 @@
 														<div>등록일자: 2033.12.25</div>
 													</div>
 													<div class="card-body">
-														<p name="comment">ㅎㅇ</p>
+														<p name="comment">TEST입니다.TEST입니다.TEST입니다.TEST입니다.TEST입니다.</p>
 														
 													</div>
 													<div class="btnWrapper align-self-end">
@@ -117,27 +122,29 @@
 													</div>
 												</div>
 											</li>
+										</ul> -->
+										<ul id="guestCommentWrapper">
+											<div class="col-12 li-wrapper">
+												<li th:each="guestbook : ${guestbookList}">
+													<div class="card col-12">
+														<div class="comment-info-wrapper">
+															<div class="gbIdx" th:text="${guestbook.gbIdx}"></div>
+															<div th:text="${guestbook.nickname}"></div>
+															<div th:text="${guestbook.regDate}"></div>
+														</div>
+														<div class="card-body">
+															<!-- json타입으로 받아와지는듯, 적절한 가공이 필요하다. -->
+															<p name="comment" th:text="${guestbook.content}"></p>
+														</div>
+														<div class="btnWrapper align-self-end">
+															<button type="button" class="btn btn-outline-infoo btn-sm updateBtn" style="border-top-right-radius: 0; border-top-left-radius: 0;" id="btnUpdate">수정</button>
+															<button type="button" class="btn btn-outline-dangerous btn-sm delBtn" style="border-top-right-radius: 0; border-top-left-radius: 0;" id="btnDelete">삭제</button>
+														</div>
+													</div>
+												</li>
+											</div>
 										</ul>
 
-										<div>
-											<li th:each="guestbook : ${guestbookList}">
-												<div class="card col-12">
-													<div class="comment-info-wrapper">
-														<div th:text="${guestbook.nickname}"></div>
-														<div th:text="${guestbook.regDate}"></div>
-													</div>
-													<div class="card-body">
-														<!-- json타입으로 받아와지는듯, 적절한 가공이 필요하다. -->
-														<p name="comment" th:text="${guestbook.content}"></p>
-													</div>
-													<div class="btnWrapper align-self-end">
-														<button type="button" class="btn btn-outline-infoo btn-sm updateBtn" style="border-top-right-radius: 0; border-top-left-radius: 0;" id="btnDelete">수정</button>
-														<button type="button" class="btn btn-outline-dangerous btn-sm delBtn" style="border-top-right-radius: 0; border-top-left-radius: 0;" id="btnUpdate">삭제</button>
-													</div>
-												</div>
-											</li>
-											</li>
-										</div>
 									</div>
 								</div>
 							</div>
