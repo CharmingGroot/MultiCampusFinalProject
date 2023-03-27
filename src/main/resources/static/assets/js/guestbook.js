@@ -1,219 +1,34 @@
-// let textFormBtn = document.getElementById("textFormBtn");
 
-// textFormBtn.addEventListener('click', () => {
-
-//   // let inputComment = this.comment.value;
-//   var commentForm = document.commentForm;
-//   commentText.push(commentForm.comment.value);
-//   // console.log(comment);
-
-// })
-
-
-
-// onload될 때 받아온 데이터를 변수에 저장 
-// 지금은 더미데이터
-let guestName = ["최호근1", "최호근2"];
-let commentNumber = ["1", "2"];
-let commentText = [];
-
-let guestBookData = {
-  commentNumber: commentNumber,
-  guestName: guestName,
-  commentText: commentText
-};
-
-
-//페이지가 로드되면 실행할 것들
+// 페이지 로드 시 삭제버튼, 수정버튼 세팅함수 실행
 window.onload = () => {
-  // fetch로 글번호, 작성자 댓글 가져와서 전역 변수값을 초기화.
-  // 글 리스트를 받아 변수에 초기화 
-  // 리스트는 유사배열형태로 다룰 수 있도록 클래스를 부여하고
-  // 반복문으로 생성하기.
-
+  delBtnEventSet();
+  updateBtnEventSet();
 }
 
 
 
-
-
-function addComment() {
-
-
-  // 전달받은 form데이터로 배열 초기화하기
-  // let commentForm = document.commentForm;
-  // commentText.push(commentForm.content.value);
-
-
-
-
-
-
-
-
-  // ul
-  let guestCommentWrapper = document.getElementById('guestCommentWrapper');
-
-
-  // 최상위 li
-  let guestComment = document.createElement("li");
-  guestComment.classList.add("guestComment");
-
-
-  // 2
-  let guestListLi = document.createElement("div");
-  guestListLi.classList.add("guest-li");
-
-  // 3
-  let guestListInner = document.createElement("div");
-  guestListInner.classList.add("guest-li-inner");
-
-  // 4
-  let guestListInfo = document.createElement("div");
-  guestListInfo.classList.add("guest-info", "test");
-
-  // 5 - 1
-  let commentNumber = document.createElement("div");
-  commentNumber.classList.add("commentNumber", "col-1");
-  commentNumber.innerText = "no. 1";
-
-  let commentedGuest = document.createElement("div");
-  commentedGuest.classList.add("commentedGuest", "col-3");
-  commentedGuest.innerText = "작성자 : 콩순이 칭구";
-
-  let commentDateTime = document.createElement("div");
-  commentDateTime.classList.add("commentDateTime", "col-7");
-  commentDateTime.innerText = "23.01.30";
-
-  let deleteCommentBtn = document.createElement("button");
-  deleteCommentBtn.classList.add("btn-primary", "col-1", "delBtn");
-  // deleteCommentBtn.id = "deleteCommentBtn";
-  deleteCommentBtn.setAttribute("type", "button");
-  // deleteCommentBtn.setAttribute("onclick", "del()");
-  deleteCommentBtn.innerText = "X";
-
-
-  // 4
-  let guestCommentForm = document.createElement("div");
-  guestCommentForm.classList.add("guestCommentForm", "test");
-
-
-  // 5 - 2
-  let guestProfile = document.createElement("div");
-  guestProfile.classList.add("guestProfile", "test");
-
-  let formWrapper = document.createElement("div");
-  formWrapper.classList.add("formWrapper", "test");
-
-  // 6
-  let guestCommentResult = document.createElement("div");
-  formWrapper.appendChild(guestCommentResult).classList.add("guestCommentResult");
-  guestCommentResult.innerText = commentForm.content.value;
-
-
-
-  // 렌더링
-  guestCommentForm.append(guestProfile)
-  guestCommentForm.append(formWrapper);
-
-  guestListInfo.append(commentNumber);
-  guestListInfo.append(commentedGuest);
-  guestListInfo.append(commentDateTime);
-  guestListInfo.append(deleteCommentBtn);
-
-
-  guestListInner.append(guestListInfo);
-  guestListInner.append(guestCommentForm);
-
-
-  guestListLi.append(guestListInner);
-
-  guestComment.append(guestListLi);
-
-  // document.body.append(guestList);
-
-  guestCommentWrapper.append(guestComment);
-
-  // 리스트가 만들어질때마다 해당 리스트의 삭제버튼에 onclick 붙이기
-  btnEventSet();
-
-
-  // submitData();
-};
-
-
-
-
-
-function btnEventSet() {
-
-  // 클래스 리스트 가져와서 변수에 담기
-  // 지울 때 몇번 인덱스에 있는 클래스를 지울지 명시해줘야할듯.
-
-  // console.log("btnEventSet 실행");
-  let eventTarget = document.getElementsByClassName("delBtn");
-  for (i = 0; i < eventTarget.length; i++) {
-    // eventTarget[i].addEventListener('click', (e) => {
-    //   // 삭제할 리스트 태그
-    //   let guestComment = document.getElementsByClassName("guestComment");
-    //   console.log(guestComment[i]);
-
-    //   i--; // 삭제버튼 계속누르면 i때문에  undefined가 출력되는데 어떻게 해결하지
-    // });
-
-
-    eventTarget[i].setAttribute("onclick", "deleteList(this)");
-    // console.dir(i);
-
-  };
-};
-
-
-// 비동기로 동작해야하며, 해당 함수 호출 시 DB 내용이 업데이트되어야함.
-function deleteList(e) {
-
-  // list 배열을 받아와서 지워야할 리스트의 인덱스를 파악해야함.
-  // console.log(guestComment);
-
-  console.log("deleteList 실행");
-
-
-  // 이렇게 하는것이 맞는건가 ^^..
-  let parent = e.parentNode.parentNode.parentNode.parentNode;
-  parent.parentNode.removeChild(parent);
-
-  // 서버와 통신해야함.
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// 비동기로  작성자, form데이터, 작성일시를 서버로 보내기
-function submitData() {
-
-
-  let commentForm = document.commentForm;
-  let comment = commentForm.content.value;
-
-  const formData = new FormData();
-  formData.append('content', comment);
-
-  fetch('http://localhost:8080/guestbook', {
-    method: 'POST', // 또는 'PUT'
-    body: JSON.stringify(formData),
+const commentForm = document.getElementById('commentForm');
+// console.log(commentForm);
+commentForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  let commentForm = document.getElementById("commentForm");
+
+  let comment = document.commentForm.content.value;
+
+  // 굳이 formData나 객체형태로 변환할 필요없이 값만 전달해도 된다.
+  // const formData = new FormData();
+  // formData.append('comment', comment);
+  // const data = { comment: comment };
+
+  await fetch('http://localhost:8080/guestbook/upload', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: comment,
   })
-    .then((response) => response.json())
+    .then((response) => response)
     .then((data) => {
       console.log('성공:', data);
     })
@@ -221,28 +36,263 @@ function submitData() {
       console.error('실패:', error);
     });
 
+
+
+});
+
+
+
+function addComment() {
+
+  console.log("addComment");
+
+  //ul
+  const guestCommentWrapper = document.getElementById("guestCommentWrapper");
+
+  let createList = document.createElement("li");
+  let createDiv1 = document.createElement("div"); // dept 1
+  let createDivS1 = document.createElement("div"); // dept 2 -1
+  let createDivS2 = document.createElement("div"); // dept 2 -2
+  let createDivS3 = document.createElement("div"); // dept 2 -3
+  let createDivT1 = document.createElement("div"); // dept 3 -1
+  let createDivT2 = document.createElement("div"); // dept 3 -2
+  let createBtn1 = document.createElement("button");
+  let createBtn2 = document.createElement("button");
+
+
+
+
+  createDiv1.classList.add("card", "col-12");
+  createDivS1.classList.add("comment-info-wrapper");
+  createDivS2.classList.add("card-body");
+  createDivS3.classList.add("btnWrapper", "align-self-end");
+  createBtn1.classList.add("btn", "btn-sm", "delBtn", "btn-outline-dangerous");
+  createBtn2.classList.add("btn", "btn-sm", "updateBtn", "btn-outline-infoo");
+
+  createDivS2.innerText = "반가워";
+  createDivT1.innerText = "보낸이 : 똘이";
+  createDivT2.innerText = "등록일자: 2033.12.25";
+
+
+  createBtn1.setAttribute("type", "button");
+  createBtn1.setAttribute("style", "border-top-right-radius: 0; border-top-left-radius: 0;");
+  // createBtn1.id = "btnDelete";
+  createBtn1.innerText = "삭제";
+
+  createBtn2.setAttribute("type", "button");
+  createBtn2.setAttribute("style", "border-top-right-radius: 0; border-top-left-radius: 0;");
+  // createBtn2.id = "btnUpdate";
+  createBtn2.innerText = "수정";
+
+  createDivS1.append(createDivT1);
+  createDivS1.append(createDivT2);
+
+  createDivS3.append(createBtn2);
+  createDivS3.append(createBtn1);
+
+
+  createDiv1.append(createDivS1);
+  createDiv1.append(createDivS2);
+  createDiv1.append(createDivS3);
+
+
+  createList.append(createDiv1);
+
+  guestCommentWrapper.append(createList);
+
+
+  // 리스트가 만들어질때마다 해당 리스트의 삭제버튼에 onclick 붙이기
+  delBtnEventSet();
+
+  // 리스트가 만들어질때마다 해당 리스트의 수정버튼에 onclick 붙이기
+  updateBtnEventSet();
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 삭제,수정 버튼에 속성부여해주는 함수들
+
+
+function delBtnEventSet() {
+  let eventTarget = document.getElementsByClassName("delBtn");
+  // console.log(eventTarget);
+  for (i = 0; i < eventTarget.length; i++) {
+    eventTarget[i].setAttribute("onclick", "deleteList(this)");
+  };
+
+};
+
+function updateBtnEventSet() {
+  let eventTarget = document.getElementsByClassName("updateBtn");
+  // console.log(eventTarget);
+  for (i = 0; i < eventTarget.length; i++) {
+    eventTarget[i].setAttribute("onclick", "updateCommentForm(this)");
+  };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 비동기로 동작해야하며, 해당 함수 호출 시 DB 내용이 업데이트되어야함.
+function deleteList(e) {
+
+  // 1. 시각적으로 list지우기.
+  // 2. DB에서 list 지우기.
+
+  console.log("deleteList 실행");
+
+
+  // 이렇게 여러번 접근하는것이 맞는건가 ^^.. no! parentElement로 접근해야함.
+  let parent = e.parentNode.parentNode.parentNode;
+  parent.parentNode.removeChild(parent);
+
+};
+
+
+// 수정 폼을 만들고, 서버로 비동기 put요청을 보내는 함수
+function updateCommentForm(e) {
+
+  // 기존에 입력되어있던 값 가져와서 임시 변수에 저장.
+  // 변경값을 입력받을 엘리먼트 생성
+
+  // gbIdx 값
+  let gbIdx = e.parentElement.parentElement.firstElementChild.firstElementChild.innerText;
+  // console.log(gbIdx);
+
+
+  let content = e.parentElement.parentElement.firstElementChild.nextElementSibling.firstElementChild.innerText;
+  // console.log(content);
+
+  let data = {
+    gbIdx: gbIdx,
+    content: content,
+  };
+
+
+
+  // test
+  console.log("updateCommentForm 실행");
+  // console.log(gbIdx);
+  // console.log(content);
+  // console.log(e.parentElement.parentElement.parentElement);
+  // console.log(data.gbIdx + data.content);
+
+
+
+  // 현재 li 비우기
+  let li = e.parentElement.parentElement.parentElement;
+  console.log(li.parentElement);
+  li.innerHTML = "";
+
+
+  //form action="/guestbook/update" method="put" 
+  li.innerHTML = `<div class="comment-form-wrapper1"><form enctype="multipart/form-data" class="comment-form-wrapper2">
+  <div class="form-floating col-11">
+  <textarea class="form-control" id="updateTextArea" cols="50" rows="5" style="height: 200px; resize:none; border-top-right-radius: 0.7rem; border-top-left-radius: 0.7rem; border-bottom-left-radius: 0.7rem; border-bottom-right-radius: 0.7rem;" placeholder="내용을 입력하세요.">${data.content}</textarea>
+  </div>
+  <div class="d-grid gap-1 col-1">
+  <button class="btn btn-primary btn-lg btn-outline-infoo" type="button" id="updateCommentBtn" style="border-top-right-radius: 0.7rem; border-top-left-radius: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0;">수정</button>
+  <button class="btn btn-primary btn-lg btn-outline-dangerous" type="button" style="border-top-right-radius: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0.7rem;">취소</button>
+  </div>
+  </form></div>`;
+  // onclick="${updateComment(this, data)}"
+
+
+  // updateCommentBtn();
+
+  let updateCommentBtn = document.getElementById("updateCommentBtn");
+
+  updateCommentBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+
+
+    let content = document.getElementById("updateTextArea").value;
+    console.log(document.getElementById("updateTextArea").value);
+
+
+    let dataObj = {
+      content: content,
+      gbIdx: data.gbIdx,
+    };
+
+    console.log(data);
+    console.log(dataObj)
+    console.log("updateCommentBtn.addEventListener");
+
+    updateComment(dataObj);
+  });
+
+
 }
 
-// const submitBtn = document.getElementById("textFormBtn");
-// submitBtn.addEventListener('click', (e) => {
-//   e.preventDefault();
 
-//   const commentForm = document.commentForm;
-//   const comment = commentForm.content.value;
 
-//   const formData = new FormData();
-//   formData.append('content', comment);
 
-//   fetch('http://localhost:8080/guestbook', {
-//     method: 'POST', // 또는 'PUT'
-//     body: JSON.stringify(formData),
-//   })
-//     .then((response) => response.json())
-//     .then((data) => {
-//       console.log('성공:', data);
-//     })
-//     .catch((error) => {
-//       console.error('실패:', error);
-//     });
 
-// });
+
+
+
+
+
+
+
+// function updateCommentBtn() {
+
+
+//   console.log(e.parentElement.parentElement.firstElementChild);
+
+//   updateComment(e, data);
+// }
+
+
+
+function updateComment(dataObj) {
+
+  console.log("updateComment 실행");
+  console.log(dataObj);
+  // 비동기 put
+  // fetch PUT 메서드로 기존 테이블의 값 변경하고 비동기 통신하여 리렌더링 요청
+  fetch('http://localhost:8080/guestbook/update', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(dataObj),
+  })
+    .then((response) => response)
+    .then((data) => {
+      console.log('성공:', data);
+    })
+    .catch((error) => {
+      console.error('실패:', error);
+    });
+}
