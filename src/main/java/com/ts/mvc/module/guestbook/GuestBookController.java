@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ts.mvc.module.guestbook.dto.request.GuestBookDeleteRequest;
 import com.ts.mvc.module.guestbook.dto.request.GuestBookRegistRequest;
 import com.ts.mvc.module.guestbook.dto.request.GuestBookUpdateRequest;
 import com.ts.mvc.module.guestbook.dto.response.GuestBookDetailResponse;
@@ -99,6 +101,16 @@ public class GuestBookController {
 	}
 	
 	
+	@DeleteMapping("delete")
+	@ResponseBody
+	public String delete(@RequestBody GuestBookDeleteRequest dto) {
+		
+		System.out.println("delete 매핑");
+		System.out.println(dto);
+		guestBookService.deleteGuestBook(dto);
+		
+		return "redirect:/guestbook";
+	}
 	
 	@PostMapping("remove")
 	public String remove(Long bdIdx) {

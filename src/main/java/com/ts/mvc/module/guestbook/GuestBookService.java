@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.ts.mvc.infra.code.ErrorCode;
 import com.ts.mvc.infra.exception.AuthException;
 import com.ts.mvc.infra.exception.HandlableException;
+import com.ts.mvc.module.guestbook.dto.request.GuestBookDeleteRequest;
 import com.ts.mvc.module.guestbook.dto.request.GuestBookRegistRequest;
 import com.ts.mvc.module.guestbook.dto.request.GuestBookUpdateRequest;
 import com.ts.mvc.module.guestbook.dto.response.GuestBookDetailResponse;
@@ -76,6 +77,21 @@ public class GuestBookService {
 		guestBookRepository.delete(guestBook);
 	}
 
+	@Transactional
+	public void deleteGuestBook(GuestBookDeleteRequest dto) {
+		try {
+			GuestBook guestBook = guestBookRepository.findById(dto.getGbIdx()).orElse(null); // 먼저 해당 Entity를 조회합니다.
+			System.out.println("Service Layer : Delete : "+guestBook);
+			guestBookRepository.delete(guestBook); // 조회된 Entity를 delete 메소드에 전달합니다.			
+		} catch (Exception e) {
+			System.out.println("게시글이 존재하지 않습니다.");
+		}
+		
+		
+	}
+
+	
+	
 	public Map<String, Object> findGuestBookList(Pageable pageable) {
 		Page<GuestBook> page = guestBookRepository.findAll(pageable);
 		
@@ -86,6 +102,8 @@ public class GuestBookService {
 		
 		return Map.of("guestBookList", GuestBookListResponse.toDtoList(page.getContent()), "paging", paging);
 	}
+
+
 
 	
 

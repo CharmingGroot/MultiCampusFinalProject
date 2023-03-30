@@ -164,15 +164,27 @@ function updateBtnEventSet() {
 // 비동기로 동작해야하며, 해당 함수 호출 시 DB 내용이 업데이트되어야함.
 function deleteList(e) {
 
+  console.log("deleteList 실행");
+
   // 1. 시각적으로 list지우기.
   // 2. DB에서 list 지우기.
 
-  console.log("deleteList 실행");
+  // gbIdx값과 일치하는 행 지우기.
+  let gbIdx = e.parentElement.parentElement.firstElementChild.firstElementChild.innerText;
+
+
 
 
   // 이렇게 여러번 접근하는것이 맞는건가 ^^.. no! parentElement로 접근해야함.
   let parent = e.parentNode.parentNode.parentNode;
-  parent.parentNode.removeChild(parent);
+  // parent.parentNode.removeChild(parent);
+
+  let dataObj = {
+    gbIdx: gbIdx,
+  }
+
+  deleteComment(dataObj);
+
 
 };
 
@@ -283,6 +295,28 @@ function updateComment(dataObj) {
   // fetch PUT 메서드로 기존 테이블의 값 변경하고 비동기 통신하여 리렌더링 요청
   fetch('http://localhost:8080/guestbook/update', {
     method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(dataObj),
+  })
+    .then((response) => response)
+    .then((data) => {
+      console.log('성공:', data);
+    })
+    .catch((error) => {
+      console.error('실패:', error);
+    });
+}
+
+function deleteComment(dataObj) {
+
+  console.log("deleteComment 실행");
+  console.log(dataObj);
+  // 비동기 put
+  // fetch PUT 메서드로 기존 테이블의 값 변경하고 비동기 통신하여 리렌더링 요청
+  fetch('http://localhost:8080/guestbook/delete', {
+    method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
