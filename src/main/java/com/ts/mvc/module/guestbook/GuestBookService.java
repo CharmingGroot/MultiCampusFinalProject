@@ -82,6 +82,15 @@ public class GuestBookService {
 		try {
 			GuestBook guestBook = guestBookRepository.findById(dto.getGbIdx()).orElse(null); // 먼저 해당 Entity를 조회합니다.
 			System.out.println("Service Layer : Delete : "+guestBook);
+			
+			// 삭제할 gbIdx 행 다음 순서의 글들을 조회 >> gbIdx가 primary key로 설정되어있어서 변경이 불가함.
+//            List<GuestBook> nextGuestBooks = guestBookRepository.findNextGuestBooks(dto.getGbIdx());
+
+//            for(GuestBook guestbook : nextGuestBooks) {
+//            	guestbook.setGbIdx(guestbook.getGbIdx()-1);
+//            }
+			
+			
 			guestBookRepository.delete(guestBook); // 조회된 Entity를 delete 메소드에 전달합니다.			
 		} catch (Exception e) {
 			System.out.println("게시글이 존재하지 않습니다.");

@@ -129,11 +129,10 @@
 													<div class="card col-12">
 														<div class="comment-info-wrapper">
 															<div class="gbIdx" th:text="${guestbook.gbIdx}"></div>
-															<div th:text="${guestbook.nickname}"></div>
+															<div th:text="${guestbook.user}"></div>
 															<div th:text="${guestbook.regDate}"></div>
 														</div>
 														<div class="card-body">
-															<!-- json타입으로 받아와지는듯, 적절한 가공이 필요하다. -->
 															<p name="comment" th:text="${guestbook.content}"></p>
 														</div>
 														<div class="btnWrapper align-self-end">

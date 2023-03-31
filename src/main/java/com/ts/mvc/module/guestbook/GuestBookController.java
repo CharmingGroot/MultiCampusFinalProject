@@ -1,5 +1,6 @@
 package com.ts.mvc.module.guestbook;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -42,17 +43,19 @@ public class GuestBookController {
 	
 	
 	@GetMapping("")
-	public String guestbook(GuestBookListResponse dto,Long gbIdx, @PageableDefault(size=10, sort="gbIdx", direction = Direction.DESC, page = 0) Pageable pageable, Model model) {
+	public String guestbook(GuestBookListResponse dto,Long gbIdx, Model model) {
 		
 		System.out.println("GetMapping('') 입니다.");
 		
-//		Map<String, Object> commandMap = guestBookService.findGuestBookList(pageable);
-//		model.addAllAttributes(commandMap);
 		
 		List<GuestBook> guestbookList = guestBookRepository.findAll()
 				.stream()
 				.filter(entity -> entity != null)
 				.collect(Collectors.toList());
+		
+		// 리스트 역정렬
+		Collections.reverse(guestbookList);
+		
 		
 		model.addAttribute("guestbookList",guestbookList);
 				

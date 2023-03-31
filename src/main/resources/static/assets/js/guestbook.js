@@ -32,6 +32,9 @@ commentForm.addEventListener('submit', async (event) => {
     .then((data) => {
       console.log('성공:', data);
     })
+    .then(() => {
+      location.reload();
+    })
     .catch((error) => {
       console.error('실패:', error);
     });
@@ -44,61 +47,61 @@ commentForm.addEventListener('submit', async (event) => {
 
 function addComment() {
 
-  console.log("addComment");
+  // console.log("addComment");
 
-  //ul
-  const guestCommentWrapper = document.getElementById("guestCommentWrapper");
+  // //ul
+  // const guestCommentWrapper = document.getElementById("guestCommentWrapper");
 
-  let createList = document.createElement("li");
-  let createDiv1 = document.createElement("div"); // dept 1
-  let createDivS1 = document.createElement("div"); // dept 2 -1
-  let createDivS2 = document.createElement("div"); // dept 2 -2
-  let createDivS3 = document.createElement("div"); // dept 2 -3
-  let createDivT1 = document.createElement("div"); // dept 3 -1
-  let createDivT2 = document.createElement("div"); // dept 3 -2
-  let createBtn1 = document.createElement("button");
-  let createBtn2 = document.createElement("button");
-
-
+  // let createList = document.createElement("li");
+  // let createDiv1 = document.createElement("div"); // dept 1
+  // let createDivS1 = document.createElement("div"); // dept 2 -1
+  // let createDivS2 = document.createElement("div"); // dept 2 -2
+  // let createDivS3 = document.createElement("div"); // dept 2 -3
+  // let createDivT1 = document.createElement("div"); // dept 3 -1
+  // let createDivT2 = document.createElement("div"); // dept 3 -2
+  // let createBtn1 = document.createElement("button");
+  // let createBtn2 = document.createElement("button");
 
 
-  createDiv1.classList.add("card", "col-12");
-  createDivS1.classList.add("comment-info-wrapper");
-  createDivS2.classList.add("card-body");
-  createDivS3.classList.add("btnWrapper", "align-self-end");
-  createBtn1.classList.add("btn", "btn-sm", "delBtn", "btn-outline-dangerous");
-  createBtn2.classList.add("btn", "btn-sm", "updateBtn", "btn-outline-infoo");
-
-  createDivS2.innerText = "반가워";
-  createDivT1.innerText = "보낸이 : 똘이";
-  createDivT2.innerText = "등록일자: 2033.12.25";
 
 
-  createBtn1.setAttribute("type", "button");
-  createBtn1.setAttribute("style", "border-top-right-radius: 0; border-top-left-radius: 0;");
-  // createBtn1.id = "btnDelete";
-  createBtn1.innerText = "삭제";
+  // createDiv1.classList.add("card", "col-12");
+  // createDivS1.classList.add("comment-info-wrapper");
+  // createDivS2.classList.add("card-body");
+  // createDivS3.classList.add("btnWrapper", "align-self-end");
+  // createBtn1.classList.add("btn", "btn-sm", "delBtn", "btn-outline-dangerous");
+  // createBtn2.classList.add("btn", "btn-sm", "updateBtn", "btn-outline-infoo");
 
-  createBtn2.setAttribute("type", "button");
-  createBtn2.setAttribute("style", "border-top-right-radius: 0; border-top-left-radius: 0;");
-  // createBtn2.id = "btnUpdate";
-  createBtn2.innerText = "수정";
-
-  createDivS1.append(createDivT1);
-  createDivS1.append(createDivT2);
-
-  createDivS3.append(createBtn2);
-  createDivS3.append(createBtn1);
+  // createDivS2.innerText = "반가워";
+  // createDivT1.innerText = "보낸이 : 똘이";
+  // createDivT2.innerText = "등록일자: 2033.12.25";
 
 
-  createDiv1.append(createDivS1);
-  createDiv1.append(createDivS2);
-  createDiv1.append(createDivS3);
+  // createBtn1.setAttribute("type", "button");
+  // createBtn1.setAttribute("style", "border-top-right-radius: 0; border-top-left-radius: 0;");
+  // // createBtn1.id = "btnDelete";
+  // createBtn1.innerText = "삭제";
+
+  // createBtn2.setAttribute("type", "button");
+  // createBtn2.setAttribute("style", "border-top-right-radius: 0; border-top-left-radius: 0;");
+  // // createBtn2.id = "btnUpdate";
+  // createBtn2.innerText = "수정";
+
+  // createDivS1.append(createDivT1);
+  // createDivS1.append(createDivT2);
+
+  // createDivS3.append(createBtn2);
+  // createDivS3.append(createBtn1);
 
 
-  createList.append(createDiv1);
+  // createDiv1.append(createDivS1);
+  // createDiv1.append(createDivS2);
+  // createDiv1.append(createDivS3);
 
-  guestCommentWrapper.append(createList);
+
+  // createList.append(createDiv1);
+
+  // guestCommentWrapper.append(createList);
 
 
   // 리스트가 만들어질때마다 해당 리스트의 삭제버튼에 onclick 붙이기
@@ -106,6 +109,7 @@ function addComment() {
 
   // 리스트가 만들어질때마다 해당 리스트의 수정버튼에 onclick 붙이기
   updateBtnEventSet();
+
 };
 
 
@@ -232,16 +236,13 @@ function updateCommentForm(e) {
   </div>
   <div class="d-grid gap-1 col-1">
   <button class="btn btn-primary btn-lg btn-outline-infoo" type="button" id="updateCommentBtn" style="border-top-right-radius: 0.7rem; border-top-left-radius: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0;">수정</button>
-  <button class="btn btn-primary btn-lg btn-outline-dangerous" type="button" style="border-top-right-radius: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0.7rem;">취소</button>
+  <button class="btn btn-primary btn-lg btn-outline-dangerous" type="button" id="cancelBtn" style="border-top-right-radius: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0.7rem;">취소</button>
   </div>
   </form></div>`;
-  // onclick="${updateComment(this, data)}"
-
-
-  // updateCommentBtn();
 
   let updateCommentBtn = document.getElementById("updateCommentBtn");
 
+  // 수정버튼
   updateCommentBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
@@ -260,10 +261,16 @@ function updateCommentForm(e) {
     console.log(dataObj)
     console.log("updateCommentBtn.addEventListener");
 
-    updateComment(dataObj);
+    updateComment(dataObj, e);
+
   });
 
+  // 수정취소버튼
+  let cancelBtn = document.getElementById("cancelBtn");
 
+  cancelBtn.addEventListener('click', () => {
+    location.reload();
+  });
 }
 
 
@@ -271,23 +278,7 @@ function updateCommentForm(e) {
 
 
 
-
-
-
-
-
-
-// function updateCommentBtn() {
-
-
-//   console.log(e.parentElement.parentElement.firstElementChild);
-
-//   updateComment(e, data);
-// }
-
-
-
-function updateComment(dataObj) {
+function updateComment(dataObj, e) {
 
   console.log("updateComment 실행");
   console.log(dataObj);
@@ -304,9 +295,36 @@ function updateComment(dataObj) {
     .then((data) => {
       console.log('성공:', data);
     })
+    .then(() => {
+      location.reload();
+    })
     .catch((error) => {
       console.error('실패:', error);
     });
+
+
+  // console.log('e : ' + e);
+  // console.log('this : ' + this);
+  // let li = e.parentElement;
+  // console.log(li);
+
+  // li.innerHTML = `<li th:each="guestbook : ${guestbookList}">
+  //   <div class="card col-12">
+  //     <div class="comment-info-wrapper">
+  //       <div class="gbIdx" th:text="${guestbook.gbIdx}"></div>
+  //       <div th:text="${guestbook.nickname}"></div>
+  //       <div th:text="${guestbook.regDate}"></div>
+  //     </div>
+  //     <div class="card-body">
+  //       <p name="comment" th:text="${guestbook.content}"></p>
+  //     </div>
+  //     <div class="btnWrapper align-self-end">
+  //       <button type="button" class="btn btn-outline-infoo btn-sm updateBtn" style="border-top-right-radius: 0; border-top-left-radius: 0;" id="btnUpdate">수정</button>
+  //       <button type="button" class="btn btn-outline-dangerous btn-sm delBtn" style="border-top-right-radius: 0; border-top-left-radius: 0;" id="btnDelete">삭제</button>
+  //     </div>
+  //   </div>
+  // </li>`
+
 }
 
 function deleteComment(dataObj) {
@@ -326,7 +344,11 @@ function deleteComment(dataObj) {
     .then((data) => {
       console.log('성공:', data);
     })
+    .then(() => {
+      location.reload();
+    })
     .catch((error) => {
       console.error('실패:', error);
     });
 }
+

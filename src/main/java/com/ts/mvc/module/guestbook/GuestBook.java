@@ -47,6 +47,10 @@ public class GuestBook {
 	
 	public static GuestBook createGuestBook(GuestBookRegistRequest dto, User user) {
 		
+//		System.out.println("GuestBook의 CreateBook메서드 실행");
+//		System.out.println("dto.nickname" + dto.getNickname());
+//		System.out.println("User.nickname" + user.getNickname());
+		
 		return GuestBook.builder()
 				.user(user)
 				.nickname(user)
