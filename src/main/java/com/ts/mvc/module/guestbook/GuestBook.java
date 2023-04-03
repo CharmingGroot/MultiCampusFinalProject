@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -38,10 +39,11 @@ public class GuestBook {
 	@Column(columnDefinition = "timestamp default now()")
 	private LocalDateTime regDate;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_user_id")
 	private User user; // 수신자 = 방명록 주인
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private User nickname; // 주인 닉네임 Controller로 값을 받으면 해당 값을 할당할 수 있도록하자.
 	
 	

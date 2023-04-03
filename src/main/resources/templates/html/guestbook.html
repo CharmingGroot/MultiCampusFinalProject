@@ -123,22 +123,33 @@
 												</div>
 											</li>
 										</ul> -->
+										<div>
+										</div>
+										<div th:each="visitorWrittenList : ${visitorWrittenList}">
+											<div th:text="${visitorWrittenList.nickname.nickname}"></div>
+										</div>
 										<ul id="guestCommentWrapper">
 											<div class="col-12 li-wrapper">
-												<li th:each="guestbook : ${guestbookList}">
+												<li th:each="guestbook: ${guestbookList}">
 													<div class="card col-12">
 														<div class="comment-info-wrapper">
 															<div class="gbIdx" th:text="${guestbook.gbIdx}"></div>
-															<div th:text="${guestbook.user}"></div>
+															<div th:text="${guestbook.nickname.nickname}"></div>
 															<div th:text="${guestbook.regDate}"></div>
 														</div>
 														<div class="card-body">
 															<p name="comment" th:text="${guestbook.content}"></p>
 														</div>
-														<div class="btnWrapper align-self-end">
+														<div th:if="${pageOwnState.isPageOwner}" class="btnWrapper align-self-end">
+															[[${pageOwnState}]]
 															<button type="button" class="btn btn-outline-infoo btn-sm updateBtn" style="border-top-right-radius: 0; border-top-left-radius: 0;" id="btnUpdate">수정</button>
 															<button type="button" class="btn btn-outline-dangerous btn-sm delBtn" style="border-top-right-radius: 0; border-top-left-radius: 0;" id="btnDelete">삭제</button>
 														</div>
+														<div th:if="${pageOwnState.isPageVisitor}" class="btnWrapper align-self-end">
+															[[${pageOwnState}]]
+															<button type="button" class="btn btn-outline-infoo btn-sm updateBtn" style="border-top-right-radius: 0; border-top-left-radius: 0;" id="btnUpdate">수정</button>
+															<button type="button" class="btn btn-outline-dangerous btn-sm delBtn" style="border-top-right-radius: 0; border-top-left-radius: 0;" id="btnDelete">삭제</button>
+														</div>													
 													</div>
 												</li>
 											</div>

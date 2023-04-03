@@ -27,7 +27,7 @@ public class PetStatusDto {
 				+ "water=" + water + "\" + "
 				+ "walkDistance=" + walkDistance + "\" + "
 			    + "treat=" + treat + "\" + "
-				+ ", weight=" + weight + "]";
+				+ "weight=" + weight + "]";
 	}
 	
 	

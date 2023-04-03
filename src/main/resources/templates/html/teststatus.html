@@ -27,15 +27,15 @@
 <link rel="stylesheet" href="../assets/css/calendar/main.css">
 
 <!-- Load c3.css -->
-	<link href="../assets/c3/c3-0.7.20/c3-0.7.20/c3.css" rel="stylesheet">
+<link href="../assets/c3/c3-0.7.20/c3-0.7.20/c3.css" rel="stylesheet">
 
-	<!-- Load d3.js and c3.js -->
-	<!-- <script src="/path/to/d3.v5.min.js" charset="utf-8"></script> -->
-	<script src="https://d3js.org/d3.v5.min.js"></script>
-	<script src="../assets/c3/c3-0.7.20/c3-0.7.20/c3.min.js"></script>
+<!-- Load d3.js and c3.js -->
+<!-- <script src="/path/to/d3.v5.min.js" charset="utf-8"></script> -->
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="../assets/c3/c3-0.7.20/c3-0.7.20/c3.min.js"></script>
 	
-		<!-- 그래프 스크립트 -->
-   <script defer src="../assets/js/status-graph.js"></script>
+<!-- 그래프 스크립트 -->
+<script defer src="../assets/js/test-chart.js"></script>
 </head>
 
 <body>
@@ -60,84 +60,88 @@
             <!-- Content wrapper -->
             <div class="content-wrapper ">
             
-          	<!-- 3영역 시작 -->
-						<div class="main-contents2 col-12" id="third-area">
-							<div class="day-graph card col-7">
-								<h4 id="easy-checker-title">오늘 콩순이는 이만큼 먹고 마셨다.</h4>
-								<div class="chart-wrapper">
-									<div class="total-chart">
-										<!-- 차트가 렌더링될 공간 -->
-									</div>
-								</div>
-								<div class="card-text chart-description">
-									몸무게가 10kg인 프렌치 불독인 콩순이의 하루 권장 식사량은 400g이에요.
-								</div>
+          	<!-- graph start -->
+	<div class="main-contents2 col-12" id="third-area">
+	  <div class="day-graph card col-7">
+		<h4 id="easy-checker-title">오늘 두콩이는 이만큼 먹고 마셨다.</h4>
+		  <div class="chart-wrapper">
+			<div id="total-chart">
+				<!-- 차트 공간 -->
+		    </div>
+		  </div>
+		<div class="card-text chart-description">
+			몸무게가 10kg인 프렌치 불독인 두콩이의 하루 권장 식사량은 400g이에요.
+		</div>
 
-							</div>
+	  </div>
 
-							<!-- 급식, 급수, 몸무게 기입 -->
-							<div class="easy-checker card col-5">			
-								<h4 id="easy-checker-title">오늘 콩순이는 이만큼 먹었다</h4>
+	<!-- 급식, 급수, 몸무게 기입 -->
+	<div class="easy-checker card col-9">			
+	  <h4 id="easy-checker-title">Daily checker</h4>
 			
-								<!-- 급수량 -->
-									<form action="/teststatus" method="get" >
+		<!-- 급수량 -->
+		  <form action="/status" method="get" >
 										
-										<div>	
-											<div class="input-group">
-												<span class="input-group-text" id="basic-addon1">water</span>
-												<input
-												type="number"
-												class="form-control"
-												name="water"
-												min="0"
-												placeholder="ml 단위로 입력하세요"
-												aria-describedby="button-addon2"/>
-											</div>
-											<div class="input-group">
-												<span class="input-group-text" id="basic-addon1">food</span>
-												<input
-												name="food"
-													type="number"
-													min="0"
-													class="form-control"
-													placeholder="g 단위로 입력하세요"
-													aria-describedby="button-addon2"/>
-											</div>
-											<div class="input-group">
-												<span class="input-group-text" id="basic-addon1">몸무게</span>
-												<input
-													name="weight"
-													type="number"
-													min="0"
-													class="form-control"
-													placeholder="kg 단위로 입력하세요"
-													aria-describedby="button-addon2"/>
-											</div>
+		   <div>	
+			<div class="input-group">
+			<span class="input-group-text" id="basic-addon1">water</span>
+			<input
+				type="number"
+				class="form-control"
+				name="water"
+				min="0"
+				placeholder="ml 단위로 입력하세요"
+				aria-describedby="button-addon2"/>
+			</div>
+			
+			<div class="input-group">
+			<span class="input-group-text" id="basic-addon1">food</span>
+			<input
+				name="food"
+				type="number"
+				min="0"
+				class="form-control"
+				placeholder="g 단위로 입력하세요"
+				aria-describedby="button-addon2"/>
+			</div>
+			
+			<div class="input-group">
+			<span class="input-group-text" id="basic-addon1">몸무게</span>
+			<input
+				name="weight"
+				type="number"
+				min="0"
+				class="form-control"
+				placeholder="kg 단위로 입력하세요"
+				aria-describedby="button-addon2"/>
+			</div>
 											
-											     <div class="input-group">
-                    <span class="input-group-text" id="basic-addon1">Take a Walk</span>
-					<input name="walk" type="number" min="0" class="form-control"
-						   placeholder="km 단위로 입력하세요" aria-describedby="button-addon2"/>
-				   </div>
+			 <div class="input-group">
+             <span class="input-group-text" id="basic-addon1">Take a Walk</span>
+			 <input name="walk" type="number" min="0" class="form-control"
+				     placeholder="km 단위로 입력하세요" aria-describedby="button-addon2"/>
+			</div>
+                  
                   <br>
                   
-                    <div class="input-group">
-                    <span class="input-group-text" id="basic-addon1">Treat</span>
-					<input name="treat" type="number" min="0" class="form-control"
-						   placeholder="숫자(횟수)로 입력하세요" aria-describedby="button-addon2"/>
-				   </div>
+              <div class="input-group">
+              <span class="input-group-text" id="basic-addon1">Treat</span>
+			   <input name="treat" type="number" min="0" class="form-control"
+					   placeholder="숫자(횟수)로 입력하세요" aria-describedby="button-addon2"/>
+			  </div>
+			  
 				   <br>
-											<div class="easy-checker-btn">
+		       <div class="easy-checker-btn">
 												
-													<button class="btn btn-outline-primary" type="submit" id="button-addon2">💾&nbsp<b>기록하기</b> <i class="fa-solid fa-plus"></i></button>
+			    <button class="btn btn-outline-primary" type="submit" id="button-addon2">💾&nbsp<b>기록하기</b> <i class="fa-solid fa-plus"></i></button>
 												
-											</div>
-											</div>
-									</form>
-							</div>
-						</div>
+				</div>
+				</div>
+			</form>
+		</div>
+	</div>
 
-						<!-- 3영역 종료 -->
+						<!-- fin -->
             <br>
             <br>
            

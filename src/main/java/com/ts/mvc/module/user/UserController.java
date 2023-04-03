@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import com.ts.mvc.infra.code.ErrorCode;
 import com.ts.mvc.infra.code.Role;
 import com.ts.mvc.infra.exception.HandlableException;
+import com.ts.mvc.module.user.api.dto.UserUpdateDto;
 import com.ts.mvc.module.user.dto.request.LoginRequest;
 import com.ts.mvc.module.user.dto.request.SignUpRequest;
 import com.ts.mvc.module.user.validator.SignUpValidator;
@@ -100,10 +101,8 @@ public class UserController {
 	}
 	
 	@GetMapping("modify")
-	public String userModify(@AuthenticationPrincipal UserPrincipal userPrincipal, Model model) {
-		System.out.println("세션정보: " + userPrincipal.getPrincipal());
-		
-		model.addAttribute("principal", userPrincipal.getPrincipal());
+	public String userModify(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+//		System.out.println("세션정보: " + userPrincipal.getUser());
 		
 		return "/user/user-modify";
 	}

@@ -13,16 +13,19 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ts.mvc.module.guestbook.dto.PageOwnerDTO;
 import com.ts.mvc.module.guestbook.dto.request.GuestBookDeleteRequest;
 import com.ts.mvc.module.guestbook.dto.request.GuestBookRegistRequest;
 import com.ts.mvc.module.guestbook.dto.request.GuestBookUpdateRequest;
@@ -42,23 +45,39 @@ public class GuestBookController {
 	private final GuestBookRepository guestBookRepository;
 	
 	
-	@GetMapping("")
-	public String guestbook(GuestBookListResponse dto,Long gbIdx, Model model) {
-		
+	@GetMapping("/{pageOwnerNickName}")
+	public String guestbook(@PathVariable String pageOwnerNickName, @AuthenticationPrincipal UserPrincipal visitUserId , Model model) {
 		System.out.println("GetMapping('') 입니다.");
+
+		// 방문자의 페이지 소유자 여부와 수정,삭제 가능권한 설정
+		PageOwnerDTO pageOwnState = guestBookService.guestBookForm(pageOwnerNickName, visitUserId.getUser().getUserId());
 		
 		
+		// 현재 방문자가 작성한 글 리스트 조회하여 받아오기
+		List<GuestBook> visitorWrittenList = guestBookRepository.findByUserUserId(visitUserId.getUser().getUserId())
+				.stream().filter(entity -> entity != null).collect(Collectors.toList());
+		System.out.println("페이지의 주인일 때 visitorWrittenList : " + visitorWrittenList);
+
+		
+		// 전체 방명록 리스트
 		List<GuestBook> guestbookList = guestBookRepository.findAll()
 				.stream()
 				.filter(entity -> entity != null)
 				.collect(Collectors.toList());
 		
-		// 리스트 역정렬
+		// 전체 방명록 리스트 역정렬
 		Collections.reverse(guestbookList);
 		
 		
 		model.addAttribute("guestbookList",guestbookList);
-				
+		model.addAttribute("pageOwnState", pageOwnState);
+		model.addAttribute("visitorWrittenList",visitorWrittenList);
+		
+		
+		System.out.println("model은 : "+model);
+		System.out.println("pageOwnState는 : "+pageOwnState);
+		System.out.println("visitorWrittenList는 : " + visitorWrittenList);
+		
 		return "/html/guestbook";
 	}
 	

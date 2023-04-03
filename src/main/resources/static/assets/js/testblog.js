@@ -9,7 +9,7 @@ var RAOF = ((parseInt(weight) * 1000) * 0.02);
 // console.log(RAOF);
 
 window.onload = () => {
-  // URL 파라미터 값 받아오기
+    // URL 파라미터 값 받아오기
   const getParams = new URLSearchParams(location.search);
   for (const param of getParams) {
     console.log(param);

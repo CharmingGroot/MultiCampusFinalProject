@@ -21,9 +21,10 @@ public class UserPrincipal implements UserDetails, OAuth2User{
 	private static final long serialVersionUID = 1L;
 	
 	private Principal principal;
+	private User user;
 	
-	public UserPrincipal(Principal principal) {
-		this.principal = principal;
+	public UserPrincipal(User user) {
+		this.user = user;
 	}
 
 	// 권한
@@ -40,21 +41,29 @@ public class UserPrincipal implements UserDetails, OAuth2User{
 	}
 	
 	public String getUserId() {
-		return principal.getUserId();
+		return user.getUserId();
 	}
 	
 	@Override
 	public String getPassword() {
-		return principal.getPassword();
+		return user.getPassword();
 	}
 	
 	@Override
 	public String getUsername() {
-		return principal.getUserId();
+		return user.getUserId();
 	}
 	
 	public String getNickname() {
-		return principal.getNickname();
+		return user.getNickname();
+	}
+	
+	public String getEmail() {
+		return user.getEmail();
+	}
+	
+	public String getProfileImageUrl() {
+		return user.getProfileImageUrl();
 	}
 
 	@Override
@@ -88,6 +97,9 @@ public class UserPrincipal implements UserDetails, OAuth2User{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
+
 
 
 	

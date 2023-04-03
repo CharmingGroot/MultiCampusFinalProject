@@ -1,5 +1,7 @@
 package com.ts.mvc.module.user.dto;
 
+import java.io.Serializable;
+
 import com.ts.mvc.module.user.User;
 
 import lombok.Data;

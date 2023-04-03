@@ -23,8 +23,10 @@
    >
 <head>
    
-<!-- 사진 업로드 스크립트 -->
+	<!-- 사진 업로드 스크립트 -->
     <script src="../assets/js/pages-account-settings-account.js"></script>
+    <!-- 외부url사용 refer 해제? -->
+    <img referrerpolicy="no-referrer" th:src="${#authentication.principal.profileImageUrl}" />
 </head>
 
 <body>
@@ -51,59 +53,55 @@
          <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
       <div class="col-md-12">
-        <ul class="nav nav-pills flex-column flex-md-row mb-3">
-          <li class="nav-item">
-            <a class="nav-link active" href="javascript:void(0);"><i class="fa-solid fa-paw"></i> Register</a>
-          </li>
-        </ul>
+        
         <div class="card mb-4">
-        <form id="formAccountSettings" method="POST" onsubmit="return false" th:object="${principal}">
+        
           <h5 class="card-header">Profile Details</h5>
+          
           <!-- Account -->
-            <div class="card-body">
-     <div class="d-flex align-items-start align-items-sm-center gap-4">
-       <img
-         th:src="${principal.profileImageUrl}"
-         alt="user-avatar"
-         class="d-block rounded"
-         height="100"
-         width="100"
-         id="uploadedAvatar profileImageUrl"
-       />
-       <div class="button-wrapper">
-         <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-           <span class="d-none d-sm-block">Upload new photo</span>
-           <i class="bx bx-upload d-block d-sm-none"></i>
-           <input
-             type="file"
-             id="upload"
-             class="account-file-input"
-             hidden
-             accept="image/png, image/jpeg"
-           />
-         </label>
-         <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-           <i class="bx bx-reset d-block d-sm-none"></i>
-           <span class="d-none d-sm-block">Reset</span>
-         </button>
-         <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
-       </div>
-     </div>
-   </div>
+          <div class="card-body">
+     		<div class="d-flex align-items-start align-items-sm-center gap-4">
+     			<form id="userProfileImageForm">
+			        <input
+		              type="file"
+		              id="userProfileImageinput"
+		              name="profileImageFile"
+		              style="display:none;"
+		              accept="image/png, image/jpeg" />
+	            </form>
+		        
+		        <img
+		          src="#"
+		          alt="user-avatar"
+		          class="d-block rounded"
+		          height="100"
+		          width="100"
+		          id="userProfileImage" />
+		          
+		        <div class="button-wrapper">
+		            <button class="btn btn-primary me-2 mb-4" th:userImage="${#authentication.principal.userId}" onclick="profileImageUpload(this.getAttribute('userImage'))">
+		            	<span class="d-none d-sm-block">Upload new photo</span>
+		            	<i class="bx bx-upload d-block d-sm-none"></i>
+					</button>
+			              
+		            <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+		        </div>
+     		</div>
+   		  </div>
                     <hr class="my-0" />
+                    
                     <div class="card-body">
                       
                         <div class="row">
-                      
                           <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">ID</label>
+                            <label for="userId" class="form-label">ID</label>
                             <input
                               class="form-control"
                               type="text"
                               id="userId"
                               name="userId"
                               readonly="readonly"
-                              th:value="${principal.userId}"
+                              th:value="${#authentication.principal.userId}"
                               autofocus
                             />
                           </div>
@@ -116,44 +114,45 @@
                               id="email"
                               name="email"
                               readonly="readonly"
-                              th:value="${principal.email}"
+                              th:value="${#authentication.principal.email}"
                             />
                           </div>
                           
                           <div class="mb-3 col-md-6">
-                            <label for="lastName" class="form-label">Password</label>
-                            <input class="form-control" type="text" name="password" id="password" placeholder="영문 대소문자, 특수문자, 숫자를 포함하여 8자 이상을 입력하세요." />
+                            <label for="password" class="form-label">Password</label>
+                            <input class="form-control" type="password" name="password" id="password" placeholder="영문 대소문자, 특수문자, 숫자를 포함하여 8자 이상을 입력하세요." />
                           </div>
                           
                           <div class="mb-3 col-md-6">
-                            <label for="lastName" class="form-label">Check Password</label>
-                            <input class="form-control" type="text" name="password" id="password" placeholder="영문 대소문자, 특수문자, 숫자를 포함하여 8자 이상을 입력하세요."/>
+                            <label for="check_password" class="form-label">Check Password</label>
+                            <input class="form-control" type="password" name="check_password" id="check_password" placeholder="영문 대소문자, 특수문자, 숫자를 포함하여 8자 이상을 입력하세요."/>
+                        	<span class="valid_info" id="pwCheck"></span>
                           </div>
                           
                           <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">nickname</label>
+                            <label for="nickname" class="form-label">nickname</label>
                             <input
                               class="form-control"
                               type="text"
                               id="nickname"
                               name="nickname"
                               placeholder="John"
-                              th:value="${principal.nickname}"
+                              th:value="${#authentication.principal.nickname}"
                               autofocus
                             />
                           </div>
-                      </form>
+                      
                       
                     </div>
-                    <form id="formAccountDeactivation" onsubmit="return false">
-                     <button type="button" class="btn deactivate-account" style="background-color:pink;color: black;" onclick="update()">submit</button>
-                 	</form>
+                     <button type="button" class="btn deactivate-account" style="background-color:pink;color: black;" th:dm="${#authentication.principal.userId}" th:onclick="update(this.getAttribute('dm'))">submit</button>
+                 	</div>
                     <!-- /Account -->
-                  </div>
+                  
+                  <hr class="my-0" />
                   
                   <!-- delete account -->
                   <div class="card">
-                    <h5 class="card-header">Delete Account</h5>
+                    <h5 class="card-header">회원탈퇴</h5>
                     <div class="card-body">
                       <div class="mb-3 col-12 mb-0">
                         <div class="alert alert-warning">
@@ -161,7 +160,7 @@
                           <p class="mb-0">Once you delete your account, there is no going back. Please be certain.</p>
                         </div>
                       </div>
-                      <form id="formAccountDeactivation" onsubmit="return false">
+                      <form id="formAccountDeactivation_tt" onsubmit="return false">
                         <div class="form-check mb-3">
                           <input
                             class="form-check-input"
@@ -219,18 +218,108 @@
 
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
+      </div>
    </div>
    <!-- / Layout wrapper -->
 
   <script type="text/javascript" layout:fragment="script">
   
   function update(userId){
-	  let data = $("#formAccountSettings").serialize();
 	  
+	  let checkPassword = $("#check_password").val();
 	  
+	  let data = {
+		nickname: $("#nickname").val(),
+		password: $("#password").val(),
+	  };
 	  
-	  console.log(data);
+	  if(!data.nickname || data.nickname.trim() === "" || !data.password || data.password.trim() === ""){
+		  alert("공백 또는 입력하지 않은 부분이 있습니다.");
+          return false;
+		  
+	  } else if(!/(?!.*[ㄱ-힣])(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9ㄱ-힣])(?=.{8,})/.test(data.password)){
+		  alert("비밀번호는 영문, 숫자, 특수문자 8자 이상");
+		  $("#password").focus();
+		  return false;
+		  
+	  } else if(data.password != checkPassword){
+		  pwCheck.innerHTML = "비밀번호가 같지않습니다.";
+		  return false;
+	  } 
+	  
+	  const confirmCheck = confirm("수정하시겠습니까?");
+	  
+	  if(confirmCheck == true){
+		  $.ajax({
+			  type: "PUT",
+			  url:'/api/user',
+			  data: data,
+			  contentType: "application/x-www-form-urlencoded; charset=utf-8",
+			  dataType: "json"
+			  
+		  }).done(res => {
+			  console.log("update 성공");
+			  location.href = `/`
+			  
+		  }).fail(eroor => {
+			  console.log("update 실패");
+			  
+		  });
+		  
+	  }
+	
   }
+  
+  function profileImageUpload(userId){
+	  
+	  console.log("pageUserId", userId);
+	  
+	  $("#userProfileImageinput").click();
+	  
+	  $("#userProfileImageinput").on("change", (e) => {
+		  let f = e.target.files[0];
+		  console.log(f);
+		  
+		  if(!f.type.match("image.*")){
+			  alert("이미지를 등록해야합니다.")
+			  return;
+		  }
+		  
+		  // 서버에 이미지 전송
+		  let profileImageForm = $("#userProfileImageForm")[0];
+		  console.log(profileImageForm);
+		  
+		  // FormData 객체를 이용하면 form 태그의 필드와 그 값을 나타내는 일련의 key/value 쌍을 담을 수 있다.
+		  let formData = new FormData(profileImageForm);
+		  
+		  $.ajax({
+			  type: "PUT",
+			  url: 'api/user/profileImageUrl',
+			  data: formData,
+			  contentType: false, // x-www-form-urlencoded로 파상되는 것을 방지
+			  processData: false, // contentType을 false로 줬을 때 QueryString 자동 설정 해제
+			  enctype: "multipart/form-data",
+			  dataType: "json"
+			  
+		  }).done(res => {
+			  let reader = new FileReader();
+			  reader.onload = (e) => {
+				  $("#userProfileImage").attr("src", e.target.result);
+			  }
+			  
+			  reader.readAsDataURL(f);
+			  
+		  }).fail(error => {
+			  console.log("오류", error);
+		  });
+		  
+		  
+		  
+	  });
+	  
+	  
+  }
+  
   
   </script>
 

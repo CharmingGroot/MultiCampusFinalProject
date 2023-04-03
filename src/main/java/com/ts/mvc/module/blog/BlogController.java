@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ts.mvc.module.blog.dto.BlogDto;
 import com.ts.mvc.module.guestbook.GuestBookService;
+import com.ts.mvc.module.status.dto.PetStatusDto;
 import com.ts.mvc.module.user.UserPrincipal;
 
 import lombok.AllArgsConstructor;
@@ -23,11 +24,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class BlogController {
    
-//   @GetMapping("")
-//   public String blog() {
-//      System.out.println("hi");
-//      return "/html/blog";
-//   }
    private final GuestBookService guestBookService;
 	
    @GetMapping("")
@@ -43,8 +39,6 @@ public class BlogController {
       return "/html/blog";
    }
    
-   
-   
    @PostMapping("")
    @ResponseBody
    public BlogDto distanceUpdate(@RequestBody String totalDistance, BlogDto blog) {
@@ -55,36 +49,12 @@ public class BlogController {
 	   // msg를 하나 보내는 걸 고려해보아야함.
 	   return blog;
    }
-   
-//   @PostMapping("/guestbook/create")
-//   @ResponseBody
-//   public GuestBookDto updateGuestBook(@RequestBody String content, GuestBookDto guestBook) {
-//	   guestBook.setContent(content);
-//	   guestBook.setEmail(UserPrincipal.getUserPrincipal().getEmail());
-//	   System.out.println("입력받은 댓글은  :" + guestBook.getContent());
-//	   return guestBook;
-//   }
-
-   // return 페이지 설정할 것.
-//   @GetMapping("guestbook")
-//   public String guestbook() {
-//      return "/html/testguestbook";
-//   }
-   
-   @GetMapping("diary")
-   public String diary() {
-      return "/html/diary";
-   }
-   
-   @GetMapping("diary-modify")
-   public String diaryMofdify() {
-      return "/html/diary-modify";
-   }
-   
+    
    @GetMapping("status")
    public String status() {
       return "/html/status";
    }
+
 
    
 

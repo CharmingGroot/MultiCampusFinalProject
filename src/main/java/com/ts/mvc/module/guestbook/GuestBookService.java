@@ -3,6 +3,7 @@ package com.ts.mvc.module.guestbook;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.ts.mvc.infra.code.ErrorCode;
 import com.ts.mvc.infra.exception.AuthException;
+import com.ts.mvc.infra.exception.CustomException;
 import com.ts.mvc.infra.exception.HandlableException;
+import com.ts.mvc.module.guestbook.dto.PageOwnerDTO;
 import com.ts.mvc.module.guestbook.dto.request.GuestBookDeleteRequest;
 import com.ts.mvc.module.guestbook.dto.request.GuestBookRegistRequest;
 import com.ts.mvc.module.guestbook.dto.request.GuestBookUpdateRequest;
@@ -111,6 +114,53 @@ public class GuestBookService {
 		
 		return Map.of("guestBookList", GuestBookListResponse.toDtoList(page.getContent()), "paging", paging);
 	}
+
+
+	@Transactional(readOnly = true)
+	public PageOwnerDTO guestBookForm(String pageOwnerNickName, String visitUserId) {
+
+		
+		PageOwnerDTO dto = new PageOwnerDTO();
+		
+		// 페이지의 소유여부 검증로직
+		// gbIdx가 1인 값의 userId와 principalId가 일치한다면?
+		// Y/N
+		// Y -> 모든 글 삭제권한 부여 && 작성글에 대한 수정권한 부여
+		// N -> 방문자로 간주, 작성글에 대한 수정권한과 && 삭제 권한 부여
+		
+		// 페이지 소유여부 검증로직
+		// 1. GuestBook Entity에서 1번 gbIdx에 해당하는 데이터 찾기
+	    GuestBook guestBookEntity = guestBookRepository.findByGbIdx((long) 1).orElseThrow(() -> {
+	        throw new CustomException("존재하지 않는 게스트북입니다.");
+	    });
+		
+	    
+	    // 2.로직 : gbIdx == 1인 값과 현재 방문자의 userId를 비교하여 현재 방문자가 페이지의 소유권을 가지고 있는지 판단한다.
+	    if(guestBookEntity.getUser().getUserId().equals(visitUserId)) {
+	    	dto.setUser(visitUserId);
+	    	dto.setPageOwner(true); // 페이지 소유자 O
+	    	dto.setPageVisitor(false); // 방문자 X
+	    	dto.setCanDeleteAll(true); // 모든 삭제권한 부여 O
+	    	dto.setCanDelete(false); // 작성글에 대한 삭제권한 X : 더 큰 권한이 부여되었기 때문.
+	    	dto.setCanModify(true); // 작성글에 대한 수정권한 부여
+	    	System.out.println("게스트북 페이지의 주인입니다.");
+	    }
+	    else {
+	    	dto.setUser(visitUserId);
+	    	dto.setPageVisitor(true); // 방문자 O
+	    	dto.setPageOwner(false); // 소유자 X
+	    	dto.setCanDelete(true); // 작성글 삭제권한 부여 O
+	    	dto.setCanDeleteAll(false); // 모든 삭제권한 부여 X
+	    	dto.setCanModify(true); // 작성글 수정권한 부여
+	    	System.out.println("게스트북 페이지의 방문자입니다.");
+	    }
+	    		
+		return dto;
+	}
+
+	// 3. 권한에 따작성글 리스트 추출
+
+
 
 
 

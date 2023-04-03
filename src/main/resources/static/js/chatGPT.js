@@ -4,7 +4,7 @@
 	let age_str = document.getElementById("age");
 	
 	function createAnswer() {
-		const api_key = "";
+		const api_key = "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";
 		let question = "";
 		
 		if(speice_str.options[speice_str.selectedIndex].value == "cat" || speice_str.options[speice_str.selectedIndex].value == "dog"){
