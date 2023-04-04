@@ -47,30 +47,16 @@ public class GuestBookController {
 	
 	@GetMapping("/{pageOwnerNickName}")
 	public String guestbook(@PathVariable String pageOwnerNickName, @AuthenticationPrincipal UserPrincipal visitUserId , Model model) {
-		System.out.println("GetMapping('') 입니다.");
 		System.out.println(pageOwnerNickName+"의 방명록입니다.");
 		
 		
 		// 방문자의 페이지 소유자 여부와 수정,삭제 가능권한 설정
 		PageOwnerDTO pageOwnState = guestBookService.guestBookForm(pageOwnerNickName, visitUserId.getUser().getUserId());
 		
-		
-		// 현재 페이지 주인의 방명록 리스트에서 방문자가 작성한 글 리스트 조회하여 받아오기
-//		List<GuestBook> visitorWrittenList = guestBookRepository.findByUserUserId(visitUserId.getUser().getUserId())
-//				.stream().filter(entity -> entity != null).collect(Collectors.toList());
-//		System.out.println("visitorWrittenList : " + visitorWrittenList);
-
-		
-		
-		
 		// 현재 페이지 주인의 방명록 리스트에서 방문자가 작성한 글 리스트 조회하여 받아오기
 		List<GuestBook> visitorWrittenList = guestBookRepository.findByPageOwnerAndUserUserId(pageOwnerNickName,visitUserId.getUser().getUserId())
 				.stream().filter(entity -> entity != null).collect(Collectors.toList());
-		
-		System.out.println("@@@@@@@@@@visitorWrittenList 는 " + visitorWrittenList);
-		
-		
-		
+			
 		// 전체 방명록(현재 페이지 주인의) 리스트
 		List<GuestBook> guestbookList = guestBookRepository.findByPageOwner(pageOwnerNickName)
 				.stream()
@@ -87,6 +73,7 @@ public class GuestBookController {
 		
 		
 //		System.out.println("model은 : "+model);
+//		System.out.println("guestbookList은 : "+guestbookList);
 //		System.out.println("pageOwnState는 : "+pageOwnState);
 //		System.out.println("visitorWrittenList는 : " + visitorWrittenList);
 		
@@ -99,13 +86,13 @@ public class GuestBookController {
 	@ResponseBody
 	public String upload(@PathVariable String pageOwnerNickName, @RequestBody String content, GuestBookRegistRequest dto, @AuthenticationPrincipal UserPrincipal visitUserId) {
 		
-		System.out.println("GetMapping('upload') 입니다.");
+//		System.out.println("GetMapping('upload') 입니다.");
 		
 		dto.setUserId(visitUserId.getUser().getUserId()); // 방문자
 		dto.setContent(content);
 		dto.setPageOwner(pageOwnerNickName);
 		guestBookService.createGuestBook(dto);
-		System.out.println("upload의 "+dto);
+//		System.out.println("upload의 "+dto);
 		return "redirect:/guestbook";
 	}
 	
@@ -120,8 +107,8 @@ public class GuestBookController {
 //		dto.setContent(content);
 //		dto.setGbIdx(get);
 		
-		System.out.println("GetMapping('update') 입니다.");
-		System.out.println("Controller가 받은 dto는"+ dto + "입니다.");
+//		System.out.println("GetMapping('update') 입니다.");
+//		System.out.println("Controller가 받은 dto는"+ dto + "입니다.");
 //		System.out.println("content : "+ content);
 		
 		

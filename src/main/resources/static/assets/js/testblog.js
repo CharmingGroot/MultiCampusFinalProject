@@ -9,7 +9,7 @@ var RAOF = ((parseInt(weight) * 1000) * 0.02);
 // console.log(RAOF);
 
 window.onload = () => {
-    // URL 파라미터 값 받아오기
+  // URL 파라미터 값 받아오기
   const getParams = new URLSearchParams(location.search);
   for (const param of getParams) {
     console.log(param);
@@ -425,11 +425,15 @@ function locationCalculator() {
 
 function postData() {
 
+  const path = window.location.pathname;
+  let pageOwnerArr = path.split('/');
+  let pageOwner = pageOwnerArr[2];
+
   let td = (totalDistance.toFixed(2)).toString();
 
   const data = { TTD: td };
 
-  fetch('http://localhost:8080/blog', {
+  fetch(`http://localhost:8080/blog/${pageOwner}`, {
     method: 'POST', // 또는 'PUT'
     headers: {
       'Content-Type': 'application/json',

@@ -121,29 +121,19 @@ public class GuestBookService {
 
       
       PageOwnerDTO dto = new PageOwnerDTO();
+      // 페이지 주인 설정
       
-      // 페이지의 소유여부 검증로직
-      // gbIdx가 1인 값의 userId와 principalId가 일치한다면?
-      // Y/N
-      // Y -> 모든 글 삭제권한 부여 && 작성글에 대한 수정권한 부여
-      // N -> 방문자로 간주, 작성글에 대한 수정권한과 && 삭제 권한 부여
-      
-      // 페이지 소유여부 검증로직
-      // 1. GuestBook Entity에서 1번 gbIdx에 해당하는 데이터 찾기
-//       GuestBook guestBookEntity = guestBookRepository.findByGbIdx((long) 1).orElseThrow(() -> {
-//           throw new CustomException("존재하지 않는 게스트북입니다.");
-//       });
-       
-      
+    
       // 1. 페이지 주인의 id로 DB조회
        User guestBookEntity = userRepository.findById(pageOwnerNickName).orElseThrow(() -> {
          throw new CustomException("존재하지 않는 게스트북입니다.");
       });
-      
+
        
        // 2 1에서 가져온 DB와 방문자 id를 비교
        if(guestBookEntity.getUserId().equals(visitUserId)) {
-          dto.setUser(visitUserId);
+    	  dto.setOwner(pageOwnerNickName);
+          dto.setVisitor(visitUserId);
           dto.setPageOwner(true); // 페이지 소유자 O
           dto.setPageVisitor(false); // 방문자 X
           dto.setCanDeleteAll(true); // 모든 삭제권한 부여 O
@@ -152,7 +142,8 @@ public class GuestBookService {
           System.out.println("게스트북 페이지의 주인입니다.");
        }
        else {
-          dto.setUser(visitUserId);
+    	  dto.setOwner(pageOwnerNickName);
+          dto.setVisitor(visitUserId);
           dto.setPageVisitor(true); // 방문자 O
           dto.setPageOwner(false); // 소유자 X
           dto.setCanDelete(true); // 작성글 삭제권한 부여 O

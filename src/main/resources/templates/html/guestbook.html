@@ -55,7 +55,18 @@
 				</nav>
 
 				<!-- / Navbar -->
-
+				<th:block th:if="${!pageOwnState.isPageOwner}">
+					<a th:href="@{/guestbook/{pageOwnerNickName}(pageOwnerNickName=${pageOwnState.owner})}">
+						 <button class="btn btn-outline-secondary account-image-reset mb-4">
+								 <span>guestbook</span>
+							</button>
+					</a>
+					<a th:href="@{/diary/{pageOwnerNickName}(pageOwnerNickName=${pageOwnState.owner})}">    
+							<button class="btn btn-outline-secondary account-image-reset mb-4">
+								 <span> diary</span>
+							</button>
+					 </a>
+				</th:block>
 				<!-- Content wrapper -->
 				<div class="content-wrapper">
 					<!-- Content -->
@@ -69,23 +80,22 @@
 
 									<h5>방명록</h5>
 
-									<div class="col-12 question-btn">
-										<div class="card h-100">
-											<div class="guestInfoWrapper card-title"style="border-radius: 0.7rem 0.7rem;">
-											</div>
-											<form th:action="@{/guestbook/upload}" method="post" enctype="multipart/form-data" id="commentForm" name="commentForm">
-												<div class="form-floating">
-													<textarea class="form-control" id="floatingTextarea2" cols="50" rows="5" style="height: 200px; resize:none; border-top-right-radius: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0;" placeholder="내용을 입력하세요." name="content"></textarea>
+										<div class="col-12 question-btn">
+											<div class="card h-100">
+												<div class="guestInfoWrapper card-title"style="border-radius: 0.7rem 0.7rem;">
 												</div>
-											<div class="d-grid gap-1 ">
-												<button class="btn btn-primary btn-lg btn-comment" type="submit" id="submit1" onclick="addComment()" style="border-top-right-radius: 0; border-top-left-radius: 0; border-bottom-left-radius: 0.7rem; border-bottom-right-radius: 0.7rem;">방명록 남기기</button>
+												<form th:action="@{/guestbook/upload}" method="post" enctype="multipart/form-data" id="commentForm" name="commentForm">
+													<div class="form-floating">
+														<textarea class="form-control" id="floatingTextarea2" cols="50" rows="5" style="height: 200px; resize:none; border-top-right-radius: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0;" placeholder="내용을 입력하세요." name="content"></textarea>
+													</div>
+													<div class="d-grid gap-1 ">
+														<button class="btn btn-primary btn-lg btn-comment" type="submit" id="submit1" onclick="addComment()" style="border-top-right-radius: 0; border-top-left-radius: 0; border-bottom-left-radius: 0.7rem; border-bottom-right-radius: 0.7rem;">방명록 남기기</button>
+													</div>
+												</form>
 											</div>
-										</form>
-									</div>
-								</div>
-													
-								<div class="row mb-5">
-								
+										</div>
+									<div class="row mb-5">
+									
 
 									<hr>
 									<div class="col-12 card-wrapper">
@@ -97,7 +107,7 @@
 													<div class="card col-12">
 														<div class="comment-info-wrapper">
 															<div class="gbIdx" th:text="${guestbook.gbIdx}"></div>
-															<div th:text="${guestbook.nickname.nickname}"></div>
+															<div th:text="${guestbook.user.nickname}"></div>
 															<div th:text="${#temporals.format(guestbook.regDate,'yy.MM.dd HH:mm')}"></div>
 														</div>
 														<div class="card-body guestbook-content">
