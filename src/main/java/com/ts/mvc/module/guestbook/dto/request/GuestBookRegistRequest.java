@@ -11,8 +11,8 @@ public class GuestBookRegistRequest {
 
 	private String userId;
 	private Long gbIdx;
-	
-	private String nickname;
+	private String pageOwner;
+//	private String nickname;
 	
 	@NotEmpty
 	private String content;

@@ -21,7 +21,12 @@ commentForm.addEventListener('submit', async (event) => {
   // formData.append('comment', comment);
   // const data = { comment: comment };
 
-  await fetch('http://localhost:8080/guestbook/upload', {
+  const path = window.location.pathname;
+  let pageOwnerArr = path.split('/');
+  let pageOwner = pageOwnerArr[2];
+
+
+  await fetch(`http://localhost:8080/guestbook/${pageOwner}/upload`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

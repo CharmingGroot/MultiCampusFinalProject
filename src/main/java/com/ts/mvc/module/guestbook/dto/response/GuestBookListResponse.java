@@ -16,14 +16,14 @@ public class GuestBookListResponse {
 
 	private Long gbIdx;
 	private User user;
-	private User nickname;
+	private String pageOwner;
 	private String content;
 	
 	public GuestBookListResponse(GuestBook entity) {
 		this.gbIdx = entity.getGbIdx();
 		this.user = entity.getUser();
 //		this.host = entity.getHost();
-		this.nickname = entity.getNickname();
+		this.pageOwner = entity.getPageOwner();
 		this.content = entity.getContent();
 	}
 	

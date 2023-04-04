@@ -47,4 +47,20 @@ public class UserControllerTest {
 				.sessionAttr("authToken", "1234"))
 				.andExpect(status().is3xxRedirection());
 	}
+	
+	@Test
+	@DisplayName("회원가입 정보 저장")
+	public void testsignUpImplS() throws Exception {
+		SignUpRequest form = new SignUpRequest();
+		form.setUserId("hoho");
+		form.setPassword("123qwe!@#QWE");
+		form.setEmail("chlghrms2@naver.com");
+		form.setNickname("호구닝");
+		form.setGrade("ROLE_ADMIN");
+		
+		mockMvc.perform(get("/user/signupimpl/1234")
+				.sessionAttr("signupForm", form)
+				.sessionAttr("authToken", "1234"))
+				.andExpect(status().is3xxRedirection());
+	}
 }

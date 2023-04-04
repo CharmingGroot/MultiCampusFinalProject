@@ -1,6 +1,6 @@
 window.onload = function () {
     function onGeoOk(position) {
-        const API_KEY = "aa894e072080726e6c0321cd6036ed0e"; //openweather API키 입력
+        const API_KEY = "openweather API"; //openweather API키 입력
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
         const weather_url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&lang=kr&appid=${API_KEY}&units=metric`;

@@ -40,22 +40,17 @@ public class GuestBook {
 	private LocalDateTime regDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_user_id")
-	private User user; // 수신자 = 방명록 주인
+	@JoinColumn(name = "visitor")
+	private User user; // 방문자
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	private User nickname; // 주인 닉네임 Controller로 값을 받으면 해당 값을 할당할 수 있도록하자.
+	private String pageOwner; // 방명록 오너
 	
 	
 	public static GuestBook createGuestBook(GuestBookRegistRequest dto, User user) {
 		
-//		System.out.println("GuestBook의 CreateBook메서드 실행");
-//		System.out.println("dto.nickname" + dto.getNickname());
-//		System.out.println("User.nickname" + user.getNickname());
-		
 		return GuestBook.builder()
-				.user(user)
-				.nickname(user)
+				.user(user) // 방문자
+				.pageOwner(dto.getPageOwner()) // 페이지 주인
 				.content(dto.getContent())
 				.build();
 	}

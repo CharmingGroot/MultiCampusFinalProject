@@ -29,6 +29,8 @@ import lombok.NoArgsConstructor;
 @Builder @NoArgsConstructor @AllArgsConstructor @Getter
 public class Diary {
 	
+	// chg
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long dyIdx;

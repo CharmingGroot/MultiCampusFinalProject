@@ -80,6 +80,7 @@
 
 	<aside id="layout-menu"
 				class="layout-menu menu-vertical menu bg-menu-theme" th:fragment="aside">
+				<th:block sec:authorize="isAuthenticated()">
 				<div class="app-brand demo">
 					<a th:href="@{/}" class="app-brand-link">
 					
@@ -95,6 +96,7 @@
                </a>
             </div>
             <!-- 여기서부터수정 -->
+            
             <ul class="menu-inner py-1">
                <!-- Dashboard -->
                   <li class="menu-item">
@@ -109,13 +111,13 @@
                     </li>
                   
                   <li class="menu-item">
-                    <a href="/guestbook/google_116423091237065410968" class="menu-link">
+                    <a th:href="@{/guestbook/{pageOwnerNickName}(pageOwnerNickName=${#authentication.principal.userId})}" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-collection"></i>
                       <div data-i18n="Basic">guestbook</div>
                     </a>
                   </li>
                   <li class="menu-item">
-                    <a href="/diary/happy" class="menu-link">
+                    <a th:href="@{/diary/{pageUserId}(pageUserId=${#authentication.principal.userId})}" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-collection"></i>
                       <div data-i18n="Basic">diary</div>
                     </a>
@@ -154,7 +156,7 @@
         
 
 				</ul>
-			
+			</th:block>
 			</aside>
 			
 	
