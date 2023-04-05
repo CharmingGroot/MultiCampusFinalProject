@@ -18,18 +18,7 @@ public class BlogDto {
 		this.weight = weight;
 		this.totalDistance = totalDistance;
 	}
-	
-	
-	
 
-
-
-	@Override
-	public String toString() {
-		return "{ water :" + water + "\" + "
-				+ "food :" + food + "\" +"
-						+ "weight :" + weight + "\" +"
-								+ "totalDistance :" +  totalDistance + "}";
-	}
+	
 	
 }

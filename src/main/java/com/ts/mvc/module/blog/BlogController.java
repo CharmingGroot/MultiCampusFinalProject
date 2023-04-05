@@ -29,6 +29,16 @@ public class BlogController {
 	
    @GetMapping("/{pageOwnerNickName}")
    public String update(@PathVariable String pageOwnerNickName, HttpServletRequest request, Model model, BlogDto blog){
+	  System.out.println(pageOwnerNickName + "의 Blog입니다.");
+	  
+	  // 1. 소유자만 접근가능하도록 서비스로직 작성
+	  
+	  // 2. petStaus ( feed 관련 ) 가져오는 로직 작성
+	  
+	  // 3. 주간일정 가져오는 로직 작성
+	  
+	  
+	  
       String water = request.getParameter("water");
       String food = request.getParameter("food");
       String weight = request.getParameter("weight");
@@ -42,13 +52,14 @@ public class BlogController {
    
    @PostMapping("/{pageOwnerNickName}")
    @ResponseBody
-   public BlogDto distanceUpdate(@PathVariable String pageOwnerNickName, @RequestBody String totalDistance, BlogDto blog) {
-	   blog.setTotalDistance(totalDistance);
+   public String updateTodayData(@PathVariable String pageOwnerNickName, @RequestBody String requestBody, BlogDto blog) {
+	   blog.setTotalDistance(requestBody);
 	   System.out.println("총 산책거리는 "+blog.getTotalDistance());
-	   // JSON형태로 데이터를 뿌려서 넘기기.
-	   // Responsebody에 넘기기 => 더 알아보기
-	   // msg를 하나 보내는 걸 고려해보아야함.
-	   return blog;
+	   
+	   
+	   
+	   
+	   return "redirect:blog/{pageOwnerNickName}";
    }
     
    @GetMapping("status")
