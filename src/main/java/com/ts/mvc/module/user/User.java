@@ -54,11 +54,7 @@ public class User {
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	@JsonIgnoreProperties({"user"}) // JPA 무한참조 방지
 	private List<Diary> images;
-	
-	
-	
-	
-	
+
 	public static User createUser(SignUpRequest dto) {
 		return User.builder()
 				   .userId(dto.getUserId())

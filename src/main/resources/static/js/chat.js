@@ -10,16 +10,19 @@ function showChat() {
 		showChat();
 		});
 
-var username = $("#authentication.principal.userId");
 var stompClient = null;
 	
 	function connect() {
-	    var socket = new SockJS('/gs-guide-websocket');
+	    const socket = new SockJS('http://localhost:8080/gs-guide-websocket', {
+							    transports: ['websocket'],
+							    iframe: false
+							});
+
 	    stompClient = Stomp.over(socket);
 	    
 	    stompClient.connect({}, function (frame) {
 	        console.log('Connected: ' + frame);
-	        stompClient.subscribe('/topic/chatting/' + '[[${chatmember}]]', function (msg) {
+	        stompClient.subscribe('/topic/chatting/' + [[${cgIdx}]], function (msg) {
 	          	res = JSON.parse(msg.body);
 	          	console.dir(res)
 	           	showChat();
@@ -37,7 +40,7 @@ var stompClient = null;
 	function sendMessage() {
 		let message = msg.value;
 		
-	    stompClient.send("/app/chatting/" + '[[${chatmember}]]', {}, JSON.stringify({'message':message}));
+	    stompClient.send("/app/chat-room/" + [[${cgIdx}]], {}, JSON.stringify({'message':message}));
 	}
 	
 	connect();

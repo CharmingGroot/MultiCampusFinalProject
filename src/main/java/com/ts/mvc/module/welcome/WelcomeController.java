@@ -19,7 +19,12 @@ import lombok.RequiredArgsConstructor;
 public class WelcomeController {
 	
 	@GetMapping("")
+	public String index() {
+		return "redirect:/index";
+	}
+	
+	@GetMapping("/index")
 	public String welcome() {
 		return "/html/index";
-	}	
+	}
 }

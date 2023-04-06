@@ -13,7 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ts.mvc.module.blog.dto.BlogDto;
+import com.ts.mvc.module.blog.dto.request.WalkDto;
 import com.ts.mvc.module.guestbook.GuestBookService;
 import com.ts.mvc.module.status.dto.PetStatusDto;
 import com.ts.mvc.module.user.UserPrincipal;
@@ -52,10 +57,27 @@ public class BlogController {
    
    @PostMapping("/{pageOwnerNickName}")
    @ResponseBody
-   public String updateTodayData(@PathVariable String pageOwnerNickName, @RequestBody String requestBody, BlogDto blog) {
-	   blog.setTotalDistance(requestBody);
-	   System.out.println("총 산책거리는 "+blog.getTotalDistance());
+   public String updateTodayData(@PathVariable String pageOwnerNickName, @RequestBody String requestBody, WalkDto dto) throws JsonMappingException, JsonProcessingException {
 	   
+	   System.out.println("requestBody는 : "+ requestBody);
+	   
+	   // ObjectMapper로 RequestBody안에 담겨온 Json값을 자바객체로 변환
+	   ObjectMapper objectMapper = new ObjectMapper();
+	   // JsonNode로 get메소드 사용하고  objectMapper.readTree()로 JSON문자열을 파싱하여 JsonNode객체로 변환
+	   JsonNode jsonNode = objectMapper.readTree(requestBody);
+	   double walkDistance = jsonNode.get("TTD").asDouble();
+	   int walkTime = jsonNode.get("walkTime").asInt();
+	   
+	   // RequestBody로 받아온 객체를 dto에 할당
+	   dto.setWalkDistance(walkDistance);
+	   dto.setWalkTime(walkTime);
+	   dto.setUser(pageOwnerNickName);
+	   dto.setPet(requestBody);
+	   
+	   
+	   
+	   // CRUD - C
+	   // 1. Pet엔티티의 petIdx를 조회
 	   
 	   
 	   

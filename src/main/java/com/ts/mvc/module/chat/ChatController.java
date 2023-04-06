@@ -22,13 +22,13 @@ public class ChatController {
 	 @GetMapping("/welcome/chat")
 	 public String chat(Model model) {
 		 
-		 String chatmember = chatService.findChatMemeberByUserId();
-		 model.addAttribute("chatMember",chatmember);
+		 Long cgIdx = chatService.findChatGroupIdxByUserId();
+		 model.addAttribute("cgIdx",cgIdx);
 		 return "/welcome/chat";
 	 }
 	
-	  @MessageMapping("/chat-room/{chatmember}")
-	  public void chatting(@DestinationVariable("chatmember") String chatmember, ChatRequest dto) throws Exception {
-	      simpMessagingTemplate.convertAndSend("/topic/chatting/" + chatmember, chatService.sendMessage(dto));
+	  @MessageMapping("/chat-room")
+	  public void chatting(ChatRequest dto) throws Exception {
+	      simpMessagingTemplate.convertAndSend("/topic/chatting", dto);
 	  }
 }

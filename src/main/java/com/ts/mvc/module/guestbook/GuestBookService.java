@@ -118,7 +118,6 @@ public class GuestBookService {
 
    @Transactional(readOnly = true)
    public PageOwnerDTO guestBookForm(String pageOwnerNickName, String visitUserId) {
-
       
       PageOwnerDTO dto = new PageOwnerDTO();
       // 페이지 주인 설정
@@ -156,12 +155,6 @@ public class GuestBookService {
    }
 
    // 3. 권한에 따작성글 리스트 추출
-
-
-
-
-
-   
 
 //   public GuestBookDetailResponse findGuestBookByGbIdx(Long gbIdx) {
 //      GuestBook guestBook = guestBookRepository.findById(gbIdx)

@@ -41,7 +41,18 @@
 				<nav th:replace="fragments :: nav">
 				</nav>
 				<!-- / Navbar -->
-
+				<th:block th:if="${!dto.pageOwnerState}">
+					<a th:href="@{/guestbook/{pageOwnerNickName}(pageOwnerNickName=${dto.user.userId})}">
+						<button class="btn btn-outline-secondary account-image-reset mb-4">
+					    	<span>guestbook</span>
+					    </button>
+					</a>
+					<a th:href="@{/diary/{pageUserId}(pageUserId=${dto.user.userId})}">    
+					    <button class="btn btn-outline-secondary account-image-reset mb-4">
+					    	<span> diary</span>
+					    </button>
+				    </a>
+			    </th:block>
 				<!-- Content wrapper -->
 				<div class="content-wrapper">
 					<div class="container-xxl flex-grow-1 container-p-y">
@@ -57,9 +68,7 @@
 		                  </button>
 	                  </a>
                   
-	                  <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-	                    <span> Delete <i class="fa-solid fa-trash-can"></i></span>
-	                  </button>
+	                  
 				  </th:block>               	
          		               
 						<div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
@@ -72,6 +81,14 @@
 									
 								</p>
 								</div>
+								<th:block th:if="${dto.pageOwnerState}">
+									<form th:action="@{/diary/remove}" method="post">
+										<input type="hidden" th:value="${diary.dyIdx}" name="dyIdx"/>
+										<button class="btn btn-outline-secondary account-image-reset mb-4">
+			                    			<span> Delete <i class="fa-solid fa-trash-can"></i></span>
+			                  			</button>
+		                  			</form>
+	                  			</th:block>
 							</div>
 							</div>
 							

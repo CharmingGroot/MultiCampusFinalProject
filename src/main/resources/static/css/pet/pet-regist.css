@@ -1,0 +1,47 @@
+input[name="gender"]:checked+label>span {
+	color: #fff;
+	background-color: #788393;
+	border-color: #788393;
+	box-shadow: none;
+	transform: translateY(0);
+}
+
+input[name="neutering"]:checked+label>span {
+	color: #fff;
+	background-color: #788393;
+	border-color: #788393;
+	box-shadow: none;
+	transform: translateY(0);
+}
+
+input[name="ei"]:checked+label>span {
+	color: #fff;
+	background-color: #788393;
+	border-color: #788393;
+	box-shadow: none;
+	transform: translateY(0);
+}
+
+input[name="ns"]:checked+label>span {
+	color: #fff;
+	background-color: #788393;
+	border-color: #788393;
+	box-shadow: none;
+	transform: translateY(0);
+}
+
+input[name="ft"]:checked+label>span {
+	color: #fff;
+	background-color: #788393;
+	border-color: #788393;
+	box-shadow: none;
+	transform: translateY(0);
+}
+
+input[name="pj"]:checked+label>span {
+	color: #fff;
+	background-color: #788393;
+	border-color: #788393;
+	box-shadow: none;
+	transform: translateY(0);
+}

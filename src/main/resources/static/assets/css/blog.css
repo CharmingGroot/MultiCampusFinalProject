@@ -32,7 +32,6 @@
 .weekly-plan {
   margin: 0;
   padding: 25px;
-  border: solid 1px salmon;
 }
 
 .weekly-plan-table {
@@ -54,19 +53,16 @@
 .day-graph {
   margin: 0;
   padding: 25px;
-  border: solid 1px salmon;
 }
 
 .album-carousel {
   margin: 0;
   padding: 25px;
-  border: solid 1px salmon;
 }
 
 .easy-checker {
   margin: 0;
   padding: 25px;
-  border: solid 1px salmon;
 }
 
 #easy-checker-title {
@@ -137,6 +133,9 @@
 
 .kakao-map {
   box-shadow: #d9dee3;
+
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
 }
 
 .timer-btn {

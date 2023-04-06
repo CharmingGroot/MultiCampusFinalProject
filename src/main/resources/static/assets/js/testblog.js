@@ -78,9 +78,10 @@ window.onload = () => {
 
   init();
 
-  onloadMapRender();
+  // onloadMapRender();
 
 
+  kakaoMapCover();
 
 
 
@@ -102,23 +103,30 @@ var timerid = 0;
 let walking;
 
 
-
+// 산책시작 전 맵 커버
+function kakaoMapCover() {
+  const map = document.getElementById("map");
+  map.innerText = "1일 1산책은 필수!";
+  map.setAttribute("style", "background-image: url(../assets/img/testdog/bulldog2.jpg);position: inherit; width: 100%; height: 100%;background-size: cover;background-position: center; opacity:0.5;  border-top-left-radius: 0.5rem;  border-bottom-left-radius: 0.5rem;");
+}
 
 
 // kakao maps 렌더링 전 커버 만들기
-function onloadMapRender() {
-  navigator.geolocation.getCurrentPosition(
-    function (position) {
-      currentLatitude = position.coords.latitude;
-      currentLongtitude = position.coords.longitude;
-    }
-  )
-  kakaoMapsRender();
-}
+// function onloadMapRender() {
+//   navigator.geolocation.getCurrentPosition(
+//     function (position) {
+//       currentLatitude = position.coords.latitude;
+//       currentLongtitude = position.coords.longitude;
+//     }
+//   )
+//   kakaoMapsRender();
+// }
 
 // kakao maps
 function kakaoMapsRender() {
   var container = document.getElementById('map');
+  container.innerText = "";
+  container.setAttribute("style", "position: inherit; width: 100%; height: 100%;border-top-left-radius: 0.5rem;  border-bottom-left-radius: 0.5rem;")
   var options = {
     center: new kakao.maps.LatLng(currentLatitude, currentLongtitude),
     level: 3

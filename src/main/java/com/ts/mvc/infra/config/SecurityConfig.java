@@ -6,14 +6,20 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.SecurityBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.ts.mvc.infra.config.oauth.OAuth2DetailsService;
 
@@ -28,6 +34,15 @@ public class SecurityConfig {
 	private final UserDetailsService userDetailsService;
 	private final OAuth2DetailsService oAuth2DetailsService;
 	
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//		http 
+//			.authorizeRequests()
+//			.antMatchers("/**").permitAll()
+//			.and()
+//			.cors();
+//	}
+//	
 	@Bean
 	public PersistentTokenRepository tokenRepository() {
 		JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
@@ -70,7 +85,6 @@ public class SecurityConfig {
 			.tokenRepository(tokenRepository());
 		
 		
-		
 		// csrf : post요청일 때 수행해야 하는 csrf 토큰 검증을 끔
 		//http.csrf().disable();
 		http.csrf().ignoringAntMatchers("/mail");
@@ -78,7 +92,7 @@ public class SecurityConfig {
 		http.csrf().ignoringAntMatchers("/guestbook/upload");
 		http.csrf().ignoringAntMatchers("/guestbook/update");
 		http.csrf().ignoringAntMatchers("/guestbook/delete");
-		http.csrf().disable().cors(); // ajax 사용하면서 put 오류나는거때문에...
+		//http.csrf().disable().cors(); // ajax 사용하면서 put 오류나는거때문에... 삭제해야함
 		return http.build();
 	}
 	
@@ -87,6 +101,21 @@ public class SecurityConfig {
 		return web -> web.ignoring().antMatchers("/assets/**", "/css/**", "/fonts/**", "/icon/**", "/js/**", "/scss/**")
 						 .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
 	}
+	
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        //configuration.addAllowedOrigin("*"); // 허용할 오리진 설정, *은 모든 오리진을 허용합니다.
+        configuration.addAllowedMethod("*"); // 허용할 HTTP 메소드 설정
+        configuration.addAllowedHeader("*"); // 허용할 헤더 설정
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
+
+	
 	
 	
 

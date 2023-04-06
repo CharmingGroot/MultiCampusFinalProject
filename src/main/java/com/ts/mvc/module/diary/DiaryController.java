@@ -27,7 +27,7 @@ public class DiaryController {
 	
 	@GetMapping("/{pageUserId}")
 	public String diary(@PathVariable String pageUserId, Model model, @AuthenticationPrincipal UserPrincipal userPrincipal) {
-		UserProfileDto dto = diaryService.diaryForm(pageUserId, userPrincipal.getUser().getUserId());
+		UserProfileDto dto = diaryService.diaryForm(pageUserId, userPrincipal.getUserId());
 		
 		model.addAttribute("dto", dto);
 		
@@ -48,7 +48,14 @@ public class DiaryController {
 		// 서비스 호출
 		diaryService.diaryImageUpload(diaryUploadDto, userPrincipal);		
 		
-		return "redirect:/diary/" + userPrincipal.getUser().getUserId();
+		return "redirect:/diary/" + userPrincipal.getUserId();
+	}
+	
+	@PostMapping("remove")
+	public String diaryRemove(Long dyIdx, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+		diaryService.removeDiary(dyIdx, UserPrincipal.getUserPrincipal().getUserId());
+		
+		return "redirect:/diary/" + userPrincipal.getUserId();
 	}
 	
 	

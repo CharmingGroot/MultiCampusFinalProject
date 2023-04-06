@@ -10,6 +10,5 @@ public interface UserRepository extends JpaRepository<User, String>{
 
 	User findByUserId(String userId);
 
-	User findChatMemeberByUserId(String userId);
 
 }

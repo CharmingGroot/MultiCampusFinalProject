@@ -3,9 +3,7 @@ package com.ts.mvc.module.guestbook;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Repository;
 
 

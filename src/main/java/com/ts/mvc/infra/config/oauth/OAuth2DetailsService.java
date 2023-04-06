@@ -50,10 +50,11 @@ public class OAuth2DetailsService extends DefaultOAuth2UserService{
 					.grade(grade)
 					.build();
 			
-			return new UserPrincipal(userRepository.save(user));
+			return new UserPrincipal(new Principal(userRepository.save(user)));
+			
 			
 		} else { // 이미 회원가입 함
-			return new UserPrincipal(userEntity);
+			return new UserPrincipal(new Principal(userEntity));
 		}
 	
 	}

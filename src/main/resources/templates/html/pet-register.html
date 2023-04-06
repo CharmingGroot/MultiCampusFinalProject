@@ -17,280 +17,381 @@
 	data-template="vertical-menu-template-free"
 	
 	xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{layout}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
 <head>
-<link rel="stylesheet" href="../assets/css/pet.css">
-<script src="../assets/js/catnames.json" type="text/javascript"></script>
+	<link rel="stylesheet" href="../assets/css/pet.css">
+	
+	<!-- button css -->
+	<link rel="stylesheet" href="../css/pet/pet-regist.css">
+	
+	<!-- modal창 스크립트 -->
+	<script src="../assets/js/modal.js"></script>
+	
+	<!-- 사진 업로드 스크립트 -->
+	<script src="../assets/js/pages-account-settings-account.js"></script>
+	
+	<!-- 동물 품종 리스트 스크립트 -->
+	<script src="../assets/js/pet-list.js"></script>
 </head>
 
 <body>
 	<!-- Layout wrapper -->
 	<div class="layout-wrapper layout-content-navbar" layout:fragment="content">
+        <!--layout container-->
 		<div class="layout-container">
 			<!-- Menu -->
-
-			<aside th:replace="fragments :: aside">
-			</aside>
+			<aside th:replace="fragments :: aside"></aside>
 			<!-- / Menu -->
 
-			<!-- Layout container -->
+			<!-- Layout page -->
 			<div class="layout-page">
 				<!-- Navbar -->
-				<nav th:replace="fragments :: nav">
-				</nav>
-
+				<nav th:replace="fragments :: nav"></nav>
 				<!-- / Navbar -->
 
 				<!-- Content wrapper -->
-<div class="content-wrapper">
+                <div class="content-wrapper">
 
-  <!-- Content -->
-  <div class="container-xxl flex-grow-1 container-p-y">
-    <div class="row">
-      <div class="col-md-12">
-        <ul class="nav nav-pills flex-column flex-md-row mb-3">
-          <li class="nav-item">
-            <a class="nav-link active" href="javascript:void(0);"><i class="fa-solid fa-paw"></i> Register</a>
-          </li>
-        </ul>
-        <div class="card mb-4">
-          <h5 class="card-header">Profile Details</h5>
-          <!-- Account -->
-            <div class="card-body">
-     <div class="d-flex align-items-start align-items-sm-center gap-4">
-       <img
-         src="../assets/img/avatars/1.png"
-         alt="user-avatar"
-         class="d-block rounded"
-         height="100"
-         width="100"
-         id="uploadedAvatar"
-       />
-       <div class="button-wrapper">
-         <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-           <span class="d-none d-sm-block">Upload new photo</span>
-           <i class="bx bx-upload d-block d-sm-none"></i>
-           <input
-             type="file"
-             id="upload"
-             class="account-file-input"
-             hidden
-             accept="image/png, image/jpeg"
-           />
-         </label>
-         <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-           <i class="bx bx-reset d-block d-sm-none"></i>
-           <span class="d-none d-sm-block">Reset</span>
-         </button>
-         <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
-       </div>
-     </div>
-   </div>
-   
-          <hr class="my-0" />
-          <div class="card-body">
-            <form id="formAccountSettings" method="POST" onsubmit="return false">
-              <div class="row">
-                <div class="mb-3 col-md-6">
-                  <label for="firstName" class="form-label">Name</label>
-                  <input
-                    class="form-control"
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    placeholder="Please write your name"
-                    autofocus
-                  />
-                </div>
-                
-               
-              <div class="mb-3 col-md-6">
-                <label for="lastName" class="form-label">Birth Date</label>
-                <input class="form-control" type="text" name="Birth Date" id="Birth Date" placeholder="YYYY.MM.DD" />
-              </div>
-              <div class= "mb-3 col-md-6">
-                <label for="Companion Animal" class="form-label">Companion Animal</label>
-                 <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                   <span class="d-none d-sm-block"><i class="fa-solid fa-dog"></i>Dog
-                     <input type="radio" value="pet"  id="pet" name="pet"  ></button></span>
-                     
-               <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                   <span class="d-none d-sm-block"><i class="fa-solid fa-cat"></i>Cat
-                     <input type="radio" value="pet"  id="pet" name="pet"  ></button></span>
-              </div>
-                
-                     <div class= "mb-3 col-md-6">
-                <label for="Breed" class="form-label">Breed</label>
-                       <select onchange="changeBreed(this)" class="select2 form-select" >
-                         <option>분류를 선택해주세요.</option>
-                           <option value="dog">Dog</option>
-                           <option value="cat">Cat</option>
-                       </select>
+                    <!-- Content -->
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <div class="row">
+                            <div class="col-md-12">
+                        
+                                <div class="card mb-4">
+                                    <h5 class="card-header">Add Pet</h5>
 
-                         <select id="breed" class="select2 form-select">
-                          <option>품종을 선택해주세요.</option>
-                         </select>
-                         
-                </div>
+                                    <!-- Account -->
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start align-items-sm-center gap-4">
+                    
+                                        </div>
+                                    </div>
                 
-                  
-                <div class="mb-3 col-md-6">
-                  <label class="form-label" for="Gender">Gender</label>
-                     <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                   <span class="d-none d-sm-block"><i class="fa-solid fa-mars"></i> Male
-                     <input type="radio" value="gender"  id="gender" name="gender"  ></span>
-                     
-                    </button>
-                    <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                      <span class="d-none d-sm-block">  <i class="fa-solid fa-venus"></i>Woman
-                        <input type="radio" value="gender"  id="gender" name="gender"  ></span>
-                    </button>  
-                </div>
-                
-                <div class="mb-3 col-md-6">
-                  <label for="Neutralization" class="form-label">Neutralization</label>
-                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                  <i class="fa-solid fa-square-check"></i> <input type="radio" value="done"  id="done" name="done"  >
-                </button>
-                
-                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                  <i class="fa-solid fa-square-xmark"></i> <input type="radio" value="notdone"  id="notdone" name="notdone"  >
-                  </button>
-                </div>
-                
-                <div class="mb-3 col-md-6">
-                  <label for="Registration number" class="form-label">Registration number</label>
-                  <input class="form-control" type="text" id="Registration number" name="Registration number" placeholder="Registration number" />
-                </div>
-                
-                <div class="mb-3 col-md-6">
-                  
-                  <br>
-                    <label for="zipCode" class="form-label">Please Check your pet MungBTI </label>
-                 	<button type="button" class="btn btn-outline-secondary" id="modal_btn"><i class="fa-solid fa-paw"></i> Personality</button> 
-                  <div class="black_bg"></div>
-                  <div class="modal_wrap">
-                  <div class="modal_close"><a href="/pet/regist">close</a></div>
-                    <div>
-                    <h4><b>My pet MungBTI</b></h4>
-                    <br>
-                    <span><활동 성향></활동></span>
-                    <br>
-                   <span> Q1. 새로운 친구를 만났을 때, 이때의 나는??</span>
-                  <br>
-                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                 금방 친구가 되어 같이 뛰어논다~! <input type="radio" value="active"  id="active" name="active" >
-                </button>
-                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                  낯을 가지며 쉽게 친해지지 못한다.  <input type="radio" value="timid"  id="timid" name="timid"  >
-                  </button>
-                  <br>
-                      <span><관계 성향></활동></span>
-                    <br>
-                   <span> Q2. 집사와 함께 있을 때, 이때의 나는??</span>
-                  <br>
-                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                 나는야 집사바라기<i class="fa-solid fa-sun"></i> <input type="radio" value="sunflower"  id="sunflower" name="sunflower" >
-                </button>
-                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                  나는야 혼자 놀기의 달인!!  <input type="radio" value="alone"  id="alone" name="alone"  >
-                  </button>
-                  <br>
-                          <span><적응 성향></활동></span>
-                    <br>
-                   <span> Q3. 집사가 교육을 하려고 한다. 이때의 나는??</span>
-                  <br>
-                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                 손이면 손, 발이면 발 나는야 척척박사<input type="radio" value="smart"  id="smart" name="smart" >
-                </button>
-                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                  으잉..? 간식도 안주고 훈련만 한단 말이야? 안할랭~~~<input type="radio" value="lazy"  id="lazy" name="lazy"  >
-                  </button>
-                  
-                    <br>
-                          <span><순종 성향></활동></span>
-                    <br>
-                   <span> Q4. 집사와 새로운 장소에 도착했다. 이때의 나는??</span>
-                  <br>
-                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                 여기가 어디지..? 집사 옆에 꼭 붙어있어야지 <input type="radio" value="scare"  id="scare" name="scare" >
-                </button>
-                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                  새로운 곳 좋아!! 여기저기 다 가봐야지!! 얼른 가보고싶어!!<input type="radio" value="curius"  id="curius" name="curius"  >
-                  </button>
-                  
+                                    <hr class="my-0" />
+                                    <div class="card-body">
+                                        <form id="petRegist">
+                                            <div class="row">
 
-                   </div>
-                   <br>
-                       <button type="button" class="btn btn-outline-secondary account-image-reset mb-4"
-                         onClick="location.href='/pet/regist'">
-                   <span> Save <i class="fa-regular fa-square-plus"></i></span>
-                  </button>
-                  
-                  <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                    <span> Cancel <i class="fa-solid fa-trash-can"></i></span>
-                     </button>
-                     </div>
-			
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="petName" class="form-label">Pet Name</label>
+                                                    <input
+                                                        class="form-control"
+                                                        type="text"
+                                                        id="petName"
+                                                        name="petName"
+                                                        placeholder="Please write your name"
+                                                        autofocus
+                                                    />
+                                                </div>
+                                
+                                                <div class="mb-3 col-md-6">
+                                                    <span class="form-label">Birth Date</span>
+                                                    <input class="form-control" type="text" name="birthDate" id="birthDate" placeholder="YYYYMMDD" />
+                                                </div>
+                            
+                                
+                                                <div class= "mb-3 col-md-6">
+                                                    <span class="form-label">Breed</span>
+                                                        <select onclick="changeBreed(this)" class="select2 form-select" >
+                                                            <option>분류를 선택해주세요.</option>
+                                                            <option value="dog">Dog</option>
+                                                            <option value="cat">Cat</option>
+                                                        </select>
+        
+                                                        <select id="breed" class="select2 form-select" name="selectedBreed">
+                                                        </select>
+                                    
+                                                </div>
+                                
+                                
+                                                <div class="mb-3 col-md-6">
+                                                    <span class="form-label">Gender</span>
+                                                    
+                                                    <input type="radio" value="male" id="male" name="gender" />
+                                                    <label for="male">
+    													<span class="btn btn-outline-secondary account-image-reset mb-4">
+        													<span class="d-none d-sm-block"><i class="fa-solid fa-mars"></i> Male</span>
+    													</span>
+													</label>
+                                    
+                                                    <input type="radio" value="female"  id="female" name="gender" />
+                                                    <label for="female">
+                                                    	<span class="btn btn-outline-secondary account-image-reset mb-4">
+                                                            <span class="d-none d-sm-block">  <i class="fa-solid fa-venus"></i>Female</span>
+                                                        </span>	
+                                                    </label>
+                                                </div>
+                                
+                                                <div class="mb-3 col-md-6">
+                                                    <span class="form-label">Neutering</span>
+                                                    
+                                                    <input type="radio" value="yes"  id="done" name="neutering" />
+                                                    <label for="done">
+                                                        <span class="btn btn-outline-secondary account-image-reset mb-4">
+                                                            <i class="fa-solid fa-square-check"></i> 
+                                                        </span>
+                                                    </label>
+                                                    
+                                                    <input type="radio" value="no"  id="notdone" name="neutering" />
+                                                    <label for="notdone">
+                                                    	<span class="btn btn-outline-secondary account-image-reset mb-4">
+                                                        	<i class="fa-solid fa-square-xmark"></i> 
+                                                    	</span>
+                                                    </label>
+                                                </div>
+                                
+                                                <div class="mb-3 col-md-6">
+                                                    <span class="form-label">Registration number</span>
+                                                    <input class="form-control" type="text" id="registrationNumber" name="registrationNumber" placeholder="Registration number" />
+                                                </div>
+                                
+                                                <div class="mb-3 col-md-6"> 
+                                                    <br>
+                                                        <span class="form-label">Please Check your pet MungBTI </span>
+                                                        <button type="button" class="btn btn-outline-secondary" id="modal_btn"><i class="fa-solid fa-paw"></i> Personality</button> 
+														
+														 <!-- 모달 -->
+                                                        <div class="black_bg"></div>
+                                                        <div class="modal_wrap">
+                                                            <div class="modal_close"><i class="fa-solid fa-square-xmark"></i></div>
+                                                            <!-- 질문 -->
+                                                            <div>
+                                                                <h4><b>My pet MungBTI</b></h4>
+                                                                <br>
+
+                                                                <span> Q1. 새로운 친구를 만났을 때, 이때의 나는??</span>
+
+                                                                <br><br>
+                                                                
+                                                                <input type="radio" value="e"  id="e" name="ei" />
+                                                                <label for="e">
+                                                                	<span class="btn btn-outline-secondary account-image-reset mb-4">
+                                                                		금방 친구가 되어 같이 뛰어논다~! 
+                                                                	</span>
+                                                                </label>
+                                                                
+																<br>
+																
+																<input type="radio" value="i"  id="i" name="ei" />
+																<label for="i">
+																	<span class="btn btn-outline-secondary account-image-reset mb-4">
+                                                                		낯을 가지며 쉽게 친해지지 못한다.  
+                                                                	</span>
+																</label>
+
+                                                                <br>
+
+                                                                <span> Q2. 집사와 함께 있을 때, 이때의 나는??</span>
+
+                                                                <br><br>
+                                                                
+                                                                <input type="radio" value="n"  id="n" name="ns" />
+                                                                <label for="n">
+	                                                                <span class="btn btn-outline-secondary account-image-reset mb-4">
+	                                                                	나는야 집사바라기
+	                                                                </span>
+                                                                </label>
+                                                                
+                                                                <br>
+                                                                
+                                                                <input type="radio" value="s"  id="s" name="ns" />
+                                                                <label for="s">
+	                                                                <span class="btn btn-outline-secondary account-image-reset mb-4">
+	                                                                	나는야 혼자 놀기의 달인!!  
+	                                                                </span>
+                                                                </label>
+                                                                
+
+                                                                <br>
+
+                                                                <span> Q3. 집사가 교육을 하려고 한다. 이때의 나는??</span>
+
+                                                                <br><br>
+                                                                
+                                                                <input type="radio" value="t"  id="t" name="ft" />
+                                                                <label for="t">
+                                                                	<span class="btn btn-outline-secondary account-image-reset mb-4">
+                                                                		손이면 손, 발이면 발 나는야 척척박사
+                                                                	</span>
+                                                                </label>
+                                                                
+                                                                <br>
+                                                                
+                                                                <input type="radio" value="f"  id="f" name="ft" />
+                                                                <label for="f">
+	                                                                <span class="btn btn-outline-secondary account-image-reset mb-4">
+	                                                                	으잉..? 간식도 안주고 훈련만 한단 말이야? 안할랭~~~
+	                                                                </span>
+                                                                </label>
+                                                                
+                                                                <br>
+
+                                                                <span> Q4. 집사와 새로운 장소에 도착했다. 이때의 나는??</span>
+
+                                                                <br><br>
+                                                                
+																<input type="radio" value="j"  id="j" name="pj" />
+																<label for="j">
+	                                                                <span class="btn btn-outline-secondary account-image-reset mb-4">
+	                                                                	여기가 어디지..? 집사 옆에 꼭 붙어있어야지 
+	                                                                </span>
+																</label>                                                        
+                                                                
+                                                                <br>
+                                                                
+                                                                <input type="radio" value="p"  id="p" name="pj" />
+                                                                <label for="p">
+	                                                                <span class="btn btn-outline-secondary account-image-reset mb-4">
+	                                                                	새로운 곳 좋아!! 여기저기 다 가봐야지!! 얼른 가보고싶어!!
+	                                                                </span>
+                                                                </label>
+
+                                                                <br>
+                                                                
+                                                                <button type="button" class="btn btn-outline-secondary modal_save" onclick="getMungBTI()">
+                                                                    <span> Save <i class="fa-regular fa-square-plus"></i></span>
+                                                                </button>
+
+                                                            </div>
+                                                            <!-- /질문 -->
+                                                        </div>
+                                                        <!-- /모달 -->
+                                                        
+                                                        
+                                                        <input id='mungBTI' readonly></input> 
+                                                </div>                    
+                                            </div>
+
+                                            <div class="mt-2">
+                                                <button type="button" class="btn btn-primary me-2" onclick="regist()">Register Animal</button>
+                                            </div>
+                                        </form>   
+                                                <a href="/">
+                                                    <button type="button" class="btn btn-primary me-2">Cancel</button>
+                                                </a>	
+                                        
+                                    </div>                 
+                                </div>
+                                
+                               
+
+                                    <!-- Footer -->
+                                    <footer class="content-footer footer bg-footer-theme">
+                                        <div
+                                            class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                                            <div class="mb-2 mb-md-0">
+                                                ©
+                                                <script>
+                                                    document.write(new Date().getFullYear());
+                                                </script>
+                                                , made with ❤️ by <a href="https://themeselection.com"
+                                                    target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
+                                            </div>
+                                            <div>
+                                                <a href="https://themeselection.com/license/"
+                                                    class="footer-link me-4" target="_blank">License</a> <a
+                                                    href="https://themeselection.com/" target="_blank"
+                                                    class="footer-link me-4">More Themes</a> <a
+                                                    href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
+                                                    target="_blank" class="footer-link me-4">Documentation</a>
+
+                                                <a
+                                                    href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
+                                                    target="_blank" class="footer-link me-4">Support</a>
+                                            </div>
+                                        </div>
+                                    </footer>
+                                    <!-- / Footer -->
+
+                                    <div class="content-backdrop fade"></div>
+                                </div>
+                                <!-- /Content wrapper -->
+                        </div>
+                    </div>
+                    <!-- /content -->
                 </div>
-              
-              
-              <div class="mt-2">
-                <button type="submit" class="btn btn-primary me-2">Register Animal</button>
-                <button type="reset" class="btn btn-primary me-2">Cancel</button>
-              </div>
-            </form>
-          </div>
-					<!-- Footer -->
-					<footer class="content-footer footer bg-footer-theme">
-						<div
-							class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-							<div class="mb-2 mb-md-0">
-								©
-								<script>
-                    document.write(new Date().getFullYear());
-                  </script>
-								, made with ❤️ by <a href="https://themeselection.com"
-									target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
-							</div>
-							<div>
-								<a href="https://themeselection.com/license/"
-									class="footer-link me-4" target="_blank">License</a> <a
-									href="https://themeselection.com/" target="_blank"
-									class="footer-link me-4">More Themes</a> <a
-									href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-									target="_blank" class="footer-link me-4">Documentation</a>
-
-								<a
-									href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-									target="_blank" class="footer-link me-4">Support</a>
-							</div>
-						</div>
-					</footer>
-					<!-- / Footer -->
-
-					<div class="content-backdrop fade"></div>
-				</div>
-				<!-- Content wrapper -->
-			</div>
-			<!-- / Layout page -->
-		</div>
-
-		<!-- Overlay -->
-		<div class="layout-overlay layout-menu-toggle"></div>
-	</div>
-	<!-- / Layout wrapper -->
+                <!-- /content wrapper -->
+            
+                <div class="layout-overlay layout-menu-toggle"></div>
+	        </div>
+            <!-- /layout page -->
+        </div>
+        <!-- /layout container-->
+    </div>
+	<!-- /Layout wrapper -->
 	
-<!-- modal창 스크립트 -->
-<script src="../assets/js/modal.js"></script>
+	<script type="text/javascript" layout:fragment="script">
+	
+		function getMungBTI() {
+			var ei = document.getElementsByName("ei");
+			let eiVal;
 
-<!-- 사진 업로드 스크립트 -->
-    <script src="../assets/js/pages-account-settings-account.js"></script>
+			for(var i = 0; i < ei.length; i++) {
+			  if(ei[i].checked) {
+				  eiVal = ei[i].value;
+			    break;
+			  }
+			}
+			
+			var ns = document.getElementsByName("ns");
+			let nsVal;
 
-<!-- 동물 품종 리스트 스크립트 -->
-    <script src="../assets/js/pet-list.js"></script>
+			for(var i = 0; i < ns.length; i++) {
+			  if(ns[i].checked) {
+				  nsVal = ns[i].value;
+			    break;
+			  }
+			}
+			
+			var ft = document.getElementsByName("ft");
+			let ftVal;
 
-</script>
+			for(var i = 0; i < ft.length; i++) {
+			  if(ft[i].checked) {
+				  ftVal = ft[i].value;
+			    break;
+			  }
+			}
+			
+			var pj = document.getElementsByName("pj");
+			let pjVal;
+
+			for(var i = 0; i < pj.length; i++) {
+			  if(pj[i].checked) {
+				  pjVal = pj[i].value;
+			    break;
+			  }
+			}
+			
+			// document.getElementById('result').innerText = eiVal + nsVal + ftVal + pjVal;
+			
+			var resultInput = document.getElementById("mungBTI");
+			resultInput.value = eiVal + nsVal + ftVal + pjVal;
+			
+		}
+	
+        function regist() {
+
+            //let data = $("#petRegist").serialize();
+
+            let data = {
+				petName: $("#petName").val(),
+				birthDate: $("#birthDate").val(),
+				breed: $("#breed").val(),
+				gender: $('input[name="gender"]:checked').val(),
+				neutering: $('input[name="neutering"]:checked').val(),
+				mungBTI: $("#mungBTI").val(),
+			};
+            
+            console.log(data);
+
+        }
+
+
+    </script>
+	
+
+
 </body>
 </html>

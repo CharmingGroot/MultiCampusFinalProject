@@ -11,5 +11,6 @@
  
     document.getElementById('modal_btn').addEventListener('click', onClick);
     document.querySelector('.modal_close').addEventListener('click', offClick);
+    document.querySelector('.modal_save').addEventListener('click',offClick);
  
 };

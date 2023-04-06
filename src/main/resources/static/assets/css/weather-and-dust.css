@@ -1,9 +1,8 @@
 .weatherAndDust-area {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: space-around;
 }
-.card {
-  margin: 10px;
-}
+

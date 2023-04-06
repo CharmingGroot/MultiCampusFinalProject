@@ -39,5 +39,6 @@ function changeBreed(e){
       opt.value = d[x];
       opt.innerHTML =d[x];
       target.appendChild(opt);
+      
     }
   }

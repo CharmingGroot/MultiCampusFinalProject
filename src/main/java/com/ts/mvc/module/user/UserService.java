@@ -97,7 +97,7 @@ public class UserService implements UserDetailsService{
 		User user = userRepository.findByUserId(username);
 		if(user == null) throw new UsernameNotFoundException(username);
 		
-		return new UserPrincipal(user);
+		return new UserPrincipal(new Principal(user));
 	}
 
 	@Transactional

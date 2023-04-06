@@ -51,10 +51,10 @@ public class GuestBookController {
 		
 		
 		// 방문자의 페이지 소유자 여부와 수정,삭제 가능권한 설정
-		PageOwnerDTO pageOwnState = guestBookService.guestBookForm(pageOwnerNickName, visitUserId.getUser().getUserId());
+		PageOwnerDTO pageOwnState = guestBookService.guestBookForm(pageOwnerNickName, visitUserId.getUserId());
 		
 		// 현재 페이지 주인의 방명록 리스트에서 방문자가 작성한 글 리스트 조회하여 받아오기
-		List<GuestBook> visitorWrittenList = guestBookRepository.findByPageOwnerAndUserUserId(pageOwnerNickName,visitUserId.getUser().getUserId())
+		List<GuestBook> visitorWrittenList = guestBookRepository.findByPageOwnerAndUserUserId(pageOwnerNickName,visitUserId.getUserId())
 				.stream().filter(entity -> entity != null).collect(Collectors.toList());
 			
 		// 전체 방명록(현재 페이지 주인의) 리스트
@@ -88,7 +88,7 @@ public class GuestBookController {
 		
 //		System.out.println("GetMapping('upload') 입니다.");
 		
-		dto.setUserId(visitUserId.getUser().getUserId()); // 방문자
+		dto.setUserId(visitUserId.getUserId()); // 방문자
 		dto.setContent(content);
 		dto.setPageOwner(pageOwnerNickName);
 		guestBookService.createGuestBook(dto);

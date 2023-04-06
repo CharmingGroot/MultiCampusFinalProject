@@ -9,13 +9,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ts.mvc.infra.code.ErrorCode;
+import com.ts.mvc.infra.exception.AuthException;
 import com.ts.mvc.infra.exception.CustomException;
+import com.ts.mvc.infra.exception.HandlableException;
 import com.ts.mvc.module.diary.dto.DiaryUploadDto;
 import com.ts.mvc.module.user.User;
 import com.ts.mvc.module.user.UserPrincipal;
 import com.ts.mvc.module.user.UserRepository;
 import com.ts.mvc.module.user.api.dto.UserProfileDto;
+import com.ts.mvc.module.user.dto.Principal;
 
+import groovyjarjarantlr4.v4.parse.ANTLRParser.throwsSpec_return;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -45,7 +50,7 @@ public class DiaryService {
 		}
 		
 		// image 테이블에 저장
-		Diary diary = diaryUploadDto.toEntity(imageFileName, userPrincipal.getUser());
+		Diary diary = diaryUploadDto.toEntity(imageFileName, userPrincipal.getUserId());
 		diaryRepository.save(diary);
 		
 //		System.out.println(diaryEntity);
@@ -64,6 +69,15 @@ public class DiaryService {
 		dto.setImageCount(userEntity.getImages().size());
 		
 		return dto;
+	}
+
+	@Transactional
+	public void removeDiary(Long dyIdx, String principalId) {
+		Diary diary = diaryRepository.findById(dyIdx).orElseThrow(() -> new HandlableException(ErrorCode.NOT_EXISTS));
+		
+		if(!diary.getUser().equals(principalId)) throw new AuthException(ErrorCode.UNAUTHORIZED_REQUEST);
+		
+		diaryRepository.delete(diary);
 	}
 
 

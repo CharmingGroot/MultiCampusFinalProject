@@ -1,6 +1,12 @@
-window.onload = function () {
+// 변수 선언
+let water=0;
+let food=0;
+let weight=0;
+let treat=0;
+let walkDistance=0;
+
     function onGeoOk(position) {
-        const API_KEY = "openweather API"; //openweather API키 입력
+        const API_KEY = "aa894e072080726e6c0321cd6036ed0e"; //openweather API키 입력
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
         const weather_url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&lang=kr&appid=${API_KEY}&units=metric`;
@@ -51,4 +57,31 @@ window.onload = function () {
         alert("위치 정보를 가져오지 못했어요");
     }
     navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);
-};
+    
+     // location.search로 URL 파라미터 가져오기
+  const getParams = new URLSearchParams(location.search);
+  for (const param of getParams) {
+    console.log(param);
+     }
+
+//status-chart
+ // 변수에 값 넣기 
+  water = getParams.get('water');
+  food = getParams.get('food');
+  weight = getParams.get('weight');
+  treat = getParams.get('treat');
+  walkDistance= getParams.get('walkDistance');
+
+  
+  // 차트생성
+var chart = c3.generate({
+ bindto: '#total-chart',
+    data: {
+        columns: [  
+        ['water', water], ['food', food],
+        ['treat',treat],['walkDistance',walkDistance],
+        ['weight',weight]
+        ]
+    }
+});
+    

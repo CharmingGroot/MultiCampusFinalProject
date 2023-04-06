@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!--alert창 -->
+  <script src="
+  https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js
+  "></script>
+  <link href="
+  https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css
+  " rel="stylesheet">
+
+</head>
+<body>
+  <button >눌러주세요.</button>
+  <script>
+ (async () => {
+    const { value: schedule } = await Swal.fire({
+        title: 'Please Enter your schedule.',
+       // text: '그냥 예시일 뿐이니 정보유출 같은건 없습니다.',
+        input: 'textarea',
+        inputPlaceholder: '(ex)7시 강남 두콩이 예방주사',
+        showCancelButton: true
+    })
+
+    // 이후 처리되는 내용.
+    if (schedule) {
+        Swal.fire(`: ${schedule}`)
+    }
+})()
+</script>
+</body>
+</html>

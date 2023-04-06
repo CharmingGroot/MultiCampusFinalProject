@@ -1,15 +1,14 @@
 @charset "UTF-8";
 
 
-.question-btn {
-  /*  */
+iframe[src^='http://localhost:8080/sockjs-node/'] {
+  display: none;
 }
 
 
-
-
-
-
+.question-btn {
+  /*  */
+}
 
 
 .chatGpt-area {
