@@ -1,5 +1,7 @@
 package com.ts.mvc.module.diary;
 
+import java.io.IOException;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,7 +48,12 @@ public class DiaryController {
 		}
 		
 		// 서비스 호출
-		diaryService.diaryImageUpload(diaryUploadDto, userPrincipal);		
+		try {
+			diaryService.diaryImageUpload(diaryUploadDto, userPrincipal);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 		
 		return "redirect:/diary/" + userPrincipal.getUserId();
 	}

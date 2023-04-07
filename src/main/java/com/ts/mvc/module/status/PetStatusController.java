@@ -28,10 +28,12 @@ public class PetStatusController {
 //	private PetEventService petEventService;
 
 
-	// 생성자를 만들어서 의존성 주입
 //	public PetStatusController(PetEventService petEventService) {
 //		this.petEventService = petEventService;
 //	}
+
+	//제발요
+
 
 	@GetMapping("")
 	public String statusUpdate(HttpServletRequest request, Model model, PetStatusDto petStatus) {

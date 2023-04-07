@@ -70,7 +70,7 @@
                 
                                     <hr class="my-0" />
                                     <div class="card-body">
-                                        <form id="petRegist">
+                                        <form th:action="@{/pet/register}" method="post">
                                             <div class="row">
 
                                                 <div class="mb-3 col-md-6">
@@ -87,7 +87,12 @@
                                 
                                                 <div class="mb-3 col-md-6">
                                                     <span class="form-label">Birth Date</span>
-                                                    <input class="form-control" type="text" name="birthDate" id="birthDate" placeholder="YYYYMMDD" />
+                                                    <input class="form-control" type="text" name="petBirthdate" id="petBirthdate" placeholder="YYYYMMDD" />
+                                                </div>
+                                                
+                                                <div class="mb-3 col-md-6">
+                                                    <span class="form-label">Weight</span>
+                                                    <input class="form-control" type="text" name="weight" id="weight" placeholder="kg" />
                                                 </div>
                             
                                 
@@ -99,7 +104,7 @@
                                                             <option value="cat">Cat</option>
                                                         </select>
         
-                                                        <select id="breed" class="select2 form-select" name="selectedBreed">
+                                                        <select id="breed" class="select2 form-select" name="breed">
                                                         </select>
                                     
                                                 </div>
@@ -143,7 +148,7 @@
                                 
                                                 <div class="mb-3 col-md-6">
                                                     <span class="form-label">Registration number</span>
-                                                    <input class="form-control" type="text" id="registrationNumber" name="registrationNumber" placeholder="Registration number" />
+                                                    <input class="form-control" type="text" id="petNumber" name="petNumber" placeholder="Registration number" />
                                                 </div>
                                 
                                                 <div class="mb-3 col-md-6"> 
@@ -259,12 +264,12 @@
                                                         <!-- /모달 -->
                                                         
                                                         
-                                                        <input id='mungBTI' readonly></input> 
+                                                        <input id="dogMbti" name="dogMbti" readonly></input> 
                                                 </div>                    
                                             </div>
 
                                             <div class="mt-2">
-                                                <button type="button" class="btn btn-primary me-2" onclick="regist()">Register Animal</button>
+                                                <button class="btn btn-primary me-2">Register Animal</button>
                                             </div>
                                         </form>   
                                                 <a href="/">
@@ -366,7 +371,7 @@
 			
 			// document.getElementById('result').innerText = eiVal + nsVal + ftVal + pjVal;
 			
-			var resultInput = document.getElementById("mungBTI");
+			var resultInput = document.getElementById("dogMbti");
 			resultInput.value = eiVal + nsVal + ftVal + pjVal;
 			
 		}
@@ -377,11 +382,13 @@
 
             let data = {
 				petName: $("#petName").val(),
-				birthDate: $("#birthDate").val(),
+				petBirthdate: $("#petBirthdate").val(),
+				weight: $("#weight").val(),
+				petNumber: $("#petNumber").val(),
 				breed: $("#breed").val(),
 				gender: $('input[name="gender"]:checked').val(),
 				neutering: $('input[name="neutering"]:checked').val(),
-				mungBTI: $("#mungBTI").val(),
+				dogMbti: $("#dogMbti").val(),
 			};
             
             console.log(data);

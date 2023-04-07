@@ -68,10 +68,9 @@
 					<!-- Content -->
 					<div class="container-xxl container-p-y">
 						<!-- 0영역 시작 -->
-						<div class="card" style="margin-bottom: 20px;">
+						<div th:each="petList: ${petList}" class="card" style="margin-bottom: 20px;">
 							<div class="petNav">
-								<button class="btn-outline-primary"><a href="#">George Benson</a></button>
-								<button class="btn-outline-primary"><a href="#">Lenny Kravitz</a></button>
+								<button  th:text="${petList.petName}+'의 정보'" class="btn-outline-primary"><a th:href="@{/blog/{petList.petName}}"></a></button>
 							</div>
 						</div>
 						<!-- 1영역 시작 -->

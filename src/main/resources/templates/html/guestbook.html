@@ -84,7 +84,9 @@
 											<div class="card h-100">
 												<div class="guestInfoWrapper card-title"style="border-radius: 0.7rem 0.7rem;">
 												</div>
-												<form th:action="@{/guestbook/upload}" method="post" enctype="multipart/form-data" id="commentForm" name="commentForm">
+												<form id="commentForm" name="commentForm">
+													<input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+													<div th:text="${_csrf.token}"></div>
 													<div class="form-floating">
 														<textarea class="form-control" id="floatingTextarea2" cols="50" rows="5" style="height: 200px; resize:none; border-top-right-radius: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0;" placeholder="내용을 입력하세요." name="content"></textarea>
 													</div>

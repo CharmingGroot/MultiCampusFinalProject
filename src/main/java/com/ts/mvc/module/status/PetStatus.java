@@ -13,6 +13,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.ts.mvc.module.blog.dto.request.WalkDto;
 import com.ts.mvc.module.pet.Pet;
 import com.ts.mvc.module.user.User;
 
@@ -55,8 +56,18 @@ public class PetStatus {
 	@ManyToOne
 	private User user;
 	
-	@ManyToOne
-	private Pet pet;
+	// petName은 pet엔티티의 ID가 petIdx로 설정되어있기때문에, 굳이 연관관계 매핑을 하지않았습니다. 대신 빌딩할때 Pet엔티티에서 값을 받아오는 형태로 사용하려고 String으로 설정했습니다.
+	private String petName; 
+
+	
+	public static PetStatus updateWalkData(User user,Pet pet,WalkDto dto) {
+		return PetStatus.builder()
+				.user(user)
+				.petName(pet.getPetName())
+				.walkDistance(dto.getWalkDistance())
+				.walkTime(dto.getWalkTime())
+				.build();
+	}
 	
 //	@ApiModelProperty(value = "해당 년월일", example = "2022-04-19", required = true)
 //  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")

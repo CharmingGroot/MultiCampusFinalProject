@@ -55,12 +55,13 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		
 		http.authorizeHttpRequests()
-		.antMatchers(HttpMethod.GET, "/").permitAll()
+		.antMatchers(HttpMethod.GET, "/", "/index").permitAll()
 		.antMatchers(HttpMethod.GET, "/user/signup", "/user/checkId", "/user/signupimpl/**").permitAll()
 		.antMatchers(HttpMethod.POST,"/user/signup").permitAll()
 		.antMatchers(HttpMethod.POST, "/mail").permitAll()
-//		.antMatchers(HttpMethod.GET,"/board/list", "/board/detail", "/board/download").permitAll()
 //		.antMatchers(HttpMethod.GET, "/admin").hasAuthority("ROLE_ADMIN")
+		.antMatchers(HttpMethod.POST, "/gs-guide-websocket/**").permitAll()
+		.antMatchers(HttpMethod.GET, "/gs-guide-websocket/**").permitAll()
 		.anyRequest().authenticated();
 		
 		http.formLogin()
@@ -86,13 +87,13 @@ public class SecurityConfig {
 		
 		
 		// csrf : post요청일 때 수행해야 하는 csrf 토큰 검증을 끔
-		//http.csrf().disable();
 		http.csrf().ignoringAntMatchers("/mail");
 		http.csrf().ignoringAntMatchers("/blog");
-		http.csrf().ignoringAntMatchers("/guestbook/upload");
-		http.csrf().ignoringAntMatchers("/guestbook/update");
-		http.csrf().ignoringAntMatchers("/guestbook/delete");
-		//http.csrf().disable().cors(); // ajax 사용하면서 put 오류나는거때문에... 삭제해야함
+		http.csrf().ignoringAntMatchers("/guestbook/**/**");
+		http.csrf().ignoringAntMatchers("/blog/**/**");
+		http.csrf().ignoringAntMatchers("/diary/upload");
+		http.csrf().ignoringAntMatchers("/api/user");
+		
 		return http.build();
 	}
 	

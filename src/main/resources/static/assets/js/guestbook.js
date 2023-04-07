@@ -1,11 +1,28 @@
 
 // 페이지 로드 시 삭제버튼, 수정버튼 세팅함수 실행
 window.onload = () => {
+  // csrfToken();
   delBtnEventSet();
   updateBtnEventSet();
 }
 
+// function csrfToken() {
 
+//   const path = window.location.pathname;
+//   let pageOwnerArr = path.split('/');
+//   let pageOwner = pageOwnerArr[2];
+
+//   fetch(`http://localhost:8080/guestbook/${pageOwner}/getCsrfToken`, {
+//     method: "GET",
+//   })
+//     .then(response => response.json())
+//     .then(data => {
+//       const csrfToken = data.token;
+//       console.log(csrfToken);
+//       sessionStorage.setItem("csrfToken", csrfToken);
+//     })
+//     .catch(error => console.error(error));
+// }
 
 const commentForm = document.getElementById('commentForm');
 // console.log(commentForm);
@@ -29,7 +46,7 @@ commentForm.addEventListener('submit', async (event) => {
   await fetch(`http://localhost:8080/guestbook/${pageOwner}/upload`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     body: comment,
   })

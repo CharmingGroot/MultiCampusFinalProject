@@ -1,5 +1,6 @@
 package com.ts.mvc.module.diary;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -34,12 +35,19 @@ public class DiaryService {
 	private String uploadFolder;
 	
 	@Transactional
-	public void diaryImageUpload(DiaryUploadDto diaryUploadDto, UserPrincipal userPrincipal) {
+	public void diaryImageUpload(DiaryUploadDto diaryUploadDto, UserPrincipal userPrincipal) throws IOException {
 		UUID uuid = UUID.randomUUID();
 		String imageFileName = uuid + "_" + diaryUploadDto.getFile().getOriginalFilename();
 //		System.out.println("이미지 파일이름: " + imageFileName);
 		
 		Path imageFilePath = Paths.get(uploadFolder + imageFileName);
+		Path parentPath = imageFilePath.getParent(); // imageFilePath의 상위 디렉토리 경로를 가져옴
+
+		if (parentPath != null && !Files.exists(parentPath)) { // 상위 디렉토리가 존재하지 않는 경우
+		    Files.createDirectories(parentPath); // 상위 디렉토리를 생성함
+		}
+
+		Files.createFile(imageFilePath); // 파일을 생성함
 		
 		// 통신, I/O -> 예외가 발생할 수 있다.
 		try {
