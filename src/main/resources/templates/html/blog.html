@@ -68,11 +68,23 @@
 					<!-- Content -->
 					<div class="container-xxl container-p-y">
 						<!-- 0영역 시작 -->
-						<div th:each="petList: ${petList}" class="card" style="margin-bottom: 20px;">
-							<div class="petNav">
-								<button  th:text="${petList.petName}+'의 정보'" class="btn-outline-primary"><a th:href="@{/blog/{petList.petName}}"></a></button>
+						<p>산책가는 강아지를 체크해주세요!</p>
+						<div class="petList">
+							<div th:each="petList: ${petList}" class="card" style="margin-bottom: 20px;">
+								<div class="petNav card form-switch">
+									<!-- <button type="button" onclick="letsWalk()" th:text="${petList.petName}+'의 정보'" class="btn-outline-primary"><a th:href="@{}"></a></button> -->
+									<input class="form-check-input pet-checkbox" type="checkbox" th:value="${petList.petName}" name="petName" id="flexSwitchCheckChecked" th:attr="id='pet-'+${petList.petName}">
+									<label class="form-check-label" th:for="'pet-'+${petList.petName}" th:text="${petList.petName}"></label>
+								</div>
 							</div>
 						</div>
+
+						<!-- <th:block>
+							<div th:each="petList: ${petList}">
+								<a th:href="@{/blog/{pageOwnerNickName}(pageOwnerNickName=${#authentication.principal.userId})/{petName}(petName=${petList.petName})}" th:text="${petList.petName}"></a>
+							</div>
+						</th:block> -->
+
 						<!-- 1영역 시작 -->
 						<div class="main-contents col-12" id="first-area">
 							<div class="card col-7 kakao-map" alt="이번 주 산책 횟수 등 가벼운 정보 or 실시간 산책 경로">
@@ -82,9 +94,11 @@
 							</div>
 							<div class="col-5 timer-wrapper justify-content-center">
 								<div class="timer">
-									<div>
+									
+									<div class="clock-wrapper">
+										
 										<h1 id="clock" style="font-weight: 100;"></h1>
-								</div>
+									</div>
 										<div class="containerMrs">
 												<p id="output" class="h2"><b>00:00:00</b></p>
 												<div id="controls">
@@ -172,7 +186,7 @@
 								<h4 id="easy-checker-title">오늘 콩순이는 이만큼 먹었다</h4>
 			
 								<!-- 급수량 -->
-									<form action="/blog" method="get" >
+									<form action="/blog" method="get" id="feedDataForm">
 										
 										<div>	
 											<div class="input-group">
@@ -182,6 +196,7 @@
 												class="form-control"
 												name="water"
 												min="0"
+												step="1"
 												placeholder="ml 단위로 입력하세요"
 												aria-describedby="button-addon2"/>
 											</div>
@@ -191,6 +206,7 @@
 												name="food"
 													type="number"
 													min="0"
+													step="1"
 													class="form-control"
 													placeholder="g 단위로 입력하세요"
 													aria-describedby="button-addon2"/>
@@ -201,6 +217,7 @@
 													name="weight"
 													type="number"
 													min="0"
+													step="0.1"
 													class="form-control"
 													placeholder="kg 단위로 입력하세요"
 													aria-describedby="button-addon2"/>

@@ -47,7 +47,6 @@ public class GuestBookService {
    
    
    // 수정기능
-   // 매개변수는 dto가 되는 것이 맞음.
    @Transactional
    public void updateGuestBook(GuestBookUpdateRequest dto) {
       

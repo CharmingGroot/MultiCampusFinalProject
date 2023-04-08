@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class Principal { // 인증이 끝난 정보를 담기 위한
+public class Principal implements Serializable{ // 인증이 끝난 정보를 담기 위한
 
 	private String userId;
 	private String password;

@@ -13,6 +13,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.ts.mvc.module.blog.dto.request.FoodDto;
 import com.ts.mvc.module.blog.dto.request.WalkDto;
 import com.ts.mvc.module.pet.Pet;
 import com.ts.mvc.module.user.User;
@@ -60,18 +61,27 @@ public class PetStatus {
 	private String petName; 
 
 	
-	public static PetStatus updateWalkData(User user,Pet pet,WalkDto dto) {
+	public static PetStatus updateData(User user,Pet pet,WalkDto walkDto,FoodDto foodDto) {
 		return PetStatus.builder()
 				.user(user)
 				.petName(pet.getPetName())
-				.walkDistance(dto.getWalkDistance())
-				.walkTime(dto.getWalkTime())
+				.walkDistance(walkDto.getWalkDistance())
+				.walkTime(walkDto.getWalkTime())
+				.food(foodDto.getFood())
+				.water(foodDto.getWater())
 				.build();
 	}
-	
-//	@ApiModelProperty(value = "해당 년월일", example = "2022-04-19", required = true)
-//  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-//  private LocalDate date;
+
+
+	public static PetStatus updateFoodData(User user,FoodDto dto) {
+		return PetStatus.builder()
+				.food(dto.getFood())
+				.water(dto.getWater())
+				.petName(dto.getPetName())
+				.user(user)
+				.build();
+	}
+
 	
 	
 }

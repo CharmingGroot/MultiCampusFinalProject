@@ -2560,7 +2560,7 @@ textarea.form-control-lg {
   height: 1.2em;
   margin-top: 0.165em;
   vertical-align: top;
-  background-color: #fff;
+  background-color: #eceef1;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -2585,13 +2585,13 @@ textarea.form-control-lg {
 }
 
 .form-check-input:focus {
-  border-color: rgba(249, 249, 255, 0.54);
+  border-color: rgba(194, 194, 254, 0.54);
   outline: 0;
   box-shadow: 0 0 0.25rem 0.05rem rgba(105, 108, 255, 0.1);
 }
 
 .form-check-input:checked {
-  background-color: rgba(105, 108, 255, 0.08);
+  background-color: rgb(3 179 236);
   border-color: rgba(105, 108, 255, 0.08);
 }
 

@@ -141,3 +141,7 @@
 .timer-btn {
   border-radius: 0.3rem;
 }
+
+.petList {
+  display: flex;
+}

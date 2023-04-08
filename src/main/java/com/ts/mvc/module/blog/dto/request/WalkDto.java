@@ -1,6 +1,7 @@
 package com.ts.mvc.module.blog.dto.request;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.ts.mvc.module.user.User;
 
@@ -16,6 +17,6 @@ public class WalkDto {
 	private LocalDateTime regDate;
 	private String userId;
 	private String petName;
-
+//	private List<String> petNameList;
 
 }

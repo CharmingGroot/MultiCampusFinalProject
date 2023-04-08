@@ -237,7 +237,7 @@ function reset() {
   walkTime = time;
   console.log(walkTime);
 
-  postData(); // time 초기화 전에 실행
+  postWalkData(); // time 초기화 전에 실행
 
   running = 0;
   time = 0;
@@ -439,21 +439,32 @@ function locationCalculator() {
 
 
 
-function postData() {
+function postWalkData() {
 
   const path = window.location.pathname;
   let pageOwnerArr = path.split('/');
   let pageOwner = pageOwnerArr[2];
-
   let td = (totalDistance.toFixed(2)).toString();
+
+  // 체크박스 값 받는 로직
+  const petCheckBoxes = document.getElementsByClassName("pet-checkbox");
+  const values = [];
+
+  for (const checkbox of petCheckBoxes) {
+    if (checkbox.checked) values.push(checkbox.defaultValue);
+    console.log(values);
+    console.log(petCheckBoxes);
+  };
+
 
 
   const data = {
     TTD: td,
-    walkTime: walkTime
+    walkTime: walkTime,
+    petNameList: values
   };
 
-  fetch(`http://localhost:8080/blog/${pageOwner}`, {
+  fetch(`http://localhost:8080/blog/${pageOwner}/walk`, {
     method: 'POST', // 또는 'PUT'
     headers: {
       'Content-Type': 'application/json',
@@ -472,3 +483,57 @@ function postData() {
 }
 
 
+function postFeedData(water, food, weight) {
+  const path = window.location.pathname;
+  let pageOwnerArr = path.split('/');
+  let pageOwner = pageOwnerArr[2];
+
+  // 체크박스 값 받는 로직
+  const petCheckBoxes = document.getElementsByClassName("pet-checkbox");
+  const values = [];
+
+  for (const checkbox of petCheckBoxes) {
+    if (checkbox.checked) values.push(checkbox.defaultValue);
+    console.log(values);
+    console.log(petCheckBoxes);
+  };
+
+  const feedData = {
+    water: water,
+    food: food,
+    weight: weight,
+    petNameList: values
+  }
+
+
+  fetch(`http://localhost:8080/blog/${pageOwner}/food`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(feedData),
+  })
+    .then((response) => response)
+    .then((data) => {
+      console.log('food POST 성공:', data);
+    })
+    .catch((error) => {
+      console.error('food POST 실패:', error);
+    });
+
+}
+
+const feedDataForm = document.getElementById("feedDataForm");
+feedDataForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(feedDataForm);
+
+  const water = formData.get('water');
+  const food = formData.get('food');
+  const weight = formData.get('weight');
+
+
+  postFeedData(water, food, weight);
+
+});

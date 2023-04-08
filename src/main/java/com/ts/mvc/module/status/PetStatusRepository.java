@@ -1,5 +1,6 @@
 package com.ts.mvc.module.status;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,5 +13,11 @@ import com.ts.mvc.module.user.User;
 public interface PetStatusRepository extends JpaRepository<PetStatus, Long>{
 
 	Optional<Pet> findByPetName(String pet);
+
+	List<PetStatus> findByPetNameAndUserUserId(String petName,String userId);
+
+	
+
+//	List<PetStatus> findByPetStatusPetName(String petName);
 
 }
