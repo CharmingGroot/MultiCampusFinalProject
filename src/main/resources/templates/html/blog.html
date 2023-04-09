@@ -68,17 +68,27 @@
 					<!-- Content -->
 					<div class="container-xxl container-p-y">
 						<!-- 0영역 시작 -->
-						<p>산책가는 강아지를 체크해주세요!</p>
-						<div class="petList">
-							<div th:each="petList: ${petList}" class="card" style="margin-bottom: 20px;">
-								<div class="petNav card form-switch">
-									<!-- <button type="button" onclick="letsWalk()" th:text="${petList.petName}+'의 정보'" class="btn-outline-primary"><a th:href="@{}"></a></button> -->
-									<input class="form-check-input pet-checkbox" type="checkbox" th:value="${petList.petName}" name="petName" id="flexSwitchCheckChecked" th:attr="id='pet-'+${petList.petName}">
-									<label class="form-check-label" th:for="'pet-'+${petList.petName}" th:text="${petList.petName}"></label>
+						<div style="display: flex;">
+							<div style="display: none;" th:each=" petStatusList : ${petStatusList}">
+								<div th:text="${petStatusList.petName}"></div>
+							</div>
+							<div id="water" style="display: none;" th:text="${#httpSession.getAttribute('water')}"></div>
+							<div id="food" style="display: none;" th:text="${#httpSession.getAttribute('food')}"></div>
+							<div id="weight" style="display: none;" th:text="${#httpSession.getAttribute('weight')}"></div>
+						</div>
+
+						
+						<div class="col-12 test2">
+							<div class="petList">
+								<div th:each="petList: ${petList}" class="test3" style="margin-bottom: 20px;">
+									<div class="petNav form-switch">
+										<!-- <button type="button" onclick="letsWalk()" th:text="${petList.petName}+'의 정보'" class="btn-outline-primary"><a th:href="@{}"></a></button> -->
+										<input class="form-check-input pet-checkbox" type="checkbox" checked="checked" th:value="${petList.petName}" name="petName" id="flexSwitchCheckChecked" th:attr="id='pet-'+${petList.petName}">
+										<label class="form-check-label" th:for="'pet-'+${petList.petName}" th:text="${petList.petName}"></label>
+									</div>
 								</div>
 							</div>
 						</div>
-
 						<!-- <th:block>
 							<div th:each="petList: ${petList}">
 								<a th:href="@{/blog/{pageOwnerNickName}(pageOwnerNickName=${#authentication.principal.userId})/{petName}(petName=${petList.petName})}" th:text="${petList.petName}"></a>
@@ -113,11 +123,13 @@
 										</div>
 									</div>
 							</div>
+
+
 						</div>
 
 						<!-- 1영역 종료 -->
 						<!-- 2영역 시작 -->
-						<div class="main-contents col-12" id="second-area">
+						<!-- <div class="main-contents col-12" id="second-area">
 							<div class="weekly-plan card col-12">
 								<h3>주간일정(23.03.06 ~ 23.03.12)</h3>
 								<table class="weekly-plan-table">
@@ -146,45 +158,26 @@
 								</tbody>
 								</table>
 							</div>
-							<!-- <div class="random-album-carousel col-5">
-								<div class="carousel-wrapper">
-									
-									<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-										<div class="carousel-inner">
-											<div class="carousel-item active">
-												<img src="../assets/img/testdog/dogdog.jpg" class="carousel-img" alt="1번 이미지">
-											</div>
-											<div class="carousel-item">
-												<img src="../assets/img/testdog/dog3.jpg" class="carousel-img" alt="2번 이미지">
-											</div>
-											<div class="carousel-item">
-												<img src="../assets/img/testdog/bulldog2.jpg" class="carousel-img" alt="3번 이미지">
-											</div>
-										</div>
-									</div>
-								</div>					
-							</div> -->
-						</div>
+						</div> -->
 						<!-- 2영역 종료 -->
 						<!-- 3영역 시작 -->
 						<div class="main-contents2 col-12" id="third-area">
 							<div class="day-graph card col-7">
-								<h4 id="easy-checker-title">오늘 콩순이는 이만큼 먹고 마셨다.</h4>
+								<h4 id="easy-checker-title">권장식사량 게이지</h4>
 								<div class="chart-wrapper">
 									<div class="water-chart">
 										<!-- 차트가 렌더링될 공간 -->
 									</div>
 								</div>
-								<div class="card-text chart-description">
-									몸무게가 10kg인 프렌치 불독인 콩순이의 하루 권장 식사량은 400g이에요.
+								<div class="card-text chart-description" id="chart-description">
+									
 								</div>
 
 							</div>
 
 							<!-- 급식, 급수, 몸무게 기입 -->
 							<div class="easy-checker col-5">			
-								<h4 id="easy-checker-title">오늘 콩순이는 이만큼 먹었다</h4>
-			
+								<h4 id="easy-checker-title">오늘 먹은만큼 기록해주세요.</h4>
 								<!-- 급수량 -->
 									<form action="/blog" method="get" id="feedDataForm">
 										

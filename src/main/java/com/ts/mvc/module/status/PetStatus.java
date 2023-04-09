@@ -1,5 +1,6 @@
 package com.ts.mvc.module.status;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -49,10 +50,16 @@ public class PetStatus {
 	private Double walkDistance;
 	
 	@ColumnDefault("0")
+	private Double weight;
+	
+	@ColumnDefault("0")
 	private Integer treat;
 
 	@Column(columnDefinition = "timestamp default now()")
 	private LocalDateTime regDate;
+	
+//	@Column(columnDefinition = "DATE NOT NULL DEFAULT CURRENT_DATE")
+//	private LocalDate regDate;
 	
 	@ManyToOne
 	private User user;
@@ -61,14 +68,12 @@ public class PetStatus {
 	private String petName; 
 
 	
-	public static PetStatus updateData(User user,Pet pet,WalkDto walkDto,FoodDto foodDto) {
+	public static PetStatus createData(User user,WalkDto walkDto) {
 		return PetStatus.builder()
 				.user(user)
-				.petName(pet.getPetName())
+				.petName(walkDto.getPetName())
 				.walkDistance(walkDto.getWalkDistance())
 				.walkTime(walkDto.getWalkTime())
-				.food(foodDto.getFood())
-				.water(foodDto.getWater())
 				.build();
 	}
 
@@ -78,6 +83,7 @@ public class PetStatus {
 				.food(dto.getFood())
 				.water(dto.getWater())
 				.petName(dto.getPetName())
+				.weight(dto.getWeight())
 				.user(user)
 				.build();
 	}

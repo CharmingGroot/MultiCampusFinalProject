@@ -1,5 +1,8 @@
 package com.ts.mvc.module.blog;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,15 +32,33 @@ public class BlogService {
 	private final PetRepository petRepository;
 	
 	@Transactional
-	public void createWalkStatus(WalkDto walkDto, FoodDto foodDto) {
-		System.out.println("BlogService 서비스레이어의 createStatus 실행.");
+	public void createWalkStatus(WalkDto walkDto) {
+		System.out.println("BlogService 서비스레이어의 createWalkStatus 실행.");
 
 		User user = userRepository.findById(walkDto.getUserId()).get();
-		Pet pet = petRepository.findByPetName(walkDto.getPetName()).get();
+//		Pet pet = petRepository.findByPetName(walkDto.getPetName()).get();
 		
-		// 업로드할 petStatus에 regDate의 등록일이 같은 데이터가 있다면 가장 최근 데이터에 값을 더하여 추가.해야함
+		PetStatus petStatus = PetStatus.createData(user,walkDto);
+				
+		petStatusRepository.saveAndFlush(petStatus);
 		
-		PetStatus petStatus = PetStatus.updateData(user,pet,walkDto,foodDto);
+	}
+	
+	@Transactional
+	public void updateWalkStatus(WalkDto walkDto) {
+		System.out.println("BlogService 서비스레이어의 updateWalkStatus 실행.");
+
+		// regDate와 petName과 userId가 일치해야함.
+		// regDate는 현재날짜와 비교하는 로직 활용.
+		
+		// Optional<PetStatus> petStatus에 조건에 맞는 필드를 조회한 뒤
+		// PetStatus petStatus = petStatus.get();
+		// Save n flush 해주면 끗.
+		
+		User user = userRepository.findById(walkDto.getUserId()).get();
+//		Pet pet = petRepository.findByPetName(walkDto.getPetName()).get();
+		
+		PetStatus petStatus = PetStatus.createData(user,walkDto);
 				
 		petStatusRepository.saveAndFlush(petStatus);
 		
@@ -47,34 +68,51 @@ public class BlogService {
 	public void updateFoodStatus(FoodDto dto) {
 		System.out.println("updateFoodStatus 실행");
 		
-		
-		
 		List<PetStatus> petStatus = petStatusRepository.findByPetNameAndUserUserId(dto.getPetName(),dto.getUserId())
 				.stream().filter(entity -> entity != null).collect(Collectors.toList());
 		
-		System.out.println("petStatus 는 : "+petStatus);
+//		System.out.println("petStatus 는 : "+petStatus);
 		
-		// regDate가 같은 값 && 가장 큰 idx를 가진 값에 dto의 필드값을 더하고 엔티티를 업데이트.
-//		for(int i=0; i< petStatus.size();i++) {
-//			System.out.println(i);
-//			System.out.println(petStatus.get(i));
+	
+//		for(PetStatus status : petStatus) {
+//			System.out.println(status.getRegDate());
 //		}
-		
-		for(PetStatus status : petStatus) {
-			System.out.println(status.getRegDate());
-		}
-		
-		User user = userRepository.findById(dto.getUserId()).get();
 
-		
-		// userId와 petName이 일치하며 오늘날짜인 데이터를 가져와야함.
-		
+		 // UserId를 updateFoodData에 넘겨주기 위해 불러옴.
+		User user = userRepository.findById(dto.getUserId()).get();
+				
 		PetStatus updatedPetStatus = PetStatus.updateFoodData(user, dto);
 		
-		System.out.println("updatePetStatus는 : "+ updatedPetStatus);
-		System.out.println(updatedPetStatus.getFood());	
-		System.out.println(updatedPetStatus.getWater());		
-
+		
+		
+		// 입력받은 dto값들과 엔티티의 값을 비교하기 위해 엔티티를 조회. (userId, petName)
+		// 만약 petStatus의 regDate가 현재시간의 YY:MM:DD까지 일치한다면,
+		// petStatus의 데이터를 교체(값 증감)하고 save
+		List<PetStatus> entityValidation = petStatusRepository.findByPetNameAndUserUserId(dto.getPetName(),dto.getUserId());
+		
+		
+		
+		// entityValidation를 순회하면서 regDate값 일치여부 판단
+		for(PetStatus status : entityValidation) {
+			
+			LocalDateTime dateTime = status.getRegDate();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy:MM:dd");
+			String formattedDateTime = dateTime.format(formatter);
+			
+			LocalDateTime nowTime = LocalDateTime.now();
+			String formattedNowTime = nowTime.format(formatter);
+			
+			
+			// 포매팅된 날짜데이터와 현재 날짜가 같다면 petStatus데이터를 교체
+			if(formattedDateTime.equals(formattedNowTime)) {
+				
+				System.out.println("LocalDateTime이 같습니다.");
+				// dto의 값으로 petStatus의 값을 덮어쓴다.
+				
+			} 
+			
+		}
+		
 		
 		petStatusRepository.saveAndFlush(updatedPetStatus);
 

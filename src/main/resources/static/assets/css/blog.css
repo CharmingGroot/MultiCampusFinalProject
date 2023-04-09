@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   /* background-color: silver; */
-  height: 20vh;
+  height: 40vh;
   margin-bottom: 25px;
   background-color: #fff;
   background-clip: border-box;
@@ -70,7 +70,7 @@
 }
 
 .chart-description {
-  color: red;
+  color: green;
 }
 
 .input-group {
@@ -140,8 +140,32 @@
 
 .timer-btn {
   border-radius: 0.3rem;
+  margin-right: 15px;
 }
 
 .petList {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}
+
+.petNav {
+  display: flex;
+}
+
+.test2 {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.test3 {
+  display: flex;
+}
+
+#controls>button {
+  width: 13vw;
+  height: 10vh;
 }
