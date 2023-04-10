@@ -1,5 +1,6 @@
 package com.ts.mvc.module.status;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +16,9 @@ public interface PetStatusRepository extends JpaRepository<PetStatus, Long>{
 	Optional<Pet> findByPetName(String pet);
 
 	List<PetStatus> findByPetNameAndUserUserId(String petName,String userId);
+
+	List<PetStatus> findByUserUserId(String userId);
+
 
 	
 

@@ -38,28 +38,31 @@ public class BlogService {
 		User user = userRepository.findById(walkDto.getUserId()).get();
 //		Pet pet = petRepository.findByPetName(walkDto.getPetName()).get();
 		
-		PetStatus petStatus = PetStatus.createData(user,walkDto);
+		PetStatus petStatus = PetStatus.createWalkStatus(user,walkDto);
 				
 		petStatusRepository.saveAndFlush(petStatus);
 		
 	}
 	
 	@Transactional
-	public void updateWalkStatus(WalkDto walkDto) {
+	public void updateWalkStatus(WalkDto walkDto, PetStatus filteredList) {
 		System.out.println("BlogService 서비스레이어의 updateWalkStatus 실행.");
-
-		// regDate와 petName과 userId가 일치해야함.
-		// regDate는 현재날짜와 비교하는 로직 활용.
+		System.out.println("walkDto 는 : "+ walkDto);
+		System.out.println("filteredList 는 : "+ filteredList);
 		
-		// Optional<PetStatus> petStatus에 조건에 맞는 필드를 조회한 뒤
-		// PetStatus petStatus = petStatus.get();
-		// Save n flush 해주면 끗.
 		
 		User user = userRepository.findById(walkDto.getUserId()).get();
-//		Pet pet = petRepository.findByPetName(walkDto.getPetName()).get();
 		
-		PetStatus petStatus = PetStatus.createData(user,walkDto);
-				
+		Optional<PetStatus>selectedByIdxPetStatus = petStatusRepository.findById(filteredList.getStatusIdx()); // 해당 pk값으로 조회
+		PetStatus petStatus = selectedByIdxPetStatus.get();
+		
+		
+		petStatus.setWalkDistance(walkDto.getWalkDistance());
+		petStatus.setWalkTime(walkDto.getWalkTime());
+		
+		
+		
+		
 		petStatusRepository.saveAndFlush(petStatus);
 		
 	}

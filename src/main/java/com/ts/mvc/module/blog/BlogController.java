@@ -3,6 +3,7 @@ package com.ts.mvc.module.blog;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +35,7 @@ import com.ts.mvc.module.status.PetStatus;
 import com.ts.mvc.module.status.PetStatusRepository;
 import com.ts.mvc.module.user.User;
 import com.ts.mvc.module.user.UserPrincipal;
+import com.ts.mvc.module.user.dto.Principal;
 
 import lombok.AllArgsConstructor;
 
@@ -98,7 +100,7 @@ public class BlogController {
 	@PostMapping("/{pageOwnerNickName}/walk")
 	@ResponseBody
 	public String updateWalkData(@PathVariable String pageOwnerNickName, @RequestBody String requestBody,
-			WalkDto walkDto) throws JsonMappingException, JsonProcessingException {
+			WalkDto walkDto,@AuthenticationPrincipal UserPrincipal userId) throws JsonMappingException, JsonProcessingException {
 
 		System.out.println("requestBody는 : " + requestBody);
 		ObjectMapper objectMapper = new ObjectMapper(); // ObjectMapper로 RequestBody안에 담겨온 Json값을 자바객체로 변환
@@ -116,59 +118,49 @@ public class BlogController {
 		}
 
 		System.out.println("petNameList 는 : " + petNameList);
-
+		
+		
 		LocalDateTime nowTime = LocalDateTime.now(); // regDate를 초기화할 변수선언
-		List<PetStatus> petStatusList = petStatusRepository.findAll(); // PetStatus 엔티티 리스트
-
+		walkDto.setUserId(pageOwnerNickName);
+		walkDto.setRegDate(nowTime);
+		walkDto.setWalkDistance(walkDistance);
+		walkDto.setWalkTime(walkTime);
 		
+		List<PetStatus> petStatusList = petStatusRepository.findByUserUserId(walkDto.getUserId()); // 아이디와 일치하는 리스트로 1차 구분
+//		System.out.println("petStatusList는 : "+petStatusList);
 		
-		// 테이블 필드를 업데이트 하는 로직
-		
-		// petStatus의 List의 개수가 0이 아니라면 petNameList개수만큼 반복
-		if(petStatusList.size() < 1) { // 조건이 size 갯수여부로 가면안되고, petName과 userId의 일치여부로 가야함. 추후에 수정할 것.
-			System.out.println("petStatusList 없음");
-			System.out.println("새로하나 생성");
-			walkDto.setWalkDistance(walkDistance);
-			walkDto.setWalkTime(walkTime);
-			walkDto.setUserId(pageOwnerNickName);
-			walkDto.setPetName("테스트강아지");
-			blogService.createWalkStatus(walkDto);			
-		} else { // 
-			System.out.println("petStatus 1개 이상");
-
-			
-			
-			
-			//만약 regDate가 같다면? service의 update메서드 실행
-			if() {
-				
+		if(petStatusList.isEmpty()) { // 아이디와 일치하는 petStatusList가 비어있을 경우
+			for(int i = 0; i<petNameList.size();i++) {
+				walkDto.setPetName(petNameList.get(i));
+				blogService.createWalkStatus(walkDto);
 			}
-			blogService.updateWalkStatus(walkDto);
+		} else { // 아이디와 일치하는 petStatusList가 비어있지 않은 경우
+			for(int i =0;i<petNameList.size();i++) { // Pet에 등록된 반려동물의 마리수만큼 반복
+				
+				String petName = petNameList.get(i); // petName을 세팅하기위한 임시변수
+//				System.out.println("petName은 : "+petName);
+				List<PetStatus> filteredList = petStatusList.stream()
+						.filter(petStatus -> petStatus.getPetName().contains(petName))
+						.collect(Collectors.toList()); // petStatusList를 petName 을 포함한 List들로 필터링
+				
+				for(int j=0;j<filteredList.size();j++) { // filteredList 만큼 다시 반복
+					if(filteredList.get(j).getRegDate().toLocalDate().equals(nowTime.toLocalDate())){ // 오늘날짜와 등록일자가 일치하면 update
+//						System.out.println(filteredList.get(j));
+						walkDto.setPetName(petName);
+						
+						blogService.updateWalkStatus(walkDto, filteredList.get(j));
+						System.out.println("업데이트");
+						
+					}else { // 오늘날짜와 등록일자가 일치하지 않으면 create
+//						System.out.println(filteredList.get(j));
+						walkDto.setPetName(petName);
+						blogService.createWalkStatus(walkDto);
+						System.out.println("새로생성");
+					}
+				}
+			}
 			
 		}
-		
-//		for (int i = 0; i < petNameList.size(); i++) {
-//			for (int j = 0; j < petStatusList.size(); j++) { // 1. createPetStatus실행 petStatusList의 배열length만큼 돌리기.
-//
-//				// 만약 날짜가 같은 필드가 존재한다면 해당 필드를 업데이트.
-//				if (petStatusList.get(i).getRegDate().toLocalDate().equals(nowTime.toLocalDate())) {
-//					System.out.println("같다잉");
-//
-//					// RequestBody로 받아온 객체를 dto에 할당
-//					walkDto.setWalkDistance(walkDistance);
-//					walkDto.setWalkTime(walkTime);
-//					walkDto.setUserId(pageOwnerNickName);
-//					walkDto.setRegDate(nowTime);
-//					walkDto.setPetName("테스트강아지");
-////					walkDto.setPetName(petNameList.get(i)); // 그대로 쓰면 index out of bounds 뜸.
-////					System.out.println(petNameList.get(i));
-//
-//					blogService.createWalkStatus(walkDto);
-//
-//				}
-//			}
-//		}
-		
 
 		return "redirect:blog/{pageOwnerNickName}";
 	}
