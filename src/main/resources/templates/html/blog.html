@@ -68,27 +68,37 @@
 					<!-- Content -->
 					<div class="container-xxl container-p-y">
 						<!-- 0영역 시작 -->
-						<div style="display: flex;">
-							<div style="display: none;" th:each=" petStatusList : ${petStatusList}">
+						<div style="display: none;">
+							<div style="display: flex;" th:each=" petStatusList : ${petStatusList}">
 								<div th:text="${petStatusList.petName}"></div>
+								<div th:text="${petStatusList.Water}"></div>
+								<div th:text="${petStatusList.Food}"></div>
+								<div class="pet-weight" th:text="${petStatusList.Weight}"></div>
+								<div class="pet-walkTime" th:text="${petStatusList.WalkTime}"></div>
+								<div class="pet-walkDistance" th:text="${petStatusList.WalkDistance}"></div>
 							</div>
+							<div th:text="${petStatus1}"></div>
 							<div id="water" style="display: none;" th:text="${#httpSession.getAttribute('water')}"></div>
 							<div id="food" style="display: none;" th:text="${#httpSession.getAttribute('food')}"></div>
 							<div id="weight" style="display: none;" th:text="${#httpSession.getAttribute('weight')}"></div>
+
+							<div id="water"  th:text="${#httpSession.getAttribute('water')}"></div>
+							<div id="food"  th:text="${#httpSession.getAttribute('food')}"></div>
+							<div id="weight"  th:text="${#httpSession.getAttribute('weight')}"></div>
 						</div>
 
 						
-						<div class="col-12 test2">
+						<!-- <div class="col-12 test2">
 							<div class="petList">
 								<div th:each="petList: ${petList}" class="test3" style="margin-bottom: 20px;">
 									<div class="petNav form-switch">
-										<!-- <button type="button" onclick="letsWalk()" th:text="${petList.petName}+'의 정보'" class="btn-outline-primary"><a th:href="@{}"></a></button> -->
-										<input class="form-check-input pet-checkbox" type="checkbox" checked="checked" th:value="${petList.petName}" name="petName" id="flexSwitchCheckChecked" th:attr="id='pet-'+${petList.petName}">
+										<input class="form-check-input pet-checkbox" type="checkbox"  th:value="${petList.petName}" th:name="'petName-'+${petList.petName}" id="flexSwitchCheckChecked" th:attr="id='pet-'+${petList.petName}">
 										<label class="form-check-label" th:for="'pet-'+${petList.petName}" th:text="${petList.petName}"></label>
+										<div style="display: none;"></div>
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<!-- <th:block>
 							<div th:each="petList: ${petList}">
 								<a th:href="@{/blog/{pageOwnerNickName}(pageOwnerNickName=${#authentication.principal.userId})/{petName}(petName=${petList.petName})}" th:text="${petList.petName}"></a>
@@ -103,6 +113,16 @@
 								</div>
 							</div>
 							<div class="col-5 timer-wrapper justify-content-center">
+								<div class="petList">
+									<div th:each="petList: ${petList}" class="test3" style="margin-bottom: 20px;">
+										<div class="petNav form-switch">
+											<!-- <button type="button" onclick="letsWalk()" th:text="${petList.petName}+'의 정보'" class="btn-outline-primary"><a th:href="@{}"></a></button> -->
+											<input class="form-check-input pet-checkbox" type="checkbox"  th:value="${petList.petName}" th:name="'petName-'+${petList.petName}" id="flexSwitchCheckChecked" th:attr="id='pet-'+${petList.petName}">
+											<label class="form-check-label" th:for="'pet-'+${petList.petName}" th:text="${petList.petName}"></label>
+											<div style="display: none;"></div>
+										</div>
+									</div>
+								</div>
 								<div class="timer">
 									
 									<div class="clock-wrapper">
@@ -129,36 +149,7 @@
 
 						<!-- 1영역 종료 -->
 						<!-- 2영역 시작 -->
-						<!-- <div class="main-contents col-12" id="second-area">
-							<div class="weekly-plan card col-12">
-								<h3>주간일정(23.03.06 ~ 23.03.12)</h3>
-								<table class="weekly-plan-table">
-									<thead>
-									<tr>
-										<th scope="col">월</th>
-										<th scope="col">화</th>
-										<th scope="col">수</th>
-										<th scope="col">목</th>
-										<th scope="col">금</th>
-										<th scope="col">토</th>
-										<th scope="col">일</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>밥먹기</td>
-										<td>밥먹기</td>
-										<td>밥먹기</td>
-										<td>밥먹기</td>
-										<td>밥먹기</td>
-										<td>밥먹기</td>
-										<td>밥먹기</td>
 
-									</tr>
-								</tbody>
-								</table>
-							</div>
-						</div> -->
 						<!-- 2영역 종료 -->
 						<!-- 3영역 시작 -->
 						<div class="main-contents2 col-12" id="third-area">
@@ -179,6 +170,16 @@
 							<div class="easy-checker col-5">			
 								<h4 id="easy-checker-title">오늘 먹은만큼 기록해주세요.</h4>
 								<!-- 급수량 -->
+								<div class="petList">
+								<div th:each="petList: ${petList}" class="test3" style="margin-bottom: 20px;">
+									<div class="petNav form-switch">
+										<!-- <button type="button" onclick="letsWalk()" th:text="${petList.petName}+'의 정보'" class="btn-outline-primary"><a th:href="@{}"></a></button> -->
+										<input class="form-check-input pet-Feed-checkbox" type="checkbox"  th:value="${petList.petName}" th:name="'petName-'+${petList.petName}" id="flexSwitchCheckChecked" th:attr="id='petFeed-'+${petList.petName}">
+										<label class="form-check-label" th:for="'petFeed-'+${petList.petName}" th:text="${petList.petName}"></label>
+										<div style="display: none;"></div>
+									</div>
+								</div>
+							</div>
 									<form action="/blog" method="get" id="feedDataForm">
 										
 										<div>	

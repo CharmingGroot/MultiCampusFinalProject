@@ -1,20 +1,49 @@
 
-// 전역에 변수 선언
-let water;
-let food;
-let weight;
-
 // 일일 권장 식사량 계산함수
 function dailyRecommendedMealAmount(weight) {
-  let raof = (parseInt(weight) * 1000) * 0.02;
+  let raof = (parseFloat(weight) * 1000) * 0.02;
   return raof;
 };
 
+// 일일 권장 급수량 계산함수
 function dailyRecommendedWaterAmount(weight) {
-  let raow = (parseInt(weight)) * 65;
+  let raow = weight * 65;
   return raow;
 }
 
+
+// 값이 없는 상태의 차트생성함수
+function chartGeneratorZeroValue() {
+  var chart = c3.generate({
+    bindto: '.water-chart',
+    data: {
+      columns: [
+        ['급수량', 0], ['급식량', 0]
+      ],
+      type: 'gauge',
+    },
+    gauge: {
+      min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+      max: 150, // 일일 권장 식사량
+    },
+    color: {
+      pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+      threshold: {
+        values: [30, 60, 90, 100]
+      }
+    },
+    size: {
+      height: 250
+    }
+  });
+  sessionStorage.setItem('water', 0);
+  sessionStorage.setItem('food', 0);
+  sessionStorage.setItem('weight', 0.0);
+
+}
+
+
+// 차트생성함수
 function chartGenerator(water, food, weight) {
 
   // 세션에 저장해둔 water food weight 값 비우기
@@ -22,7 +51,9 @@ function chartGenerator(water, food, weight) {
   sessionStorage.removeItem('food');
   sessionStorage.removeItem('weight');
 
-  // 차트생성
+  let feedMax = dailyRecommendedMealAmount(weight);
+
+  console.log(water, food, weight);
   var chart = c3.generate({
     bindto: '.water-chart',
     data: {
@@ -33,7 +64,7 @@ function chartGenerator(water, food, weight) {
     },
     gauge: {
       min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-      max: dailyRecommendedMealAmount(weight), // 일일 권장 식사량
+      max: feedMax, // 일일 권장 식사량
     },
     color: {
       pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
@@ -46,10 +77,13 @@ function chartGenerator(water, food, weight) {
     }
   });
 
+
   // water food weight 값 세션에 저장
   sessionStorage.setItem('water', water);
   sessionStorage.setItem('food', food);
   sessionStorage.setItem('weight', weight);
+
+
 
 }
 
@@ -86,13 +120,28 @@ window.onload = () => {
   // let food = sessionStorage.getItem('food');
   // let weight = sessionStorage.getItem('weight');
 
-  let water = document.getElementById('water').innerText;
-  let food = document.getElementById('food').innerText;
-  let weight = document.getElementById('weight').innerText;
+  // let waterString = document.getElementById('water').innerText;
+  // let foodString = document.getElementById('food').innerText;
+  // let weightString = document.getElementById('weight').innerText;
+
+  console.log(document.getElementsByClassName('pet-walkTime'));
+
+  const petArr = document.getElementsByClassName('pet-walkTime')
+
+  let waterString = document.getElementById('water').innerText;
+  let foodString = document.getElementById('food').innerText;
+  let weightString = document.getElementById('weight').innerText;
+
+
+
+  let water = parseInt(waterString);
+  let food = parseInt(foodString);
+  let weight = parseInt(weightString);
 
 
   // 차트 생성함수
-  chartGenerator(water, food, weight);
+  chartGeneratorZeroValue();
+
 
   clock();
 
@@ -486,19 +535,23 @@ function postWalkData() {
 }
 
 
+
+
 function postFeedData(water, food, weight) {
   const path = window.location.pathname;
   let pageOwnerArr = path.split('/');
   let pageOwner = pageOwnerArr[2];
 
   // 체크박스 값 받는 로직
-  const petCheckBoxes = document.getElementsByClassName("pet-checkbox");
+  const petCheckBoxes = document.getElementsByClassName("pet-Feed-checkbox");
   const values = [];
+
+  // console.log(petCheckBoxes);
 
   for (const checkbox of petCheckBoxes) {
     if (checkbox.checked) values.push(checkbox.defaultValue);
-    console.log(values);
-    console.log(petCheckBoxes);
+    // console.log(values);
+    // console.log(petCheckBoxes);
   };
 
   const feedData = {
@@ -536,11 +589,10 @@ feedDataForm.addEventListener('submit', (e) => {
   const food = formData.get('food');
   const weight = formData.get('weight');
 
-  console.log(weight);
   dailyRecommendedMealAmount(weight);
-  console.log(weight);
   const chartDescription = document.getElementById('chart-description');
   chartDescription.innerText = `현재 체중에 권장되는 급식량은 ${dailyRecommendedMealAmount(weight)}g입니다.`
+
   chartGenerator(water, food, weight);
 
   postFeedData(water, food, weight);

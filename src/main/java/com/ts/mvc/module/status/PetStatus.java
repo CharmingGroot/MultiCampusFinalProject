@@ -100,6 +100,17 @@ public class PetStatus {
 				.build();
 	}
 
+
+	public static PetStatus createFeedStatus(User user2, FoodDto dto) {
+		return PetStatus.builder()
+				.user(user2)
+				.petName(dto.getPetName())
+				.water(dto.getWater())
+				.food(dto.getFood())
+				.weight(dto.getWeight())
+				.build();
+	}
+
 	
 	
 }

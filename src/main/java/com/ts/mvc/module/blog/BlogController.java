@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.web.server.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
@@ -72,7 +73,7 @@ public class BlogController {
 		LocalDateTime today = LocalDateTime.now();
 
 		// 전체 petStatusList 가져오기
-		List<PetStatus> petStatusList = petStatusRepository.findAll();
+		List<PetStatus> petStatusList = petStatusRepository.findByUserUserId(walkDto.getUserId());
 
 		// 추려진 List를 담을 리스트만들기
 		List<PetStatus> todayPetStatusList = new ArrayList<>();
@@ -81,14 +82,23 @@ public class BlogController {
 		HttpSession session = request.getSession();
 
 		// petStatusList만큼 반복하여 날짜 데이터들을 비교
-		for (PetStatus petStatus : petStatusList) {
+		for (int i = 0; i<petStatusList.size(); i++) {
+			System.out.println(petStatusList.get(i));
 			// 만약 날짜가 일치한다면, 해당 엔티티를 모델객체에 저장.
-			if (petStatus.getRegDate().toLocalDate().equals(today.toLocalDate())) {
+			if (petStatusList.get(i).getRegDate().toLocalDate().equals(today.toLocalDate())) {
 //				model.addAttribute("petStatusList",petStatus); // 이렇게 사용하면 값이 덮어씌워짐.
-				todayPetStatusList.add(petStatus); // 각 petStatus를 새로운 리스트에 담아줌
-				session.setAttribute("water", petStatus.getWater()); // 얘는 마지막 값으로 덮어씌워져도 괜찮음.
-				session.setAttribute("food", petStatus.getFood()); // 얘는 마지막 값으로 덮어씌워져도 괜찮음.
-				session.setAttribute("weight", petStatus.getWeight()); // 얘는 마지막 값으로 덮어씌워져도 괜찮음.
+//				todayPetStatusList.add(petStatusList.get(i)); // 각 petStatus를 새로운 리스트에 담아줌
+
+//				model.addAttribute("petStatus"+i,petStatusList.get(i));
+				
+				todayPetStatusList.add(petStatusList.get(i));
+				
+				session.setAttribute(petStatusList.get(i).getPetName()+"Water", petStatusList.get(i).getWater()); // 얘는 마지막 값으로 덮어씌워져도 괜찮음.
+				session.setAttribute(petStatusList.get(i).getPetName()+"Food", petStatusList.get(i).getFood()); // 얘는 마지막 값으로 덮어씌워져도 괜찮음.
+				session.setAttribute(petStatusList.get(i).getPetName()+"Weight", petStatusList.get(i).getWeight()); // 얘는 마지막 값으로 덮어씌워져도 괜찮음.
+				session.setAttribute(petStatusList.get(i).getPetName()+"WalkDistance", petStatusList.get(i).getWalkDistance()); // 얘는 마지막 값으로 덮어씌워져도 괜찮음.
+				session.setAttribute(petStatusList.get(i).getPetName()+"WalkTime", petStatusList.get(i).getWalkTime()); // 얘는 마지막 값으로 덮어씌워져도 괜찮음.
+				
 			}
 		}
 
@@ -144,18 +154,19 @@ public class BlogController {
 						.collect(Collectors.toList()); // petStatusList를 petName 을 포함한 List들로 필터링
 				
 				for(int j=0;j<filteredList.size();j++) { // filteredList 만큼 다시 반복
-					if(filteredList.get(j).getRegDate().toLocalDate().equals(nowTime.toLocalDate())){ // 오늘날짜와 등록일자가 일치하면 update
+					if(filteredList.get(j).getRegDate().toLocalDate().equals(nowTime.toLocalDate())){ // j번째 펫상태정보의 오늘날짜와 등록일자가 일치하면 update
 //						System.out.println(filteredList.get(j));
 						walkDto.setPetName(petName);
 						
 						blogService.updateWalkStatus(walkDto, filteredList.get(j));
 						System.out.println("업데이트");
-						
+						break; // 값중복업데이트 방지 ... 최상위 반복문의 반복횟수때문에 break걸어줘야함.
 					}else { // 오늘날짜와 등록일자가 일치하지 않으면 create
 //						System.out.println(filteredList.get(j));
 						walkDto.setPetName(petName);
 						blogService.createWalkStatus(walkDto);
 						System.out.println("새로생성");
+						break;
 					}
 				}
 			}
@@ -190,12 +201,52 @@ public class BlogController {
 		dto.setWater(water);
 		dto.setWeight(weight);
 		dto.setUserId(pageOwnerNickName);
-
-		for (int i = 0; i < petNameList.size(); i++) {
-//			System.out.println("petNameList.get(i) 는 : "+petNameList.get(i));
-			dto.setPetName(petNameList.get(i));
-			blogService.updateFoodStatus(dto);
-		}
+		
+		List<PetStatus> petStatusList = petStatusRepository.findByUserUserId(dto.getUserId()); // 같은 아이디를 가진 모든 petStatus 필드리스트
+		
+		LocalDateTime nowTime = LocalDateTime.now(); // 날짜 비교용
+		
+		// 체크된 펫의 수만큼 반복
+		for(int i = 0; i<petNameList.size(); i++) {
+			System.out.println("현재 탐색중인 pet : " + petNameList.get(i));
+			
+			if(petStatusList.isEmpty()) { // 비어있다면
+				dto.setPetName(petNameList.get(i)); // 하나 생성
+				blogService.createFeedStatus(dto);
+			} else { // 비어있지 않다면 날짜 비교하고 업데이트
+				// petStatusList 반복
+				for(int j =petStatusList.size()-1; j>=0;j--) { // petStatusList 는 userId와 일치하는 모든 데이터임.  펫이름이 다를수도있고, 등록일자가 오늘의 이전일 수 있음.
+					
+					System.out.println("=============");
+					System.out.println("현재 인덱스 :"+ j);
+					System.out.println("현재 펫 :"+ petStatusList.get(j).getPetName());
+					System.out.println("=============");
+					
+					if(petStatusList.get(j).getPetName().equals(petNameList.get(i)) && petStatusList.get(j).getRegDate().toLocalDate().equals(nowTime.toLocalDate())) { // 현재인덱스의 펫 이름과 등록날짜가 같아야만 업데이트
+						System.out.println("=============");
+						System.out.println("날짜와 펫이름이 같음");
+						System.out.println("현재인덱스는 : "+j);
+						System.out.println("petNameList.get(i)는 : "+petNameList.get(i));
+						System.out.println("petStatusList.get(j).getWeight()는 : "+petStatusList.get(j).getWeight());
+						
+						dto.setPetName(petNameList.get(i));
+						System.out.println("=============");
+						blogService.updateFeedStatus(petStatusList.get(j),dto);
+						break;
+					}
+					else if(petStatusList.get(j).getPetName().equals(petNameList.get(i)) && (petStatusList.get(j).getRegDate().toLocalDate()).isBefore(nowTime.toLocalDate())){ // 현재 인덱스의 펫이름이 일치하고 등록 날짜가 과거임.
+						System.out.println("=============");
+						System.out.println("날짜는 과거, 펫이름은 같음");
+						System.out.println("현재인덱스는 : "+j);
+						System.out.println("petNameList.get(i)는 : "+petNameList.get(i));
+						dto.setPetName(petNameList.get(i)); // 하나 생성
+						blogService.createFeedStatus(dto);
+						System.out.println("=============");
+//						break;
+					}
+				}
+			}
+		};
 
 		return "redirect:blog/{pageOwnerNickName}";
 	}

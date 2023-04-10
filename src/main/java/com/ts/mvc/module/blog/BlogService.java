@@ -57,8 +57,8 @@ public class BlogService {
 		PetStatus petStatus = selectedByIdxPetStatus.get();
 		
 		
-		petStatus.setWalkDistance(walkDto.getWalkDistance());
-		petStatus.setWalkTime(walkDto.getWalkTime());
+		petStatus.setWalkDistance(petStatus.getWalkDistance()+walkDto.getWalkDistance());
+		petStatus.setWalkTime(petStatus.getWalkTime()+walkDto.getWalkTime());
 		
 		
 		
@@ -67,58 +67,33 @@ public class BlogService {
 		
 	}
 
+
 	@Transactional
-	public void updateFoodStatus(FoodDto dto) {
-		System.out.println("updateFoodStatus 실행");
+	public void createFeedStatus(FoodDto dto) {
 		
-		List<PetStatus> petStatus = petStatusRepository.findByPetNameAndUserUserId(dto.getPetName(),dto.getUserId())
-				.stream().filter(entity -> entity != null).collect(Collectors.toList());
-		
-//		System.out.println("petStatus 는 : "+petStatus);
-		
-	
-//		for(PetStatus status : petStatus) {
-//			System.out.println(status.getRegDate());
-//		}
+		System.out.println("BlogService 서비스레이어의 createFeedStatus 실행.");
 
-		 // UserId를 updateFoodData에 넘겨주기 위해 불러옴.
 		User user = userRepository.findById(dto.getUserId()).get();
+//		Pet pet = petRepository.findByPetName(walkDto.getPetName()).get();
+		
+		PetStatus petStatus = PetStatus.createFeedStatus(user, dto);
 				
-		PetStatus updatedPetStatus = PetStatus.updateFoodData(user, dto);
-		
-		
-		
-		// 입력받은 dto값들과 엔티티의 값을 비교하기 위해 엔티티를 조회. (userId, petName)
-		// 만약 petStatus의 regDate가 현재시간의 YY:MM:DD까지 일치한다면,
-		// petStatus의 데이터를 교체(값 증감)하고 save
-		List<PetStatus> entityValidation = petStatusRepository.findByPetNameAndUserUserId(dto.getPetName(),dto.getUserId());
-		
-		
-		
-		// entityValidation를 순회하면서 regDate값 일치여부 판단
-		for(PetStatus status : entityValidation) {
-			
-			LocalDateTime dateTime = status.getRegDate();
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy:MM:dd");
-			String formattedDateTime = dateTime.format(formatter);
-			
-			LocalDateTime nowTime = LocalDateTime.now();
-			String formattedNowTime = nowTime.format(formatter);
-			
-			
-			// 포매팅된 날짜데이터와 현재 날짜가 같다면 petStatus데이터를 교체
-			if(formattedDateTime.equals(formattedNowTime)) {
-				
-				System.out.println("LocalDateTime이 같습니다.");
-				// dto의 값으로 petStatus의 값을 덮어쓴다.
-				
-			} 
-			
-		}
-		
-		
-		petStatusRepository.saveAndFlush(updatedPetStatus);
+		petStatusRepository.saveAndFlush(petStatus);
 
+	}
+	
+	@Transactional
+	public void updateFeedStatus(PetStatus petStatus ,FoodDto dto) {
+		
+		System.out.println("BlogService 서비스레이어의 updateFeedStatus 실행.");
+		User user = userRepository.findById(dto.getUserId()).get();
+		
+		petStatus.setRegDate(LocalDateTime.now());
+		petStatus.setFood(petStatus.getFood()+dto.getFood());
+		petStatus.setWater(petStatus.getWater() +dto.getWater());
+		petStatus.setWeight(dto.getWeight());
+		
+		petStatusRepository.saveAndFlush(petStatus);
 		
 	}
 
