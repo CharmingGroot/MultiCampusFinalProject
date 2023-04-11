@@ -1,5 +1,6 @@
 package com.ts.mvc.module.pet;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ts.mvc.module.pet.dto.PetRegistDto;
 import com.ts.mvc.module.user.UserPrincipal;
+import com.ts.mvc.module.user.dto.Principal;
 
 import lombok.AllArgsConstructor;
 
@@ -17,6 +19,7 @@ import lombok.AllArgsConstructor;
 public class PetController {
 	
 	private PetService petService;
+	
 
 	@GetMapping("regist")
 	public String petRegist() {
@@ -27,7 +30,9 @@ public class PetController {
 	public String petRegister(PetRegistDto dto, @RequestParam("breed") String selectedBreed) {
 		dto.setUserId(UserPrincipal.getUserPrincipal().getUserId());
 		dto.setBreed(selectedBreed);
+		
 		petService.registPet(dto);
+		
 		
 		return "redirect:/";
 	}

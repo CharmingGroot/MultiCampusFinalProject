@@ -1,39 +1,52 @@
 package com.ts.mvc.module.status;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ts.mvc.module.status.dto.PetEventDto;
-import com.ts.mvc.module.user.UserRepository;
+
+import lombok.AllArgsConstructor;
+
 
 @Service
-@Transactional(readOnly = true)
-public interface PetEventService {
-	
-	List<PetEventDto> findAllPetEvent();
-	
-	PetEventDto savePetEvent(PetEventDto petEventDto);
+@AllArgsConstructor
+public class PetEventService {
+	  
+		@Autowired
+		private PetEventRepository petEventRepository;
+		
+		public void addPetEvent(PetEventDto petEventDto) {
+			PetEvent petEvent = new PetEvent(petEventDto.getEventIdx(), petEventDto.getTitle(),petEventDto.getStart()
+					                        ,petEventDto.getEnd(),  petEventDto.getUser(), petEventDto.getPet());
+			
+			petEventRepository.save(petEvent);
+		}
 
 	 // 삭제하기 
-       void delete(Long eventId);
-	
-	
-//	private final UserRepository userRepository;
-//	private final PetEventRepository PetEventRepository;
-	
-	// 의존성 주입 
-//	  public PetEventService(PetEventRepository petEventRepository, UserRepository userRepository) {
-//	        this.PetEventRepository = petEventRepository;
-//			this.userRepository = userRepository;
-//	    }
-	  
-	  
-//		@Autowired
-//		private PetEventRepository petEventRepository;
-//		
+       public void deletePetEvent(Long eventId) {
+    	   petEventRepository.deleteById(eventId);
+       }
+    
+       public List<PetEventDto> getAllPetEvents() {
+             List<PetEvent> petEvents = petEventRepository.findAll();
+             return petEvents.stream().map(this::toPetEventDto).collect(Collectors.toList());
+         }
+       
+       // 전체 조회
+       private PetEventDto toPetEventDto(PetEvent petEvent) {
+    	    PetEventDto petEventDto = new PetEventDto();
+    	    
+    	    petEventDto.setEventIdx(petEvent.getEventIdx());
+    	    petEventDto.setTitle(petEvent.getTitle());
+    	    petEventDto.setStart(petEvent.getStart());
+    	    petEventDto.setEnd(petEvent.getEnd());
+
+    	    return petEventDto;
+    	}
+
 //		public PetEvent save(PetEventDto petEventDto) {
 //			
 //			PetEvent petEvent = new PetEvent(); 
@@ -69,12 +82,6 @@ public interface PetEventService {
 //	  }
 //	  
 	 
-	  // 풀캘린더 수정이 안되서 일단 보류
-//	  public void updateSchedule(String userId,PetStatusScheduleDto dto) {
-//		  User existingUser = userRepository.findByUserId(userId);
-//		  
-//	  }
-	  
 //	//public String uploadSchedule(PetStatusScheduleDto ScheduleDto){
 //	public List<Map<String, Object>> getEventList(){
 //		Map<String, Object> event = new HashMap<String, Object>();

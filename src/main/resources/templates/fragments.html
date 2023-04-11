@@ -130,14 +130,18 @@
                        <span class="menu-header-text">mypet</span>
                     </li>
                     
-                    <li class="menu-item">
+                    <li class="menu-item" th:each="pet : ${#authentication.principal.pets}">
                        <a href="javascript:void(0);" class="menu-link menu-toggle">
                          <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                         <div data-i18n="Account Settings">강아지이름1</div>
+                         <div data-i18n="Account Settings" th:text="${pet.petName}"></div>
                        </a>
-                       
-                       <ul class="menu-sub">
-                         <li class="menu-item">
+
+					
+
+					<ul class="menu-sub">
+						
+						
+                         <li class="menu-item" >
                            <a th:href="@{/blog/{pageOwnerNickName}(pageOwnerNickName=${#authentication.principal.userId})}" class="menu-link">
                              <div data-i18n="Account">page</div>
                            </a>

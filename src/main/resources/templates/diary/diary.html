@@ -58,7 +58,7 @@
 					<div class="container-xxl flex-grow-1 container-p-y">
 					
                     	<!-- Grid Card -->
-						<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Diary</h4>
+						<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"><h3 th:text="${dto.user.userId} + '의 다이어리'"></h3></h4>
 						<span>게시글 수: [[${dto.imageCount}]]</span>
 					   
                   <th:block th:if="${dto.pageOwnerState}">

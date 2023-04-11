@@ -68,7 +68,61 @@ public class UserControllerTest {
 	
 	@Test
 	@DisplayName("회원가입 정보 저장")
-	public void testSignUpImpl() throws Exception {
+	public void testSignUpImplD() throws Exception {
+		
+		SignUpRequest form = new SignUpRequest();
+		form.setUserId("group1B");
+		form.setPassword("123qwe!@#QWE");
+		form.setEmail("test239078@naver.com");
+		form.setNickname("test1B");
+		form.setGrade("ROLE_ADMIN");
+		
+		mockMvc.perform(get("/user/signupimpl/1234")
+				.sessionAttr("signupForm", form)
+				.sessionAttr("authToken", "1234"))
+				.andExpect(status().is3xxRedirection());
+	
+	}
+	
+	@Test
+	@DisplayName("회원가입 정보 저장")
+	public void testSignUpImplC() throws Exception {
+		
+		SignUpRequest form = new SignUpRequest();
+		form.setUserId("group1A");
+		form.setPassword("123qwe!@#QWE");
+		form.setEmail("test239078@naver.com");
+		form.setNickname("test1A");
+		form.setGrade("ROLE_ADMIN");
+		
+		mockMvc.perform(get("/user/signupimpl/1234")
+				.sessionAttr("signupForm", form)
+				.sessionAttr("authToken", "1234"))
+				.andExpect(status().is3xxRedirection());
+	
+	}
+	
+	@Test
+	@DisplayName("회원가입 정보 저장")
+	public void testSignUpImplB() throws Exception {
+		
+		SignUpRequest form = new SignUpRequest();
+		form.setUserId("group2B");
+		form.setPassword("123qwe!@#QWE");
+		form.setEmail("test239078@naver.com");
+		form.setNickname("test2B");
+		form.setGrade("ROLE_ADMIN");
+		
+		mockMvc.perform(get("/user/signupimpl/1234")
+				.sessionAttr("signupForm", form)
+				.sessionAttr("authToken", "1234"))
+				.andExpect(status().is3xxRedirection());
+	
+	}
+	
+	@Test
+	@DisplayName("회원가입 정보 저장")
+	public void testSignUpImplA() throws Exception {
 		
 		SignUpRequest form = new SignUpRequest();
 		form.setUserId("group2A");

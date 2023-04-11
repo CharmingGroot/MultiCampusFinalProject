@@ -57,6 +57,9 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 	<link href="/css/welcome/chat-modal.css">
 	<script defer src="../assets/js/random-chat.js"></script>
+	
+	<!-- 외부url사용 refer 해제? -->
+    <img referrerpolicy="no-referrer" th:src="${#authentication.principal.profileImageUrl}" />
 
 	<!--랜덤으로 친구목록 띄우기 스크립트 hw-->
 	<script defer src="../assets/js/random-chat.js"></script>
@@ -179,7 +182,7 @@
 				                              		<div class="main-contents2 col-12" >
 					                           		<div class="day-graph card col-12" >
 					                           		<br>
-					                         		<h4 id="easy-checker-title" style= "text-align:center">오늘 두콩이는 이만큼 먹고 마셨다.</h4>
+					                         		<h4 id="easy-checker-title" style= "text-align:center">오늘 ${petName} 이만큼 먹고 마셨다.</h4>
 					                         		<br>
                                                     <div class="chart-wrapper" >
 				                                    <div id="total-chart"  >
@@ -199,6 +202,7 @@
 		 </th:block>
 				 <!-- chart fin-->
                        <br>
+
                      
             <!-- Chat GPT Area Start-->
      <div class="container-xxl flex-grow-1 container-p-y">
@@ -265,250 +269,100 @@
 						<!-- Chat GPT Area End -->
 
 						<!-- 실시간 채팅 & 산책버튼 Start -->
-						<div class="row sub-contents">
+						<div class="container-xxl flex-grow-1 container-p-y">
+						<div class="row sub-contents" sec:authorize="isAuthenticated()">
 							<div class="col-8">
 								<div class="card">
+								 <br>
+									<p class="card-text h1" style= "text-align:center">Take a walk with me!</p>
 									<div class="row g-0">
-										<div class="col-4">
-											<img src="#" class="img-fluid rounded-start" alt="#">
-										</div>
-										<div class="col-8">
-											<div class="card-body">
-												<h5 class="card-title friend-profile">양천구 콩순이</h5>
-												<p class="card-text">#남 #으르렁 #으르렁대 #3살 #사교적</p>
-												<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-												<p class="card-text" sec:authorize="isAuthenticated()"><button class="btn btn-primary" onclick="" type="button" data-bs-toggle="modal" data-bs-target="#modalScrollable" >실시간 채팅하기</button></p>
-												
-
-													<h5>
-													이름 :  ${nickname}<br>
+										<div class="card-body col-4">
+										<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+											  <ol class="carousel-indicators">
+												<li data-bs-target="#carouselExample" data-bs-slide-to="0" class="active"></li>
+												<li data-bs-target="#carouselExample" data-bs-slide-to="1"></li>
+												<li data-bs-target="#carouselExample" data-bs-slide-to="2"></li>
+											  </ol>
+											  <div class="carousel-inner">
+												<div class="carousel-item active">
+												  <img class="d-block w-100" src="../assets/img/elements/13.jpg" alt="First slide" />
+												  <div class="carousel-caption d-none d-md-block">
+													<h3>이름 :  ${nickname}</h3>
+													<p>
 													아이디 : ${userId}<br>
 													프로필사진 : ${profileImageUrl}
-													</h5>
-												 
-												 <div class="modal fade" id="modalScrollable" tabindex="-1" aria-hidden="true">
+													</p>
+												  </div>
+												</div>
+												<div class="carousel-item">
+												  <img class="d-block w-100" src="../assets/img/elements/2.jpg" alt="Second slide" />
+												  <div class="carousel-caption d-none d-md-block">
+													<h3>이름 :  ${nickname}</h3>
+													<p>
+													아이디 : ${userId}<br>
+													프로필사진 : ${profileImageUrl}
+													</p>
+												  </div>
+												</div>
+												<div class="carousel-item">
+												  <img class="d-block w-100" src="../assets/img/elements/18.jpg" alt="Third slide" />
+												  <div class="carousel-caption d-none d-md-block">
+													<h3>이름 :  ${nickname}</h3>
+													<p>
+													아이디 : ${userId}<br>
+													프로필사진 : ${profileImageUrl}
+													</p>
+												  </div>
+												</div>
+											  </div>
+											  <a class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">
+												<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+												<span class="visually-hidden">Previous</span>
+											  </a>
+											  <a class="carousel-control-next" href="#carouselExample" role="button" data-bs-slide="next">
+												<span class="carousel-control-next-icon" aria-hidden="true"></span>
+												<span class="visually-hidden">Next</span>
+											  </a>
+										</div>
+										
+<!-- 											<img src="../assets/img/testdog/bulldog.png" class="img-fluid rounded-start" alt="#"> -->
+										</div>
+										<div class="col-8">
+											<div class="card-body" >
+												<h5 class="card-title friend-profile"></h5>
+												<p class="card-text"><small class="text-muted"></small></p>
+													
+												<p class="card-text" ><button class="btn btn-primary" id="connection-btn" type="button" data-bs-toggle="modal" data-bs-target="#modalScrollable" >실시간 채팅하기</button></p>
+												
+													<!-- modal 창 시작 -->
+												 <div class="modal" id="modalScrollable" tabindex="-1" aria-hidden="true">
 												 <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
-							                          <div class="modal-content">
-							                   			<section style="background-color: #CDC4F9;">
+							                          <div class="modal-content" id="modalWindow">
+							                          <section style="background-color: #eee;">
 														  <div class="container py-5">
 														
-														    <div class="row">
-														      <div class="col-md-12">
+														    <div class="row justify-content-center">
+														      <div class="col-md-15 col-lg-8 col-xl-6">
 														
-														        <div class="card" id="chat3" style="border-radius: 15px;">
-														          <div class="card-body">
-														
-														            <div class="row">
-														              <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0">
-														
-														                <div class="p-3">
-														
-														                  <div class="input-group rounded mb-3">
-														                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-														                      aria-describedby="search-addon" />
-														                    <span class="input-group-text border-0" id="search-addon">
-														                      <i class="fas fa-search"></i>
-														                    </span>
-														                  </div>
-														
-														                  <div style="position: relative; height: 400px; overflow: auto;">
-														                    <ul class="list-unstyled mb-0">
-														                      <li class="p-2 border-bottom">
-														                        <a href="#response" class="d-flex justify-content-between">
-														                          <div class="d-flex flex-row">
-														                            <div>
-														                              <img
-														                                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-														                                alt="avatar" class="d-flex align-self-center me-3" width="60">
-														                              <span class="badge bg-success badge-dot"></span>
-														                            </div>
-														                            <div class="pt-1">
-														                              <p class="fw-bold mb-0">happy</p>
-														                              <p class="small text-muted">Hello, Are you there?</p>
-														                            </div>
-														                          </div>
-														                          <div class="pt-1">
-														                            <p class="small text-muted mb-1">Just now</p>
-														                            <span class="badge bg-danger rounded-pill float-end">3</span>
-														                          </div>
-														                        </a>
-														                      </li>
-														                      <li class="p-2 border-bottom">
-														                        <a href="#!" class="d-flex justify-content-between">
-														                          <div class="d-flex flex-row">
-														                            <div>
-														                              <img
-														                                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
-														                                alt="avatar" class="d-flex align-self-center me-3" width="60">
-														                              <span class="badge bg-warning badge-dot"></span>
-														                            </div>
-														                            <div class="pt-1">
-														                              <p class="fw-bold mb-0">Alexa Chung</p>
-														                              <p class="small text-muted">Lorem ipsum dolor sit.</p>
-														                            </div>
-														                          </div>
-														                          <div class="pt-1">
-														                            <p class="small text-muted mb-1">5 mins ago</p>
-														                            <span class="badge bg-danger rounded-pill float-end">2</span>
-														                          </div>
-														                        </a>
-														                      </li>
-														                      <li class="p-2 border-bottom">
-														                        <a href="#response" class="d-flex justify-content-between">
-														                          <div class="d-flex flex-row">
-														                            <div>
-														                              <img
-														                                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp"
-														                                alt="avatar" class="d-flex align-self-center me-3" width="60">
-														                              <span class="badge bg-success badge-dot"></span>
-														                            </div>
-														                            <div class="pt-1">
-														                              <p class="fw-bold mb-0">Danny McChain</p>
-														                              <p class="small text-muted">Lorem ipsum dolor sit.</p>
-														                            </div>
-														                          </div>
-														                          <div class="pt-1">
-														                            <p class="small text-muted mb-1">Yesterday</p>
-														                          </div>
-														                        </a>
-														                      </li>
-														                      <li class="p-2 border-bottom">
-														                        <a href="#!" class="d-flex justify-content-between">
-														                          <div class="d-flex flex-row">
-														                            <div>
-														                              <img
-														                                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp"
-														                                alt="avatar" class="d-flex align-self-center me-3" width="60">
-														                              <span class="badge bg-danger badge-dot"></span>
-														                            </div>
-														                            <div class="pt-1">
-														                              <p class="fw-bold mb-0">Ashley Olsen</p>
-														                              <p class="small text-muted">Lorem ipsum dolor sit.</p>
-														                            </div>
-														                          </div>
-														                          <div class="pt-1">
-														                            <p class="small text-muted mb-1">Yesterday</p>
-														                          </div>
-														                        </a>
-														                      </li>
-														                      <li class="p-2 border-bottom">
-														                        <a href="#!" class="d-flex justify-content-between">
-														                          <div class="d-flex flex-row">
-														                            <div>
-														                              <img
-														                                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava5-bg.webp"
-														                                alt="avatar" class="d-flex align-self-center me-3" width="60">
-														                              <span class="badge bg-warning badge-dot"></span>
-														                            </div>
-														                            <div class="pt-1">
-														                              <p class="fw-bold mb-0">Kate Moss</p>
-														                              <p class="small text-muted">Lorem ipsum dolor sit.</p>
-														                            </div>
-														                          </div>
-														                          <div class="pt-1">
-														                            <p class="small text-muted mb-1">Yesterday</p>
-														                          </div>
-														                        </a>
-														                      </li>
-														                      <li class="p-2">
-														                        <a href="#!" class="d-flex justify-content-between">
-														                          <div class="d-flex flex-row">
-														                            <div>
-														                              <img
-														                                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
-														                                alt="avatar" class="d-flex align-self-center me-3" width="60">
-														                              <span class="badge bg-success badge-dot"></span>
-														                            </div>
-														                            <div class="pt-1">
-														                              <p class="fw-bold mb-0">Ben Smith</p>
-														                              <p class="small text-muted">Lorem ipsum dolor sit.</p>
-														                            </div>
-														                          </div>
-														                          <div class="pt-1">
-														                            <p class="small text-muted mb-1">Yesterday</p>
-														                          </div>
-														                        </a>
-														                      </li>
-														                    </ul>
-														                  </div>
-														
-														                </div>
-														
-														              </div>
-														
-														              <div class="col-md-6 col-lg-7 col-xl-8">
-														
-														                <div class="pt-3 pe-3" 
-														                  style="position: relative; height: 400px; overflow: auto;" id="response">
-														
-														                  <!-- <div class="d-flex flex-row justify-content-start" >
-														                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
-														                      alt="avatar 1" style="width: 45px; height: 100%;">
-														                    <div>
-														                      <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">Lorem ipsum
-														                        dolor
-														                        sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-														                        dolore
-														                        magna aliqua.</p>
-														                      <p class="small ms-3 mb-3 rounded-3 text-muted float-end">12:00 PM | Aug 13</p>
-														                    </div>
-														                  </div>
-														
-														                  <div class="d-flex flex-row justify-content-end">
-														                    <div>
-														                      <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Nemo enim ipsam
-														                        voluptatem quia
-														                        voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-														                        qui
-														                        ratione voluptatem sequi nesciunt.</p>
-														                      <p class="small me-3 mb-3 rounded-3 text-muted">12:00 PM | Aug 13</p>
-														                    </div>
-														                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-														                      alt="avatar 1" style="width: 45px; height: 100%;">
-														                  </div>
-														
-														                  <div class="d-flex flex-row justify-content-start">
-														                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
-														                      alt="avatar 1" style="width: 45px; height: 100%;">
-														                    <div>
-														                      <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">Neque porro
-														                        quisquam
-														                        est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non
-														                        numquam
-														                        eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-														                      <p class="small ms-3 mb-3 rounded-3 text-muted float-end">12:00 PM | Aug 13</p>
-														                    </div>
-														                  </div>
-														
-														                  <div class="d-flex flex-row justify-content-end">
-														                    <div>
-														                      <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Ut enim ad minima veniam,
-														                        quis
-														                        nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea
-														                        commodi
-														                        consequatur?</p>
-														                      <p class="small me-3 mb-3 rounded-3 text-muted">12:00 PM | Aug 13</p>
-														                    </div>
-														                    
-														                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-														                      alt="avatar 1" style="width: 45px; height: 100%;">
-														                  </div> -->
-														
-														
-														                </div> 
-														
-														                <div class="text-muted d-flex justify-content-start align-items-center pe-3 pt-3 mt-2">
-														                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
-														                    alt="avatar 3" style="width: 40px; height: 100%;">
-														                  <input type="text" class="form-control form-control-lg" id="msg"
-														                    placeholder="Type message">
-														                  <button class="btn btn-default ms-3" type="submit" id="button-send" ><i class="fas fa-paper-plane"></i></button>
-														                </div> 
-														
-														              </div>
-														            </div>
-														
+														        <div class="card" id="chat2">
+														          <div class="card-header d-flex justify-content-between align-items-center p-3">
+														            <h5 class="mb-0">산책할래?</h5>
+														            <button type="submit" class="btn btn-primary btn-sm" id="close" data-mdb-ripple-color="dark">close</button>
 														          </div>
+														          <div class="card-body" style="position: relative; height: 400px; overflow: auto;">
+																	<div id="response"></div>
+														
+														          </div> 
+														          <div class="card-footer text-muted d-flex justify-content-space-between align-items-center pe-3 pt-3 mt-2">
+														          <div id="getId" th:text="${#authentication.principal.userId}" hidden></div> 
+														            <img th:src="${#authentication.principal.profileImageUrl}" class="w-px-40 h-auto rounded-circle"
+														               alt="user-avatar" style="width: 40px; height: 100%;" id="userProfileImage"> 
+														             <!--   <input type="text" class="form-control form-control-lg" id="targetUserId"
+														               placeholder="userId"> select로 수정 random 회원에 나온 리스트 뿌려주기  -->
+														             <input type="text" class="form-control form-control-lg" id="msg"
+														               placeholder="산책하고 싶은 날짜와 시간을 알려주세요.">
+														             <button class="btn btn-default ms-3" type="submit" id="button-send" ><i class="fas fa-paper-plane"></i></button>
+														           </div> 
 														        </div>
 														
 														      </div>
@@ -527,6 +381,7 @@
 									</div>
 								</div>
 							</div>
+						</div>
 																																																							</div>
 						<!-- 실시간 채팅 & 산책버튼 End -->
 
@@ -574,55 +429,90 @@
 	<!-- / Layout wrapper -->
 	<script type="text/javascript" layout:fragment="script" th:inline="javascript">
 	
-		window.onload=() => {
+	  const openButton = document.getElementById('connection-btn');
+	  openButton.addEventListener('click', function() {
+		 connect();
+	    document.getElementById("modalWindow").style.display="block";
+	  });
+	  
+	  const closeButton = document.getElementById('close');
+	  closeButton.addEventListener('click', function() {
+	    disconnect();
+	    document.getElementById("modalWindow").style.display="none";
+	    let modalBack = document.getElementById("modalScrollable");
+	    modalBack.setAttribute('aria-hidden', 'false');
+	  });
+	  
+	var sessionUserId = document.getElementById("getId").textContent;
+	 if (sessionUserId == null) sessionUserId == guest;
+	  
+	  var stompClient = null;
 		
-		var stompClient = null;
-			
-			function connect() {
-			    const socket = new SockJS('/gs-guide-websocket');
-		
-			    stompClient = Stomp.over(socket);
-			    
-			    stompClient.connect({}, function (frame) {
-			        console.log('Connected: ' + frame);
-			        stompClient.subscribe('/topic/chatting/'  + [[${cgIdx}]], function (msg) {
-			          	res = JSON.parse(msg.body);
-			          	console.dir(res.message)
-			           	showChat(res.message);
-			        });
-			    });
-			}
-			
-			function disconnect() {
-			    if (stompClient !== null) {
-			        stompClient.disconnect();
-			    }
-			    console.log("Disconnected");
-			}
-			
-			function sendMessage() {
-				let message = msg.value;
-				
-			    stompClient.send("/app/chat-room/" + [[${cgIdx}]] , {}, JSON.stringify({'message':message}));
-			}
-			
-			document.getElementById("button-send").addEventListener('click', sendMessage); //onclick 순서가 꼬이게 된다 무조건 addEventListener
-		
-		connect();
-	}; 
+		function connect() {
+		    const socket = new SockJS('/gs-guide-websocket');
 	
-	function showChat(chatMessage) {
-		let chatBox = '<div class="d-flex flex-row justify-content-end">' + '<div>' +
-       '<p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">' + chatMessage  + '</div>' + '</div>';
+		    stompClient = Stomp.over(socket);
+		    
+		    stompClient.connect({}, function (frame) {
+		        console.log('Connected: ' + frame);
+		        console.log(frame.headers['user-name'])
+		        console.dir(sessionUserId);
+		        stompClient.subscribe('/topic/chatting', function (msg) {
+		          	res = JSON.parse(msg.body);
+		          	console.dir(res.message)
+		          	if(sessionUserId === frame.headers['user-name']) {
+		           		showChat(res.message);
+		          	}else {
+		          		recieveChat(res.message)
+		          	}
+		          	
+		        });
+		    });
+		}
 		
+		function disconnect() {
+		    if (stompClient !== null) {
+		        stompClient.disconnect();
+		    }
+		    console.log("Disconnected");
+		}
+		
+		function sendMessage() {
+			let message = msg.value;
+			/* let userId = targetUserId.value; */
+			let inputMsg = document.getElementById("msg")
+			/* let inputUser = document.getElementById("targetUserId") */
+			
+		    stompClient.send("/app/chat-room", {}, JSON.stringify({'message':message}));
+		    inputMsg.value=null;
+		    inputMsg.focus;
+		   /*  inputUser.value=null;
+		    inputUser.focus; */
+
+		}
+		
+		document.getElementById("button-send").addEventListener('click', sendMessage); //onclick 순서가 꼬이게 된다 무조건 addEventListener
+		document.getElementById("msg").onkeypress = function() {
+            if (event.keyCode == '13') {
+                sendMessage();
+                }
+		}
+
+	function showChat(chatMessage,userId) {
+		let imageUrl = '#authentication.principal.profileImageUrl';
+		let imageTag = '<img th:src="${imageUrl}" alt="avatar" style="width: 45px; height: 100%;">';
+		let chatBox = '<div class="d-flex flex-row justify-content-end">' + '<div>' + 
+	 '<p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">' + chatMessage  + '</div>' + imageTag + '</div>' ;
 		document.getElementById("response").innerHTML += chatBox;
 	}
-	
 		
-	
-	/* connect(); document.addEvnetListner 함수 이용해서*/ 
-	
-	
+	function recieveChat(chatMessage,userId) {
+		let chatBox = '<div class="d-flex flex-row justify-content-start">' + '<div>' + 
+	 '<p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">' + chatMessage  + '</div>' + '</div>' ;
+		document.getElementById("response").innerHTML += chatBox;
+	}
+
+
 	
 	</script>
 

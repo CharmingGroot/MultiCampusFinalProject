@@ -20,15 +20,19 @@ public class ChatService {
 	private final ChatGroupRepository chatGroupRepository;
 	
 	public String sendMessage(ChatRequest dto) {
-		
 		String chat = dto.getMessage();
 		return chat;
 	}
 
 	public Long findChatGroupIdxByUserId() {
 		ChatGroup chatGroup = chatGroupRepository.findChatGroupByUsersUserId(UserPrincipal.getUserPrincipal().getUserId());
+		if (chatGroup == null) {
+	        // null 처리 로직
+	        return null;
+	    }
 		return chatGroup.getCgIdx();
 	}
+
 
 
 	

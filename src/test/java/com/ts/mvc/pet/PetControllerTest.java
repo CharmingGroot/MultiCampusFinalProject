@@ -42,6 +42,7 @@ public class PetControllerTest {
 //		pet.setIsNeutered(false);
 //		pet.setDogMbti("ESTP");
 //		pet.setUser(user);
+	
 //		
 //		// POST 요청을 보내서 더미 데이터 저장
 //		mockMvc.perform(post("/pet")

@@ -53,9 +53,11 @@ public class BlogService {
 		
 		User user = userRepository.findById(walkDto.getUserId()).get();
 		
-		Optional<PetStatus>selectedByIdxPetStatus = petStatusRepository.findById(filteredList.getStatusIdx()); // 해당 pk값으로 조회
-		PetStatus petStatus = selectedByIdxPetStatus.get();
+//		Optional<PetStatus>selectedByIdxPetStatus = petStatusRepository.findById(filteredList.getStatusIdx()); // 해당 pk값으로 조회
+//		PetStatus petStatus = selectedByIdxPetStatus.get();
 		
+		
+		PetStatus petStatus = filteredList;
 		
 		petStatus.setWalkDistance(petStatus.getWalkDistance()+walkDto.getWalkDistance());
 		petStatus.setWalkTime(petStatus.getWalkTime()+walkDto.getWalkTime());

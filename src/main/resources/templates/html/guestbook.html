@@ -66,6 +66,8 @@
 								 <span> diary</span>
 							</button>
 					 </a>
+					 
+					 
 				</th:block>
 				<!-- Content wrapper -->
 				<div class="content-wrapper">
@@ -78,7 +80,7 @@
 								<!-- Content types -->
 								<div class="guestbook-area">
 
-									<h5>방명록</h5>
+									<h3 th:text="${pageOwnState.owner} + '의 방명록'"></h3>
 
 										<div class="col-12 question-btn">
 											<div class="card h-100">
@@ -86,7 +88,7 @@
 												</div>
 												<form id="commentForm" name="commentForm">
 													<input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
-													<div th:text="${_csrf.token}"></div>
+													<!-- <div th:text="${_csrf.token}" hidden></div>  -->
 													<div class="form-floating">
 														<textarea class="form-control" id="floatingTextarea2" cols="50" rows="5" style="height: 200px; resize:none; border-top-right-radius: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0;" placeholder="내용을 입력하세요." name="content"></textarea>
 													</div>

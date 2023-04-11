@@ -516,6 +516,8 @@ function postWalkData() {
     petNameList: values
   };
 
+  console.log(data.TTD);
+
   fetch(`http://localhost:8080/blog/${pageOwner}/walk`, {
     method: 'POST', // 또는 'PUT'
     headers: {
@@ -530,7 +532,6 @@ function postWalkData() {
     .catch((error) => {
       console.error('실패:', error);
     });
-
 
 }
 

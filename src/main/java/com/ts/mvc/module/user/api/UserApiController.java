@@ -26,6 +26,8 @@ public class UserApiController {
 	public CMRespDto<?> update(@AuthenticationPrincipal UserPrincipal userPrincipal, UserUpdateDto userUpdateDto) {
 //		System.out.println(userUpdateDto);
 		
+		System.out.println(userUpdateDto);
+		
 		User userEntity = userService.modifyUser(userPrincipal.getUserId(), userUpdateDto.toEntity());
 //		userPrincipal.setUser(userEntity);
 		

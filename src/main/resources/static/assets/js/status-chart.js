@@ -1,9 +1,24 @@
-// 변수 선언
+// 변수 선언(단순값)
 let water=0;
 let food=0;
 let weight=0;
 let treat=0;
 let walkDistance=0;
+
+// 종합 변수 선언(누적값), 초기값 0으로 설정, 누적값의 경우 함수내에서 사용함으로 var로 선언함
+// var waterTotal = 0;
+// var foodTotal =0;
+// var weightTotal=0;
+// var treatTotal=0;
+// var walkDistanceTotal=0;
+
+// 누적 합계 계산하기
+// waterTotal += parseInt(water);
+// foodTotal += parseInt(food);
+// weightTotal += parseInt(weight);
+// treatTotal += parseInt(treat);
+// walkDistanceTotal += parseInt(walkDistance);
+
 
 window.onload = () => {
   // location.search로 URL 파라미터 가져오기

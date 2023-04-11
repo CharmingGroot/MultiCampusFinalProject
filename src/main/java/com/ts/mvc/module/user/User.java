@@ -14,6 +14,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ts.mvc.module.diary.Diary;
+import com.ts.mvc.module.pet.Pet;
 import com.ts.mvc.module.user.dto.request.SignUpRequest;
 
 import lombok.AllArgsConstructor;
@@ -38,7 +39,9 @@ public class User {
 	private String profileImageUrl;
 	private String grade;
 
-	
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	@JsonIgnoreProperties({"user"}) // JPA 무한참조 방지
+    private List<Pet> pets;
 	
 	
 	@Column(columnDefinition = "timestamp default now()")

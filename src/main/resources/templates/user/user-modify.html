@@ -224,6 +224,30 @@
 
   <script type="text/javascript" layout:fragment="script">
   
+  const input = document.getElementById("userProfileImageinput");
+  const img = document.getElementById("userProfileImage");
+
+  function previewImage(file) {
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  input.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    if (file && file.type.match("image.*")) {
+      previewImage(file);
+    } else {
+      alert("이미지를 등록해야합니다.");
+    }
+  });
+
+  function profileImageUpload(userId) {
+    input.click();
+  }
+  
   function update(userId){
 	  
 	  let checkPassword = $("#check_password").val();
@@ -231,6 +255,7 @@
 	  let data = {
 		nickname: $("#nickname").val(),
 		password: $("#password").val(),
+		profileImageFile: $("profileImageFile").val(),
 	  };
 	  
 	  if(!data.nickname || data.nickname.trim() === "" || !data.password || data.password.trim() === ""){
@@ -270,55 +295,9 @@
 	
   }
   
-  function profileImageUpload(userId){
-	  
-	  console.log("pageUserId", userId);
-	  
-	  $("#userProfileImageinput").click();
-	  
-	  $("#userProfileImageinput").on("change", (e) => {
-		  let f = e.target.files[0];
-		  console.log(f);
-		  
-		  if(!f.type.match("image.*")){
-			  alert("이미지를 등록해야합니다.")
-			  return;
-		  }
-		  
-		  // 서버에 이미지 전송
-		  let profileImageForm = $("#userProfileImageForm")[0];
-		  console.log(profileImageForm);
-		  
-		  // FormData 객체를 이용하면 form 태그의 필드와 그 값을 나타내는 일련의 key/value 쌍을 담을 수 있다.
-		  let formData = new FormData(profileImageForm);
-		  
-		  $.ajax({
-			  type: "PUT",
-			  url: 'api/user/profileImageUrl',
-			  data: formData,
-			  contentType: false, // x-www-form-urlencoded로 파상되는 것을 방지
-			  processData: false, // contentType을 false로 줬을 때 QueryString 자동 설정 해제
-			  enctype: "multipart/form-data",
-			  dataType: "json"
-			  
-		  }).done(res => {
-			  let reader = new FileReader();
-			  reader.onload = (e) => {
-				  $("#userProfileImage").attr("src", e.target.result);
-			  }
-			  
-			  reader.readAsDataURL(f);
-			  
-		  }).fail(error => {
-			  console.log("오류", error);
-		  });
-		  
-		  
-		  
-	  });
-	  
-	  
-  }
+  
+  
+  
   
   
   </script>

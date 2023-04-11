@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import com.ts.mvc.module.pet.Pet;
 import com.ts.mvc.module.user.dto.Principal;
 
 import lombok.Data;
@@ -63,6 +64,10 @@ public class UserPrincipal implements UserDetails, OAuth2User{
 	
 	public String getProfileImageUrl() {
 		return principal.getProfileImageUrl();
+	}
+	
+	public List<Pet> getPets() {
+		return principal.getPets();
 	}
 
 	@Override

@@ -38,10 +38,12 @@ public class PetEvent {
 	private LocalDateTime start; // 시작날짜
 	private LocalDateTime end; // 종료날짜
 	
+	@ManyToOne //PetEvent :n user :1
+    private User user;
+	
 	@ManyToOne //PetEvent :n pet:1
     private Pet pet;
 	
-	@ManyToOne //PetEvent :n user :1
-    private User user;
+	
 
 }

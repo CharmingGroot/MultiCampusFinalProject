@@ -5,89 +5,20 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel='stylesheet' href='fullcalendar/core/main.css' />
+<link rel='stylesheet' href='fullcalendar/daygrid/main.css' />
+<link rel='stylesheet' href='fullcalendar/timegrid/main.css' />
+<link rel='stylesheet' href='fullcalendar/list/main.css' />
+
+<script src='fullcalendar/core/main.js'></script>
+<script src='fullcalendar/daygrid/main.js'></script>
+<script src='fullcalendar/timegrid/main.js'></script>
+<script src='fullcalendar/list/main.js'></script>
+
 </head>
 <body>
-  <script>
-    // caledar를 전역변수로 선언해서 어디서든 쓸 수 있게 하기 
-   var calendar= null;
-
-document.addEventListener('DOMContentLoaded', function() {
-  var calendarEl = document.getElementById('calendar');
-
-  // 캘린더에 값주기 
-  calendar = new FullCalendar.Calendar(calendarEl, {
-    headerToolbar: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay'
-    },
-    initialDate: '2023-04-17',
-    navLinks: true, // can click day/week names to navigate views
-    selectable: true,
-    selectMirror: true,
-    // 일정추가하기 기능 
-    select: function(arg) {
-      // 프롬프트로 추가가능 
-      var title = prompt('Add schedule:');
-      if (title) {
-        //이벤트 추가
-        calendar.addEvent({
-          title: title,
-          start: arg.start,
-          end: arg.end,
-          allDay: arg.allDay
-        })
-      }
-      calendar.unselect()
-    },
-    // 삭제기능
-    eventClick: function(arg) {
-      if (confirm('Do you want to delete this event?')) {
-        arg.event.remove()
-      }
-    },
-    editable: true,
-    dayMaxEvents: true, // allow "more" link when too many events
-    events: [
-   
-    ]
-  });
-
-  calendar.render();
-});
-
-// 전체 이벤트 데이터를 추출해야한다. 
-function allSave(){
-var allEvent = calendar.getEvents();
-// allEvent 객체가 잘 넘어오는지 콘솔찍어서 확인
-// getEvent는 배열 형태로 넘어오는데 잘 넘어옴, 안에 content에 title내용이 일정 제목이 들어감
-console.log(allEvent);
-// 이벤트를 배열에 한 번 더 담아준다. 
-var events = new Array();
-
-// for문을 돌린다. allEvent의 길이만큼 i를 돌린다. 
-for(var i =0; i <allEvent.length; i++ ){
-    // obj 객체에 담는다. 
-  var obj = new Object();
-  
-  // 디비에 저장할 내용
- obj.title= allEvent[i]._def.title // 이벤트 명칭 출력
- obj.allday= allEvent[i]._def.allDay // 하루 종일의 이벤트인지 알려주는 boolean 값 (true,false)
- obj.start= allEvent[i]._instance.range.start; // 이벤트 시작 시간 및 날짜
- obj.end= allEvent[i]._instance.range.end; // 이벤트 종료 시간 및 날짜
-
- // 전체 events들이 배열형태로 json 객체 형태로 events 변수에 담긴다. 
-   events.push(obj);
-}
-
-// events를 서버 전송시, 문자열 형태로 넘길것이라 stringfy를 사용
-var jsondata= JSON.stringify(events);
-console.dir(jsondata);
-
-savedata(jsondata);
-
-}
-
-  </script>
+  <div id="calendar">
+    
+  </div>
 </body>
 </html>

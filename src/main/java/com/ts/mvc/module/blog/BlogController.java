@@ -65,6 +65,8 @@ public class BlogController {
 		List<Pet> petList = petRepository.findByUserUserId(userId.getUserId()).stream().filter(entity -> entity != null)
 				.collect(Collectors.toList());
 
+		
+		
 		// 모델객체에 petList추가
 		model.addAttribute("petList", petList);
 
@@ -85,21 +87,16 @@ public class BlogController {
 		for (int i = 0; i<petStatusList.size(); i++) {
 			System.out.println(petStatusList.get(i));
 			// 만약 날짜가 일치한다면, 해당 엔티티를 모델객체에 저장.
-			if (petStatusList.get(i).getRegDate().toLocalDate().equals(today.toLocalDate())) {
-//				model.addAttribute("petStatusList",petStatus); // 이렇게 사용하면 값이 덮어씌워짐.
-//				todayPetStatusList.add(petStatusList.get(i)); // 각 petStatus를 새로운 리스트에 담아줌
-
-//				model.addAttribute("petStatus"+i,petStatusList.get(i));
-				
+			if(petStatusList.get(i).getRegDate().toLocalDate().equals(today.toLocalDate())) {
 				todayPetStatusList.add(petStatusList.get(i));
-				
 				session.setAttribute(petStatusList.get(i).getPetName()+"Water", petStatusList.get(i).getWater()); // 얘는 마지막 값으로 덮어씌워져도 괜찮음.
 				session.setAttribute(petStatusList.get(i).getPetName()+"Food", petStatusList.get(i).getFood()); // 얘는 마지막 값으로 덮어씌워져도 괜찮음.
 				session.setAttribute(petStatusList.get(i).getPetName()+"Weight", petStatusList.get(i).getWeight()); // 얘는 마지막 값으로 덮어씌워져도 괜찮음.
 				session.setAttribute(petStatusList.get(i).getPetName()+"WalkDistance", petStatusList.get(i).getWalkDistance()); // 얘는 마지막 값으로 덮어씌워져도 괜찮음.
 				session.setAttribute(petStatusList.get(i).getPetName()+"WalkTime", petStatusList.get(i).getWalkTime()); // 얘는 마지막 값으로 덮어씌워져도 괜찮음.
-				
 			}
+			
+			
 		}
 
 		model.addAttribute("petStatusList", todayPetStatusList);
@@ -153,16 +150,21 @@ public class BlogController {
 						.filter(petStatus -> petStatus.getPetName().contains(petName))
 						.collect(Collectors.toList()); // petStatusList를 petName 을 포함한 List들로 필터링
 				
-				for(int j=0;j<filteredList.size();j++) { // filteredList 만큼 다시 반복
-					if(filteredList.get(j).getRegDate().toLocalDate().equals(nowTime.toLocalDate())){ // j번째 펫상태정보의 오늘날짜와 등록일자가 일치하면 update
+//				System.out.println("filteredList은 : "+filteredList);
+//				System.out.println("filteredList.size()은 : "+filteredList.size());
+
+				for(int j=filteredList.size()-1;j>=0;j--) { // filteredList 만큼 다시 반복
+					if(filteredList.get(j).getPetName().equals(petName) && filteredList.get(j).getRegDate().toLocalDate().equals(nowTime.toLocalDate())){ // j번째 펫상태정보의 오늘날짜와 등록일자가 일치하면 update
 //						System.out.println(filteredList.get(j));
+						System.out.println("if의 "+j);
 						walkDto.setPetName(petName);
-						
 						blogService.updateWalkStatus(walkDto, filteredList.get(j));
+						
 						System.out.println("업데이트");
 						break; // 값중복업데이트 방지 ... 최상위 반복문의 반복횟수때문에 break걸어줘야함.
-					}else { // 오늘날짜와 등록일자가 일치하지 않으면 create
+					}else if(filteredList.get(j).getPetName().equals(petName) && (filteredList.get(j).getRegDate().toLocalDate()).isBefore(nowTime.toLocalDate())){ // 등록일자가 과거라면, create
 //						System.out.println(filteredList.get(j));
+						System.out.println("else의 "+j);
 						walkDto.setPetName(petName);
 						blogService.createWalkStatus(walkDto);
 						System.out.println("새로생성");
